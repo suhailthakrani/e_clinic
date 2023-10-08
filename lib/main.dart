@@ -1,34 +1,41 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
-import 'routes/routes.dart';
-import 'ui/screens/splash_screen/splash_screen.dart';
-import 'util/colors.dart';
+import 'utils/constants.dart';
+import 'utils/route_management.dart';
+import 'utils/screen_bindings.dart';
 
-void main() {
-  runApp(
-    DevicePreview(enabled: !kReleaseMode, builder: (context) => const MyApp()),
-  );
-  // runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  // HttpOverrides.global = new MyHttpOverrides();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
+
+    // statusBarBrightness: Brightness.dark
+  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      title: kAppName,
+      initialRoute: kSplashScreenRoute,
+      initialBinding: ScreensBindings(),
+      getPages: RouteManagement.getPages(),
+      theme: ThemeData(primaryColor: const Color.fromRGBO(87, 98, 182, 1)),
+      // theme: ThemeData(primarySwatch: MaterialC),
       debugShowCheckedModeBanner: false,
-      title: 'Aderis Health App',
-      theme: ThemeData(
-        backgroundColor: mainColor,
-        primarySwatch: Colors.blue,
-      ),
-      home: const SplashScreen(),
-      routes: allRoutes,
     );
   }
 }

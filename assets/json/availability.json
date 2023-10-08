@@ -1,0 +1,56 @@
+{
+    "availability": [
+        {
+            "day": "monday",
+            "startTime": "2023-08-02T15:30:08.504Z",
+            "endTime": "2023-08-02T15:30:08.504Z",
+            "is_active": true,
+            "appointment_interval": 30,
+            "buffer": 10
+        },
+          {
+            "day": "tuesday",
+            "startTime": "",
+            "endTime": "",
+            "is_active": true,
+            "appointment_interval": 30,
+            "buffer": 10
+        },
+        {
+            "day": "wednesday",
+            "startTime": "",
+            "endTime": "",
+            "is_active": true,
+            "appointment_interval": 10,
+            "buffer": 10
+        },{
+            "day": "thrusday",
+            "startTime": "",
+            "endTime": "",
+            "is_active": true,
+            "appointment_interval": 30,
+            "buffer": 10
+        },{
+            "day": "friday",
+            "startTime": "",
+            "endTime": "",
+            "is_active": true,
+            "appointment_interval": 30,
+            "buffer": 10
+        },{
+            "day": "saturday",
+            "startTime": "",
+            "endTime": "",
+            "is_active": true,
+            "appointment_interval": 30,
+            "buffer": 10
+        },{
+            "day": "sunday",
+            "startTime": "",
+            "endTime": "",
+            "is_active": true,
+            "appointment_interval": 30,
+            "buffer": 10
+        }  
+    ]
+}

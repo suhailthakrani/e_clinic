@@ -1,11 +1,11 @@
+import 'package:e_clinic/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '/../util/colors.dart';
-import 'tab_bar_screens/appointments/appointments.dart';
-import 'tab_bar_screens/home.dart';
-import 'tab_bar_screens/messages/messages.dart';
-import 'tab_bar_screens/prescriptions/prescriptions.dart';
+import '../tabs/appointments/appointments.dart';
+import '../tabs/home.dart';
+import '../tabs/messages/messages.dart';
+import '../tabs/prescriptions/prescriptions.dart';
 import 'widgets/profile_avatar.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -78,10 +78,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     }
                   });
                 },
-                indicatorColor: mainColor,
+                indicatorColor: kPrimaryColor,
                 indicatorWeight: 3,
                 indicatorSize: TabBarIndicatorSize.label,
-                labelColor: mainColor,
+                labelColor: kPrimaryColor,
                 labelStyle: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '/../../util/input_field.dart';
+import '../../../widgets/input_field.dart';
+
 
 class SearchBar extends StatelessWidget {
   const SearchBar({

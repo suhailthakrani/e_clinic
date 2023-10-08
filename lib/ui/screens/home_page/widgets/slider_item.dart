@@ -1,8 +1,7 @@
+import 'package:e_clinic/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../doctor_details_screen/doctor_details_screen.dart';
-import '/../../util/colors.dart';
 
 class SliderItem extends StatefulWidget {
   const SliderItem({
@@ -39,12 +38,12 @@ class _SliderItemState extends State<SliderItem> {
       ),
       builder: (context, w) => InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const DoctorDetailsScreen(),
-            ),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => const DoctorDetailsScreen(),
+          //   ),
+          // );
         },
         child: Column(
           children: [
@@ -52,7 +51,7 @@ class _SliderItemState extends State<SliderItem> {
               width: 175.w,
               height: 170.h,
               decoration: BoxDecoration(
-                color: mainColor,
+                color: kPrimaryColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Image.asset(widget.image, fit: BoxFit.cover),
@@ -98,7 +97,7 @@ class _SliderItemState extends State<SliderItem> {
                         Text(
                           widget.doctorDays,
                           style: TextStyle(
-                            color: mainColor,
+                            color: kPrimaryColor,
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),

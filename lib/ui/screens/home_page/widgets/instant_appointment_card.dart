@@ -1,7 +1,7 @@
+import 'package:e_clinic/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '/../../util/colors.dart';
 
 class InstantAppointmentCard extends StatelessWidget {
   const InstantAppointmentCard({Key? key}) : super(key: key);
@@ -70,7 +70,7 @@ class InstantAppointmentCard extends StatelessWidget {
                   child: Text(
                     "Read More",
                     style: TextStyle(
-                      color: mainColor,
+                      color: kPrimaryColor,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),

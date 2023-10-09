@@ -31,7 +31,7 @@ class MainScreen extends GetView<MainScreenController> {
         child: Column(
           children: [
             SizedBox(height: 20.h),
-            GeneralTextField.withShadow(tfManager: controller.searchController),
+            GeneralTextField.withShadow(tfManager: controller.searchController, paddingHorizontal: 12,),
             SizedBox(height: 10.h),
             const MainHeading(),
             Container(
@@ -39,12 +39,13 @@ class MainScreen extends GetView<MainScreenController> {
               child: DefaultTabController(
                 length: 4,
                 child: TabBar(
-                  indicatorSize: TabBarIndicatorSize.label,
+                  isScrollable: true,
+                  indicatorSize: TabBarIndicatorSize.tab,
                   indicatorColor: kPrimaryColor,
                   labelColor: Colors.black,
-                  unselectedLabelColor: Colors.black,
+                  unselectedLabelColor: Colors.black54,
                   labelStyle: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w700,
                   ),
                   tabs: const [

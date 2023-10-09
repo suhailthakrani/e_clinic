@@ -6,7 +6,7 @@ class MainScreenController extends GetxController {
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TextFieldManager searchController = TextFieldManager("Search");
+  TextFieldManager searchController = TextFieldManager("");
 
   
   final RxInt selectedScreenIndex = 0.obs;

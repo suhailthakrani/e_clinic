@@ -1,12 +1,8 @@
-import 'dart:io';
-
-import '/../ui/widgets/custom_app_bar.dart';
-import '/../ui/widgets/custom_drawer.dart';
-import '/../utils/colors.dart';
+import '../../ui/widgets/custom_app_bar.dart';
+import '../../ui/widgets/custom_drawer.dart';
+import '../../utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'custom_dialogs.dart';
 
 class CustomScaffold extends StatelessWidget {
   final Widget body;
@@ -21,7 +17,7 @@ class CustomScaffold extends StatelessWidget {
       onNotificationListener;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const CustomScaffold(
+  CustomScaffold(
       {required this.body,
         this.floatingActionButton,
         this.bottomSheet,
@@ -38,20 +34,14 @@ class CustomScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: (){
-          if(className == "MainScreen"){
-            if(scaffoldKey.currentState!.isDrawerOpen){
-              Get.back();
-            }else {
-              CustomDialogs().showAwesomeConfirmationDialog("Are you sure you want to exit?",onOkBtnPressed: ()=>exit(0));
-            }
-            return Future.value(false);
-          }else{
-            if(onWillPop!=null) {
-              return onWillPop!();
-            } else {
-              return Future.value(true);
-            }
+          if (scaffoldKey.currentState!.isEndDrawerOpen) {
+            Get.back();
+          }else if (screenName == 'Dashboard Screen') {
+            // CustomDialogs().appCloseConfirmationDialog();
+          } else if(onWillPop != null){
+            onWillPop!();
           }
+          return Future.value(false);
         },
         child: GestureDetector(
           onTap: (){

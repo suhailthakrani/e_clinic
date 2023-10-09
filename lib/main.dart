@@ -1,11 +1,10 @@
-
+import '../utils/route_management.dart';
+import '../utils/screen_bindings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'utils/constants.dart';
-import 'utils/route_management.dart';
-import 'utils/screen_bindings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

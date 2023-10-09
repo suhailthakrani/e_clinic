@@ -7,7 +7,7 @@ import '../../utils/colors.dart';
 
 
 
-/// Created By: Suhail Thakrani on 28=Sept-2023
+/// Created By: Amjad Jamali on 02-Aug-2023
 class CustomDialogs {
   static final CustomDialogs _instance = CustomDialogs._internal();
 
@@ -213,13 +213,13 @@ class CustomDialogs {
           ),
         ),
       ),
-      // customHeader: Container(
-      //   margin: const EdgeInsets.all(6),
-      //   child: ClipRRect(
-      //     borderRadius: BorderRadius.circular(50),
-      //       child: Image.asset("assets/icons/logo.png")
-      //   ),
-      // ),
+      customHeader: Container(
+        margin: const EdgeInsets.all(6),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(50),
+            child: Image.asset("assets/icons/logo.png")
+        ),
+      ),
       btnOkText: 'YES',
       btnOkOnPress: () {
         if (onOkBtnPressed != null) {

@@ -12,7 +12,6 @@ class GeneralTextField extends StatelessWidget {
   final double paddingVertical;
   final bool readOnly;
   final RxBool _withShadow = RxBool(false);
-  TextInputType? inputType;
 
   GeneralTextField.withBorder(
       {Key? key,
@@ -21,7 +20,7 @@ class GeneralTextField extends StatelessWidget {
       this.maxLines = 1,
       this.paddingHorizontal = 20,
       this.paddingVertical = 10,
-      this.readOnly = false, this.inputType})
+      this.readOnly = false})
       : super(key: key);
 
   GeneralTextField.withShadow(
@@ -31,7 +30,7 @@ class GeneralTextField extends StatelessWidget {
       this.maxLines = 1,
       this.paddingHorizontal = 4,
       this.paddingVertical = 10,
-      this.readOnly = false, this.inputType})
+      this.readOnly = false})
       : super(key: key) {
     _withShadow.value = true;
   }
@@ -46,8 +45,7 @@ class GeneralTextField extends StatelessWidget {
         children: [
           Text(
             tfManager.fieldName,
-            style: const TextStyle(
-                color: kBlackColor, fontSize: 14, fontWeight: FontWeight.w500),
+            style: const TextStyle(color: kBlackColor, fontSize: 14),
           ),
           const SizedBox(height: 6),
           Obx(
@@ -55,19 +53,18 @@ class GeneralTextField extends StatelessWidget {
               width: Get.width,
               padding: const EdgeInsets.only(left: 8, right: 2),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(16),
                   border: _withShadow.isTrue
                       ? null
                       : Border.all(
                           color: tfManager.errorMessage.isEmpty
                               ? kFieldBorderColor
-                              : kRequiredRedColor,
-                        ),
+                              : kRequiredRedColor),
                   color: readOnly
                       ? kFieldGreyColor
                       : _withShadow.isTrue
                           ? kWhiteColor
-                          : kFieldGreyColor.withOpacity(0.2),
+                          : kFieldGreyColor,
                   boxShadow: _withShadow.isTrue
                       ? [
                           const BoxShadow(

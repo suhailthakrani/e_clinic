@@ -32,6 +32,3 @@ const String kAcceptAppointmentURL = "${kBaseURL}appointments/requests/accept";
 const String kRejectAppointmentURL = "${kBaseURL}appointments/requests/reject";
 
 const String kAddPrescriptionURL = "${kBaseURL}prescription/";
-
-
-

@@ -14,30 +14,16 @@ class MainHeading extends StatelessWidget {
         MediaQuery.of(context).size.height,
       ),
       builder: (context, w) => Container(
-        margin: EdgeInsets.only(left: 20.w, right: 20.w),
+        margin: EdgeInsets.only(left: 40.w),
         alignment: Alignment.centerLeft,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Doctors",
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: "Helvetica Now Display",
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Text(
-              "View All",
-              style: TextStyle(
-                color: Colors.blue,
-                fontFamily: "Helvetica Now Display",
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
+        child: Text(
+          "Doctors",
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: "Helvetica Now Display",
+            fontSize: 30.sp,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
     );

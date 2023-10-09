@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,13 +45,11 @@ class LoginScreenController extends GetxController {
       UserModel userModel = await UserService().loginUser(
           username: usernameManager.text, password: passwordManager.text);
       pd.dismissDialog();
-      if (userModel.responseMessage == 'Login successful' ||
-          userModel.responseMessage == 'Success') {
+      if (userModel.responseMessage == 'Login successful') {
         await UserSession().createSession(user: userModel);
         Get.offAllNamed(kMainScreenRoute);
       } else {
         pd.dismissDialog();
-        log(userModel.responseMessage.toString());
         CustomDialogs()
             .showDialog("Alert", userModel.responseMessage, DialogType.error);
       }

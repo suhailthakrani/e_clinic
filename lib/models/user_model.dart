@@ -1,10 +1,4 @@
-import 'dart:convert';
-
 import '../models/base_model.dart';
-import '../models/doctor_model.dart';
-import '../models/patient_model.dart';
-
-import 'general_models.dart';
 
 class UserModel extends BaseModel {
   String firstName = '';
@@ -19,7 +13,6 @@ class UserModel extends BaseModel {
   String city = '';
   String state = '';
   String password = '';
-  String experience = '';
 
   UserModel({
     required this.firstName,
@@ -34,24 +27,23 @@ class UserModel extends BaseModel {
     required this.city,
     required this.state,
     required this.password,
-    required this.experience,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-        firstName: json['first_name'] ?? '',
-        lastName: json['last_name'] ?? '',
-        cnic: json['cnic'] ?? '',
-        email: json['email'] ?? '',
-        gender: json['gender'] ?? '',
-        specialization: json['specialization'] ?? '',
-        degreeDocument: json['degree_document'] ?? '',
-        hospitalClinicName: json['hospital_clinic_name'] ?? '',
-        address: json['address'] ?? '',
-        city: json['city'] ?? '',
-        state: json['state'] ?? '',
-        password: json['password'] ?? '',
-        experience: json['experiene'] ?? '');
+      firstName: json['first_name'] ?? '',
+      lastName: json['last_name'] ?? '',
+      cnic: json['cnic'] ?? '',
+      email: json['email'] ?? '',
+      gender: json['gender'] ?? '',
+      specialization: json['specialization'] ?? '',
+      degreeDocument: json['degree_document'] ?? '',
+      hospitalClinicName: json['hospital_clinic_name'] ?? '',
+      address: json['address'] ?? '',
+      city: json['city'] ?? '',
+      state: json['state'] ?? '',
+      password: json['password'] ?? '',
+    );
   }
 
   UserModel.empty()
@@ -81,7 +73,6 @@ class UserModel extends BaseModel {
       'city': city,
       'state': state,
       'password': password,
-      // 'degree_document': degreeDocument,
     };
   }
 
@@ -100,124 +91,34 @@ class UserModel extends BaseModel {
   }
 }
 
-class UserModel2 extends BaseModel {
-  String id = '';
-  String firstName = '';
-  String lastName = '';
-  String email = '';
-  String phone = '';
-  String gender = '';
-  String image = '';
-  bool emailVerified = false;
-  bool phoneVerified = false;
-  bool profileSetup = false;
-  String role = '';
-  String password = '';
-  DateTime createdAt = DateTime.now();
-  DateTime updatedAt = DateTime.now();
-  Patient patient = Patient.empty();
-  Doctor doctor = Doctor.empty();
 
-  UserModel2({
-    this.id = '',
-    this.firstName = '',
-    this.lastName = '',
-    this.email = '',
-    required this.phone,
-    this.gender = '',
-    required this.image,
-    this.emailVerified = false,
-    this.phoneVerified = false,
-    this.profileSetup = false,
-    this.role = 'PATIENT',
-    this.password = '',
-    required this.createdAt,
-    required this.updatedAt,
-    required this.patient,
-    required this.doctor,
-  });
-  UserModel2.empty()
-      : id = '',
-        firstName = '',
-        lastName = '',
-        email = '',
-        phone = '',
-        gender = '',
-        image = '',
-        emailVerified = false,
-        phoneVerified = false,
-        profileSetup = false,
-        role = 'PATIENT',
-        password = '',
-        createdAt = DateTime.now(),
-        updatedAt = DateTime.now(),
-        patient = Patient.empty(),
-        doctor = Doctor.empty();
+// import 'package:e_clinic_dr/models/base_model.dart';
 
-  factory UserModel2.fromJson(Map<String, dynamic> json) {
-    return UserModel2(
-      id: json['id'] ?? '',
-      firstName: json['first_name'] ?? '',
-      lastName: json['last_name'] ?? '',
-      email: json['email'] ?? '',
-      phone: json['phone'],
-      gender: json['gender'] ?? '',
-      image: json['image'],
-      emailVerified: json['email_verified'] ?? false,
-      phoneVerified: json['phone_verified'] ?? false,
-      profileSetup: json['profile_setup'] ?? false,
-      role: json['role'] ?? 'PATIENT',
-      password: json['password'] ?? '',
-      createdAt: DateTime.parse(json['created_at'] ?? ''),
-      updatedAt: DateTime.parse(json['updated_at'] ?? ''),
-      patient: json['patient'] != null
-          ? Patient.fromJson(json['patient'])
-          : Patient.empty(),
-      doctor: json['doctor'] != null
-          ? Doctor.fromJson(json['doctor'])
-          : Doctor.empty(),
-    );
-  }
+// class UserModel extends BaseModel{
 
-  Map<String, String> toJson() {
-    return {
-      // 'id': id,
-      'first_name': firstName,
-      'last_name': lastName,
-      'email': email,
-      // 'phone': phone,
-      'gender': gender,
-      'image': image,
-      // 'email_verified': emailVerified,
-      // 'phone_verified': phoneVerified,
-      // 'profile_setup': profileSetup,
-      'role': role,
-      'password': password,
-      // 'created_at': createdAt.toIso8601String(),
-      // 'updated_at': updatedAt.toIso8601String(),
-      // 'patient': patient.toJson(),
-      // 'doctor': doctor.toJson(),
-    };
-  }
+//   String email = '';
+//   String pass = "";
 
-  Map<String, String> saveInJson() {
-    return {
-      'id': id,
-      'first_name': firstName,
-      'last_name': lastName,
-      'email': email,
-      'phone': phone,
-      'gender': gender,
-      'image': image,
-      'email_verified': emailVerified.toString(),
-      'phone_verified': phoneVerified.toString(),
-      'profile_setup': profileSetup.toString(),
-      'role': role,
-      'password': password,
-      'created_at': createdAt.toIso8601String(),
-      'updated_at': updatedAt.toIso8601String(),
-      'patient': jsonEncode(patient.toJson()),
-      'doctor': jsonEncode(doctor.toJson()),
-    };
-  }
-}
+//   UserModel.empty();
+
+//   UserModel.fromJSON(Map<String,dynamic> json){
+//     // districts.clear();
+//     email = "${json["email"]??''}";
+//     pass = json["password"]??"";
+  
+//   }
+
+
+//   Map<String,dynamic> toJson(){
+//     return {
+//       "email" : email,
+//       "password" : pass,
+//     };
+//   }
+
+
+//   @override
+//   String toString() {
+//     return 'UserModel{email: $email, password: $pass}';
+//   }
+// }

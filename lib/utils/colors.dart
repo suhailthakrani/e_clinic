@@ -14,10 +14,7 @@ Color filledBorderColor = Colors.black;
 const Color kWhiteColor = Color(0xFFFFFFFF);
 const Color kGreenColor=Color(0xFF045626);
 const Color kYellowColor=Color(0xFFefad4d);
-const Color kDarkBlueColor=Color(0xff0e487c);
-
-// const Color kBlueColor = Color(0xFF166FFF);
-const Color kBlueColor = const Color.fromRGBO(87, 98, 182, 1);
+const Color kBlueColor=Color(0xff0e487c);
 const Color kGreyColor = Color(0xFF7b7b7b);
 const Color kDarkGreyColor=Color(0xFF787878);
 const Color kLightGreyColor=Color(0xFFa8a8a8);

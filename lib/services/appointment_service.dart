@@ -1,8 +1,9 @@
 /*Created By: Suhail Thakrani on 23-Sept-2023*/
 
+import 'package:e_clinic/services/service_urls.dart';
+
 import '../models/appointment_model.dart';
 import '../models/appointment_type.dart';
-import '../services/service_urls.dart';
 
 import '../models/response_model.dart';
 import '../utils/common_code.dart';

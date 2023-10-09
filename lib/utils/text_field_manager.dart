@@ -1,5 +1,7 @@
-import 'package:e_clinic/utils/text_filter.dart';
-import 'package:e_clinic/utils/user_session.dart';
+/* Created By: Amjad Jamali on 02-Aug-2023 */
+
+import '../utils/text_filter.dart';
+import '../utils/user_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

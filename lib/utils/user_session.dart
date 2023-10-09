@@ -30,19 +30,19 @@ class UserSession {
   }
 
   Future<bool> logout() async {
-    // final preference = await SharedPreferences.getInstance()W;
-    // preference.remove('USER_DATA');
+    final preference = await SharedPreferences.getInstance();
+    preference.remove('USER_DATA');
     return true;
   }
 
   Future<void> saveToken({required TokenModel token}) async {
     final preference = await SharedPreferences.getInstance();
-    preference.setString("token", jsonEncode(token.forSession()));
+    preference.setString("access_token", jsonEncode(token.forSession()));
   }
 
   Future<TokenModel> getToken() async {
     final preference = await SharedPreferences.getInstance();
-    final value = jsonDecode(preference.getString('token') ?? '{}');
+    final value = jsonDecode(preference.getString('access_token') ?? '{}');
     final TokenModel token = TokenModel.fromSession(value);
     return token;
   }

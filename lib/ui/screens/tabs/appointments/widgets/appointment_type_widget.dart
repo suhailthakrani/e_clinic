@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/appointment_type_provider.dart';
-
 class AppointmentType extends StatefulWidget {
   AppointmentType({
     Key? key,
@@ -27,12 +25,12 @@ class _AppointmentTypeState extends State<AppointmentType> {
         MediaQuery.of(context).size.width,
         MediaQuery.of(context).size.height,
       ),
-      builder: (context, w) => Consumer<AppointmentTypeProvider>(
-        builder: (context, data, child) => InkWell(
+      builder: (context, w) => Center(
+        child: InkWell(
           onTap: () {
-            data.selectAppointmentType(
-              data.appointmentType.indexOf(widget),
-            );
+            // data.selectAppointmentType(
+            //   data.appointmentType.indexOf(widget),
+            // );
           },
           child: AnimatedOpacity(
             opacity: widget.selected ? 1.0 : 0.8,

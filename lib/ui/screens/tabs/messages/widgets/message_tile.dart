@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../chat_screen.dart';
+import 'chat_screen.dart';
 
 class MessageTile extends StatefulWidget {
   MessageTile(

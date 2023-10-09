@@ -31,7 +31,7 @@ class SplashScreenController extends GetxController {
     } else {
       Get.offAllNamed(kLoginScreenRoute);
     }
-    // Get.offAllNamed(kLoginScreenRoute);
+    // Get.offAllNamed(kMainScreenRoute);
   }
 
   void onScreenTap() {

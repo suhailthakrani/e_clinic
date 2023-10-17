@@ -1,9 +1,10 @@
+import 'package:get/get.dart';
+
 import '../../../../utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-class SliderItem extends StatefulWidget {
+class SliderItem extends StatelessWidget {
   const SliderItem({
     Key? key,
     required this.image,
@@ -22,104 +23,77 @@ class SliderItem extends StatefulWidget {
   final String experienceYears;
 
   @override
-  State<SliderItem> createState() => _SliderItemState();
-}
-
-class _SliderItemState extends State<SliderItem> {
-  // var xBlur = 2.0;
-  // var yBlur = 2.0;
-  // String visible = "1.0";
-  @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(
-        MediaQuery.of(context).size.width,
-        MediaQuery.of(context).size.height,
-      ),
-      builder: (context, w) => InkWell(
-        onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => const DoctorDetailsScreen(),
-          //   ),
-          // );
-        },
-        child: Column(
+    return InkWell(
+      onTap: () {
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => const DoctorDetailsScreen(),
+        //   ),
+        // );
+      },
+      child: Container(
+        width: Get.width,
+        height: Get.height * 0.15,
+        padding: const EdgeInsets.all(8),
+        child: Row(
           children: [
             Container(
-              width: 175.w,
-              height: 170.h,
+              height: Get.height * 0.12,
+              width: Get.height * 0.12,
               decoration: BoxDecoration(
                 color: kPrimaryColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Image.asset(widget.image, fit: BoxFit.cover),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(image, fit: BoxFit.cover)),
             ),
-            Container(
-              alignment: Alignment.center,
-              width: 240.w,
-              height: 120.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    spreadRadius: 5,
-                  ),
-                ],
-              ),
-              child: Container(
-                margin: const EdgeInsets.only(left: 20, top: 20),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical:8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      widget.doctorName,
+                      doctorName,
                       style: const TextStyle(
-                        fontSize: 25,
+                        fontSize: 22,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     Text(
-                      widget.doctorDepartment,
+                      doctorDepartment,
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      children: [
-                        Text(
-                          widget.doctorDays,
-                          style: TextStyle(
-                            color: kPrimaryColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          "| ${widget.experienceYears}",
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const Icon(
-                          Icons.arrow_right_alt_outlined,
-                          color: Colors.grey,
-                        ),
-                      ],
+                    Text(
+                      doctorDays,
+                      style: TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      "${experienceYears}+ Experience",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
+            const SizedBox(height: 20)
           ],
         ),
       ),

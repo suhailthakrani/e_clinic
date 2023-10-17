@@ -25,4 +25,20 @@ List<SliderItem> slidersItems = [
     doctorName: "Dr. John Doe",
     experienceYears: "10 years",
   ),
+    const SliderItem(
+    image: "assets/images/doctor.png",
+    id: 3,
+    doctorDays: "Monday - Wednesday",
+    doctorDepartment: "Cardiology",
+    doctorName: "Dr. John Doe",
+    experienceYears: "10 years",
+  ),
+    const SliderItem(
+    image: "assets/images/doctor.png",
+    id: 3,
+    doctorDays: "Monday - Wednesday",
+    doctorDepartment: "Cardiology",
+    doctorName: "Dr. John Doe",
+    experienceYears: "10 years",
+  ),
 ];

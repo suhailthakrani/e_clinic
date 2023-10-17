@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/new/main_screen_controller.dart';
+import '../../widgets/custom_search_field.dart';
 import 'components/instant_appointment_card.dart';
 import 'components/list_of_slider_items.dart';
 import 'components/main_heading.dart';
@@ -27,62 +28,82 @@ class MainScreen extends GetView<MainScreenController> {
       screenName: 'Dashboard',
       // appBar: AppBar(),
       // endDrawer: const CustomDrawer(),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 20.h),
-            GeneralTextField.withShadow(tfManager: controller.searchController, paddingHorizontal: 12,),
-            SizedBox(height: 10.h),
-            const MainHeading(),
-            Container(
-              margin: EdgeInsets.only(left: 20.w),
-              child: DefaultTabController(
-                length: 4,
-                child: TabBar(
-                  isScrollable: true,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorColor: kPrimaryColor,
-                  labelColor: Colors.black,
-                  unselectedLabelColor: Colors.black54,
-                  labelStyle: TextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  tabs: const [
-                    Tab(
-                      text: 'Psychologist',
-                    ),
-                    Tab(
-                      text: 'Cardiologist',
-                    ),
-                    Tab(
-                      text: 'Gastriologist',
-                    ),
-                    Tab(
-                      text: 'Dermatologist',
-                    ),
-                  ],
+      body: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kWhiteColor,
+          leadingWidth: 0,
+          toolbarHeight: 70,
+          elevation: 0,
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: CustomSearchField(
+              controller: controller.searchController.controller,
+              height: 50,
+              hint: 'Search for Doctors',
+              focusNode: FocusNode(),
+            ),
+          ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: DefaultTabController(
+              length: 4,
+              child: TabBar(
+                isScrollable: true,
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorColor: kPrimaryColor,
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.black54,
+                labelStyle: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w700,
                 ),
+                tabs: const [
+                  Tab(
+                    text: 'Psychologist',
+                  ),
+                  Tab(
+                    text: 'Cardiologist',
+                  ),
+                  Tab(
+                    text: 'Gastriologist',
+                  ),
+                  Tab(
+                    text: 'Dermatologist',
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 10.h),
-            CarouselSlider(
-              items: [
-                ...slidersItems,
-              ],
-              options: CarouselOptions(
-                viewportFraction: 0.65,
-                enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.scale,
-                height: 300.h,
-                padEnds: false,
-                disableCenter: true,
+          ),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            // mainAxisSize: MainAxisSize.max,
+            children: [
+              // SizedBox(height: 20.h),
+              Column(
+                children: [
+                  ...slidersItems,
+                ],
               ),
-            ),
-            SizedBox(height: 20.h),
-            const InstantAppointmentCard(),
-            SizedBox(height: 20.h),
-          ],
+              // CarouselSlider(
+              //   items: [
+
+              //   ],
+              //   options: CarouselOptions(
+              //     viewportFraction: 0.65,
+              //     enlargeCenterPage: true,
+              //     enlargeStrategy: CenterPageEnlargeStrategy.scale,
+              //     height: 300.h,
+              //     padEnds: false,
+              //     disableCenter: true,
+              //   ),
+              // ),
+              // // SizedBox(height: 20.h),
+
+              SizedBox(height: 20.h),
+            ],
+          ),
         ),
       ),
     );
@@ -121,7 +142,7 @@ class MainScreen extends GetView<MainScreenController> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               desc,
               maxLines: 2,

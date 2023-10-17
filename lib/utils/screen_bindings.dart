@@ -1,4 +1,3 @@
-import '../controllers/bottom_navigation_controller.dart';
 import '../controllers/general_controllers.dart';
 import '../controllers/prescription_screen_controller.dart';
 import '../controllers/register_screen_controller.dart';
@@ -9,7 +8,6 @@ import '../controllers/test_screen_controller.dart';
 import 'package:get/get.dart';
 
 import '../controllers/appointments/appointments_screen_cntroller.dart';
-import '../controllers/availability_screen_controller.dart';
 import '../controllers/forgot_password_controller.dart';
 import '../controllers/messages_screen_controler.dart';
 import '../controllers/my_ratings_screen_controller.dart';
@@ -20,7 +18,6 @@ import '../controllers/splash_screen_controller.dart';
 class ScreensBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => BottomNavigationController());
     Get.lazyPut(() => LoginScreenController());
     Get.lazyPut(() => RegisterScreenController());
     Get.lazyPut(() => TestScreenController());
@@ -28,7 +25,6 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => MainScreenController());
     Get.lazyPut(() => MessagesController());
     Get.lazyPut(() => AppointmentsController());
-    Get.lazyPut(() => AvailabilityController());
     Get.lazyPut(() => PaymentsController());
     Get.lazyPut(() => RatingsController());
     Get.lazyPut(() => SettingsController());

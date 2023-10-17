@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
 
@@ -39,16 +40,13 @@ class CustomSearchField extends StatelessWidget {
         ),
         padding: const EdgeInsets.only(left: 12),
         suffix: Container(
-          width: MediaQuery.of(context).size.width * 0.24,
+          width: MediaQuery.of(context).size.width * 0.18,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: kBlackColor,
             borderRadius: BorderRadius.circular(40),
           ),
-          child: const Text(
-            "Search",
-            style: TextStyle(color: kWhiteColor),
-          ),
+          child: const Icon(Icons.search),
         ),
       ),
     );

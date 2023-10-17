@@ -29,7 +29,7 @@ List<AppointmentCard> previousAppointments = [
     drName: "Rodger Struck",
     category: "Diet Plan",
     image: "assets/images/doctor.png",
-    status: AppointmentStatus.completed,
+    status: AppointmentStatus.cancelled,
   ),
   AppointmentCard(
     drName: "Rodger Struck",

@@ -97,8 +97,7 @@ class CustomScaffold extends StatelessWidget {
               // )
               //     : null,
               body: body,
-              // bottomNavigationBar: CustomBottomNavBar(),
-             endDrawer: CustomDrawer(),
+             endDrawer: const CustomDrawer(),
             ),
           ),
         ));

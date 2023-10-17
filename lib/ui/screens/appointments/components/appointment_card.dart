@@ -59,7 +59,7 @@ class AppointmentCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        drName,
+                        'Dr. ${drName}',
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -172,58 +172,17 @@ class AppointmentCard extends StatelessWidget {
                       },
                       child: const Chip(
                         avatar: Icon(
-                          Icons.check_circle_outline,
+                          Icons.schedule,
                           color: kWhiteColor,
                         ),
                         label: Text(
-                          "Accept",
+                          "Reschedule",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
                           ),
                         ),
-                        backgroundColor: kGreenNormalColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Visibility(
-              visible: (status == AppointmentStatus.completed),
-              child: Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(kPrescriptionScreenRoute);
-                      },
-                      child: Chip(
-                        label: const Text(
-                          "Prescribe",
-                          style: TextStyle(
-                            color: kWhiteColor,
-                            fontSize: 12,
-                          ),
-                        ),
-                        backgroundColor: kPrimaryColor,
-                      ),
-                    ),
-                    SizedBox(width: 8.w),
-                    GestureDetector(
-                      onTap: () {
-                        // TODO: Accept Appointment
-                      },
-                      child: Chip(
-                        label: const Text(
-                          "Write Report",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                        backgroundColor: kBlueColor.withOpacity(0.7),
+                        backgroundColor: kBlueColor,
                       ),
                     ),
                   ],

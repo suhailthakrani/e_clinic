@@ -25,60 +25,76 @@ class MessageTile extends StatefulWidget {
 class _MessageTileState extends State<MessageTile> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ChatScreen(),
+          ),
+        );
+      },
       child: Column(
         children: [
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ChatScreen(),
-                ),
-              );
-            },
-            leading: CircleAvatar(
-              backgroundColor: Colors.black45,
-              radius: 30,
-              child: Image.asset(
-                widget.image,
-                fit: BoxFit.cover,
-              ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
             ),
-            title: Row(
+            child: Row(
               children: [
-                if (widget.pinned)
-                  const Icon(
-                    Icons.push_pin_sharp,
-                    color: Colors.grey,
+                CircleAvatar(
+                  backgroundColor: Colors.black45,
+                  radius: 30,
+                  child: Image.asset(
+                    widget.image,
+                    fit: BoxFit.cover,
                   ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          if (widget.pinned)
+                            const Icon(
+                              Icons.push_pin_sharp,
+                              color: Colors.grey,
+                            ),
+                          Text(
+                            widget.receiverName,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        widget.recentMessage,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Text(
-                  widget.receiverName,
+                  widget.recentMessageTime,
                   style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ],
             ),
-            subtitle: Text(
-              widget.recentMessage,
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            trailing: Text(
-              widget.recentMessageTime,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
           ),
-          const Divider(),
+          const Divider(
+            height: 20
+          ),
         ],
       ),
     );

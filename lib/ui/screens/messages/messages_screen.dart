@@ -17,7 +17,7 @@ class MessagesScreen extends GetView<MessagesController> {
       screenName: 'Messages',
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: 16),
           child: ScreenUtilInit(
             designSize: Size(
               MediaQuery.of(context).size.width,

@@ -35,9 +35,8 @@ class CustomDrawer extends Drawer {
             // titleFontSize: 18,
             onTap: () {
               Get.back();
-
               Get.offAllNamed(kMainScreenRoute,
-                  predicate: ((route) => route.isFirst));
+                  predicate: ((route) => route.isFirst && Get.previousRoute == kMainScreenRoute));
             },
           ),
           ListTile(
@@ -70,21 +69,21 @@ class CustomDrawer extends Drawer {
                   predicate: ((route) => route.isFirst));
             },
           ),
-          ListTile(
-            leading: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Image.asset(
-                'assets/images/availability.png',
-                scale: 0.1,
-                color: kPrimaryColor,
-              ),
-            ),
-            title: const Text('Availability'),
-            onTap: () {
-              Get.offAllNamed(kAvailabilityScreenRoute,
-                  predicate: ((route) => route.isFirst));
-            },
-          ),
+          // ListTile(
+          //   leading: Padding(
+          //     padding: const EdgeInsets.all(12),
+          //     child: Image.asset(
+          //       'assets/images/availability.png',
+          //       scale: 0.1,
+          //       color: kPrimaryColor,
+          //     ),
+          //   ),
+          //   title: const Text('Availability'),
+          //   onTap: () {
+          //     Get.offAllNamed(kAvailabilityScreenRoute,
+          //         predicate: ((route) => route.isFirst));
+          //   },
+          // ),
           ListTile(
             leading: Padding(
               padding: const EdgeInsets.all(12),

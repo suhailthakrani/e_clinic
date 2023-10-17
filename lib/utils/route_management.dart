@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+
+import '../ui/screens/bottom_navigation_screen.dart';
 import '../ui/screens/forgot_password/forgot_password_screen.dart';
 import '../ui/screens/main_screen/main_screen.dart';
 import '../ui/screens/notification_screens.dart';
@@ -24,6 +27,11 @@ import 'screen_bindings.dart';
 class RouteManagement {
   static List<GetPage> getPages() {
     return [
+       GetPage(
+        name: kSplashScreenRoute,
+        page: () => const BottomNavigationBarScreen(),
+        binding: ScreensBindings(),
+      ),
       GetPage(
         name: kTestScreenRoute,
         page: () => const TestScreen(),

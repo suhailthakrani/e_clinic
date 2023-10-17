@@ -4,6 +4,7 @@ const String kAppName = "E-Clinic";
 
 ///*********************  Route Names   *********************///
 const String kTestScreenRoute = "/test_screen";
+const String kBottomNavigationBarScreenRoute = "/bottom_navigationbar_screen";
 const String kSplashScreenRoute = "/";
 const String kLoginScreenRoute = "/login";
 const String kRegisterScreenRoute = "/register";

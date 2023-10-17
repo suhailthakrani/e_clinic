@@ -1,3 +1,4 @@
+import '../controllers/bottom_navigation_controller.dart';
 import '../controllers/general_controllers.dart';
 import '../controllers/prescription_screen_controller.dart';
 import '../controllers/register_screen_controller.dart';
@@ -19,6 +20,7 @@ import '../controllers/splash_screen_controller.dart';
 class ScreensBindings extends Bindings {
   @override
   void dependencies() {
+    Get.lazyPut(() => BottomNavigationController());
     Get.lazyPut(() => LoginScreenController());
     Get.lazyPut(() => RegisterScreenController());
     Get.lazyPut(() => TestScreenController());

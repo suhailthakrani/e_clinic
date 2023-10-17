@@ -27,7 +27,7 @@ class SplashScreenController extends GetxController {
 
   void _screenNavigation() async {
     if (await UserSession().isUserLoggedIn()) {
-      Get.offAllNamed(kMainScreenRoute);
+      Get.offAllNamed(kBottomNavigationBarScreenRoute);
     } else {
       Get.offAllNamed(kLoginScreenRoute);
     }

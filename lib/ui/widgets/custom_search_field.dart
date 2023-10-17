@@ -32,7 +32,7 @@ class CustomSearchField extends StatelessWidget {
           color: kGreyColor,
         ),
         decoration: BoxDecoration(
-          color: kFieldGreyColor,
+          color: kWhiteColor,
           border: Border.all(
             color: kFieldBorderColor,
           ),
@@ -43,7 +43,7 @@ class CustomSearchField extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.18,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: kBlackColor,
+            color: kPrimaryColor,
             borderRadius: BorderRadius.circular(40),
           ),
           child: const Icon(Icons.search),

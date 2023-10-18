@@ -1,3 +1,4 @@
+import 'package:e_clinic/ui/screens/a_new/doctor_details_screen.dart';
 import 'package:e_clinic/ui/screens/settings/components/notification_settings_screen.dart';
 import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,6 @@ import 'package:get/get.dart';
 import '../ui/screens/appointments/appointment_screen.dart';
 import '../ui/screens/signin/login_screen.dart';
 import '../ui/screens/messages/messages_screen.dart';
-import '../ui/screens/ratings/my_ratings_screen.dart';
 import '../ui/screens/payments/payment_screen.dart';
 import '../ui/screens/settings/settigs_screen.dart';
 import '../ui/screens/splash_screen.dart';
@@ -60,11 +60,7 @@ class RouteManagement {
         page: () => const PaymentsScreen(),
         binding: ScreensBindings(),
       ),
-      GetPage(
-        name: kRatingsScreenRoute,
-        page: () => const RatingsScreen(),
-        binding: ScreensBindings(),
-      ),
+    
       GetPage(
         name: kSettingsScreenRoute,
         page: () => const SettingsScreen(),
@@ -156,11 +152,11 @@ class RouteManagement {
   //         page: () => DoctorsListView(),
   //         binding: DoctorsBinding(),
   //       ),
-  //       GetPage(
-  //         name: '/doctor_details',
-  //         page: () => DoctorDetailsView(),
-  //         binding: DoctorsBinding(),
-  //       ),
+        GetPage(
+          name: kDoctorsDetailsScreenRoute,
+          page: () => DoctorDetailsScreen(),
+          binding: ScreensBindings(),
+        ),
   //       GetPage(
   //         name: '/book_appointment',
   //         page: () => BookAppointmentView(),

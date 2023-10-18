@@ -30,6 +30,8 @@ const String kPrescriptionScreenRoute = "/prescription_screen";
 const String kPhoneNoSettingsScreenRoute = "/phone_no_settings_screen";
 const String kPasswordSettingsScreenRoute = "/password_settings_screen";
 
+const String kDoctorsDetailsScreenRoute = "/doctors_details";
+
 //
 const String kPermissionPermanentlyDenied =
     "Permission is Permanently Denied\nPlease allow permission from settings and try again.";

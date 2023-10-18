@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_clinic/ui/widgets/general_button.dart';
 import 'package:e_clinic/ui/widgets/general_text_field.dart';
+import 'package:e_clinic/utils/constants.dart';
 
 import '../../../../ui/widgets/button1.dart';
 import '../../../../ui/widgets/custom_drawer.dart';
@@ -13,6 +14,7 @@ import 'package:get/get.dart';
 
 import '../../../controllers/new/main_screen_controller.dart';
 import '../../widgets/custom_search_field.dart';
+import '../a_new/doctor_details_screen.dart';
 import 'components/instant_appointment_card.dart';
 import 'components/list_of_slider_items.dart';
 import 'components/main_heading.dart';
@@ -244,6 +246,7 @@ class MainScreen extends GetView<MainScreenController> {
                         //     builder: (context) => const DoctorDetailsScreen(),
                         //   ),
                         // );
+                        Get.toNamed(kDoctorsDetailsScreenRoute);
                       },
                       child: Container(
                         width: Get.width * 0.5,

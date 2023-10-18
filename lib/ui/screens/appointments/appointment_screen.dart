@@ -1,16 +1,15 @@
+import '../../../controllers/appointments/appointments_screen_cntroller.dart';
 import '../../../ui/screens/appointments/components/appointment_type_widget.dart';
-import '../../../ui/widgets/button1.dart';
-import '../../../ui/widgets/button2.dart';
+
 import '../../../ui/widgets/custom_scaffold.dart';
 import '../../../utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/appointments/appointments_screen_cntroller.dart';
 import 'appointments_list.dart';
 
-class AppointmentsScreen extends GetView<AppointmentsController> {
+class AppointmentsScreen extends GetView<AppointmentScreenController> {
   const AppointmentsScreen({super.key});
 
   @override

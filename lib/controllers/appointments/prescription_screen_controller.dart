@@ -6,8 +6,8 @@ import '/../services/appointment_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/text_field_manager.dart';
-import '../../../utils/text_filter.dart';
+import '../../utils/text_field_manager.dart';
+import '../../utils/text_filter.dart';
 
 class PrescriptionScreenController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();

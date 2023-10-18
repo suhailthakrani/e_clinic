@@ -92,6 +92,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                       },
                     ),
                   ),
+                  SizedBox(height: 16.h),
                   Container(
                     height: 51.h,
                     width: 390.w,

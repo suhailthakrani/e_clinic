@@ -1,4 +1,4 @@
-import 'package:e_clinic/controllers/tabs/appointments/prescription_screen_controller.dart';
+import 'package:e_clinic/controllers/appointments/prescription_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

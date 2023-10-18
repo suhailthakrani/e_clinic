@@ -217,7 +217,7 @@ Future<Map<String, String>> _getHeaders() async {
     await UserSession().logout();
     CustomDialogs().showDialog('Alert', kSessionExpireMsg, DialogType.warning,
         onOkBtnPressed: () {
-      Get.offAllNamed(kLoginScreenRoute);
+      // Get.offAllNamed(kLoginScreenRoute);
     });
     return {};
   } else if (token.accessToken.isNotEmpty) {

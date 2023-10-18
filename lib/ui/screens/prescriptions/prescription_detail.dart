@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../main_screen/components/profile_avatar.dart';
+import '../main_screen/components/profile_avatar.dart';
 
 class PrescriptionDetail extends StatelessWidget {
   const PrescriptionDetail({Key? key}) : super(key: key);

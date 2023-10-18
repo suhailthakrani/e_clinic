@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../../../utils/date_time_manager.dart';
-import '../../../utils/dropdown_controller.dart';
-import '../../../utils/text_field_manager.dart';
-import '../../../utils/text_filter.dart';
+import '../../utils/date_time_manager.dart';
+import '../../utils/dropdown_controller.dart';
+import '../../utils/text_field_manager.dart';
+import '../../utils/text_filter.dart';
 
 class WriteReportScreenController extends GetxController {
   TextFieldManager patientNameController = TextFieldManager('Patient Name', length: 50, filter: TextFilter.none);

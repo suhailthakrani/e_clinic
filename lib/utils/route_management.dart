@@ -1,5 +1,5 @@
 import 'package:e_clinic/ui/screens/settings/components/notification_settings_screen.dart';
-import 'package:e_clinic/ui/screens/tabs/prescriptions/prescriptions_screen.dart';
+import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/screens/forgot_password/forgot_password_screen.dart';

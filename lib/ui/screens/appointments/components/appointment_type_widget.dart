@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppointmentType extends StatelessWidget {
   final String title;
   final int index;
-  final AppointmentsController controller;
+  final AppointmentScreenController controller;
   const AppointmentType({
     Key? key,
     required this.index,

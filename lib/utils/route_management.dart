@@ -150,7 +150,22 @@ class RouteManagement {
     page: () => const PrescriptionsScreen(),
     binding: ScreensBindings(),
   ),
-  
+  // TODO: //
+  // GetPage(
+  //         name: '/',
+  //         page: () => DoctorsListView(),
+  //         binding: DoctorsBinding(),
+  //       ),
+  //       GetPage(
+  //         name: '/doctor_details',
+  //         page: () => DoctorDetailsView(),
+  //         binding: DoctorsBinding(),
+  //       ),
+  //       GetPage(
+  //         name: '/book_appointment',
+  //         page: () => BookAppointmentView(),
+  //         binding: DoctorsBinding(),
+  //       ),
       // GetPage(name: '/logout', page: () => LogoutScreen()),
     ];
   }

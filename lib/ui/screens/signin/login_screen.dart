@@ -59,10 +59,12 @@ class LoginScreen extends GetView<LoginScreenController> {
                   SizedBox(height: 30.h),
                   Image.asset("assets/images/login_pic.png"),
                   SizedBox(height: 30.h),
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
+                    paddingHorizontal: 16,
                     tfManager: controller.usernameManager,
                   ),
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
+                    paddingHorizontal: 16,
                     tfManager: controller.passwordManager,
                   ),
                   SizedBox(height: 30.h),

@@ -26,100 +26,95 @@ class SignUpScreen extends GetView<RegisterScreenController> {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          // padding: EdgeInsets.all(16),
-          child: ScreenUtilInit(
-            designSize: Size(Get.width, Get.height),
-            builder: (context, widget) => Container(
-              margin: EdgeInsets.all(8.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          physics:const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(16),
+          //  margin: EdgeInsets.all(8.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      WSvgWidget(
-                        imageUrl: 'assets/images/logo.svg',
-                        height: 50,
-                      ),
-                    ],
+                  WSvgWidget(
+                    imageUrl: 'assets/images/logo.svg',
+                    height: 40,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Join As a Patient",
-                        style: textTheme.displayLarge),
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(width: 10),
-                      Text("Already a member?",
-                          style: textTheme.headlineMedium),
-                      TextButton(
-                        onPressed: () {
-                          Get.toNamed(kLoginScreenRoute);
-                        },
-                        child: const Text(
-                          "Login",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: Color.fromRGBO(87, 98, 182, 1),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  GeneralTextField.withBorder(
-                    tfManager: controller.firstNameController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
-                  GeneralTextField.withBorder(
-                    tfManager: controller.lastNameController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
-                  // GeneralTextField.withBorder(
-                  //   tfManager: controller.cnicController,
-                  //   paddingVertical: 0,
-                  //   paddingHorizontal: 8,
-                  // ),
-                  GeneralTextField.withBorder(
-                    tfManager: controller.emailController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
-                  GeneralTextField.withBorder(
-                    tfManager: controller.passwordController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
-                  GeneralTextField.withBorder(
-                    tfManager: controller.phoneNoController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
-                  GeneralDatePickerField.withShadow(
-                    dateManager: controller.dateOfBirthController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
-                  GeneralDropdown.withShadow(
-                      controller: controller.genderDDontroller,paddingHorizontal: 8,
-                      ),
-
-                  SizedBox(height: 16.h),
-                  SizedBox(
-                    width: Get.width,
-                    child: Button2(
-                        text: "SignUp",
-                        onPress: () {
-                          controller.onRegisterClicked();
-                        }),
-                  ),
-                  SizedBox(height: 50.h),
                 ],
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Join As a Patient", style: textTheme.displayLarge),
+              ),
+              Row(
+                children: [
+                  const SizedBox(width: 10),
+                  Text("Already a member?", style: textTheme.headlineMedium),
+                  TextButton(
+                    onPressed: () {
+                      Get.toNamed(kLoginScreenRoute);
+                    },
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Color.fromRGBO(87, 98, 182, 1),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              GeneralTextField.withBorder(
+                tfManager: controller.firstNameController,
+                paddingVertical: 0,
+                paddingHorizontal: 0,
+              ),
+              GeneralTextField.withBorder(
+                tfManager: controller.lastNameController,
+                paddingVertical: 0,
+                paddingHorizontal: 0,
+              ),
+              // GeneralTextField.withBorder(
+              //   tfManager: controller.cnicController,
+              //   paddingVertical: 0,
+              //   paddingHorizontal: 0,
+              // ),
+              GeneralTextField.withBorder(
+                tfManager: controller.emailController,
+                paddingVertical: 0,
+                paddingHorizontal: 0,
+              ),
+              GeneralTextField.withBorder(
+                tfManager: controller.passwordController,
+                paddingVertical: 0,
+                paddingHorizontal: 0,
+              ),
+              GeneralTextField.withBorder(
+                tfManager: controller.phoneNoController,
+                paddingVertical: 0,
+                paddingHorizontal: 0,
+              ),
+              GeneralDatePickerField.withShadow(
+                dateManager: controller.dateOfBirthController,
+                paddingVertical: 0,
+                paddingHorizontal: 0,
+              ),
+              GeneralDropdown.withShadow(
+                controller: controller.genderDDontroller,
+                paddingHorizontal: 0,
+              ),
+
+              SizedBox(height: 16.h),
+              SizedBox(
+                width: Get.width * 0.9,
+                child: Button2(
+                    text: "SignUp",
+                    onPress: () {
+                      controller.onRegisterClicked();
+                    }),
+              ),
+              SizedBox(height: Get.height* 0.3),
+            ],
           ),
         ),
       ),

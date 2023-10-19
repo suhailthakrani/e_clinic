@@ -3,16 +3,7 @@ import 'package:get/get.dart';
 import '../../ui/widgets/ratings_card.dart';
 
 class DoctorsListController extends GetxController {
-  final doctors = <Doctor>[
-    Doctor(name: 'Dr. John Doe', specialization: 'Cardiologist'),
-    Doctor(name: 'Dr. Jane Smith', specialization: 'Dermatologist'),
-    // Add more doctors as needed
-  ].obs;
-
-  RxInt selectedIndex = 0.obs;
-  List<Doctor> get getDoctors => doctors;
-
-
+ 
   List<RatingCard> ratingsList = [
     RatingCard(
       name: 'Mark R',
@@ -60,13 +51,4 @@ class DoctorsListController extends GetxController {
       reviewerImageUrl: "assets/images/commenter.png",
     )
   ];
-}
-
-class Doctor {
-  final String name;
-  final String specialization;
-
-  Doctor({required this.name, required this.specialization});
-
-  
 }

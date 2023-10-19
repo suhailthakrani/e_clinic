@@ -18,10 +18,10 @@ class BookAppointmentView extends GetView<DoctorsListController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Doctor: ${controller.getDoctors[doctorIndex].name}',
-              style: TextStyle(fontSize: 24),
-            ),
+            // Text(
+            //   'Doctor: ${controller.getDoctors[doctorIndex].name}',
+            //   style: TextStyle(fontSize: 24),
+            // ),
             SizedBox(height: 20),
             // Add appointment booking UI here
           ],

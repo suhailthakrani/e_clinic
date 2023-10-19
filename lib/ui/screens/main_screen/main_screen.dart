@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_clinic/ui/widgets/general_button.dart';
 import 'package:e_clinic/ui/widgets/general_text_field.dart';
@@ -79,7 +81,7 @@ class MainScreen extends GetView<MainScreenController> {
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             children: [
@@ -204,7 +206,7 @@ class MainScreen extends GetView<MainScreenController> {
               SizedBox(
                 height: Get.height * 0.2,
                 child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemCount: 5,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
@@ -233,103 +235,105 @@ class MainScreen extends GetView<MainScreenController> {
               const SizedBox(height: 16),
               SizedBox(
                 height: Get.height * 0.3,
-                child: ListView.builder(
-                  itemCount: 5,
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const DoctorDetailsScreen(),
-                        //   ),
-                        // );
-                        Get.toNamed(kDoctorsDetailsScreenRoute);
-                      },
-                      child: Container(
-                        width: Get.width * 0.5,
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          children: [
-                            Container(
-                              height: Get.width * 0.3,
-                              width: Get.height * 0.17,
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.asset(
-                                  index % 2 == 0
-                                      ? "assets/images/doctor.png"
-                                      : "assets/images/doctor2.png",
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Container(
-                                  width: double.maxFinite,
-                                  padding: const EdgeInsets.only(
-                                      bottom: 8.0, left: 8),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const Text(
-                                        "doctorName",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      const Text(
-                                        "doctorDepartment",
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      Text(
-                                        "Monday to Friday",
-                                        style: TextStyle(
-                                          color: kPrimaryColor,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const Text(
-                                        " 5 Year + Experience",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
+                child:  ListView.builder(
+                    itemCount: controller.doctorsList.length,
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const DoctorDetailsScreen(),
+                          //   ),
+                          // );
+                          Get.toNamed(kDoctorsDetailsScreenRoute, parameters: {'doctor': jsonEncode(controller.doctorsList[index])});
+                        },
+                        child: Obx(
+                          () => Container(
+                            width: Get.width * 0.5,
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: Get.width * 0.3,
+                                  width: Get.height * 0.17,
+                                  decoration: BoxDecoration(
+                                    color: kPrimaryColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(
+                                      controller.doctorsList[index].image,
+                                      loadingBuilder:(context, child, loadingProgress) => Center(child: CircularProgressIndicator(),),
+                                    ),
                                   ),
                                 ),
-                              ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Card(
+                                    elevation: 4,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Container(
+                                      width: double.maxFinite,
+                                      padding: const EdgeInsets.only(
+                                          bottom: 8.0, left: 8),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            "${controller.doctorsList[index].firstName} ${controller.doctorsList[index].lastName}",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          const Text(
+                                            "doctorDepartment",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          Text(
+                                            "Monday to Friday",
+                                            style: TextStyle(
+                                              color: kPrimaryColor,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          const Text(
+                                            " 5 Year + Experience",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 20)
+                              ],
                             ),
-                            const SizedBox(height: 20)
-                          ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
+              
               // Column(
               //   children: [
               //     ...slidersItems,
@@ -365,7 +369,7 @@ class MainScreen extends GetView<MainScreenController> {
   }) {
     return Card(
       elevation: 4,
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -387,7 +391,7 @@ class MainScreen extends GetView<MainScreenController> {
                 ),
               ),
             ),
-            Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             Text(
               title,
               maxLines: 1,

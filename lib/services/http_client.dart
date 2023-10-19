@@ -52,9 +52,9 @@ class HTTPClient extends GetConnect {
     } on TimeoutException {
       return Future.value(ResponseModel.named(
           message: "Request TimeOut", data: kPoorInternetConnection));
-    } on SocketException {
+    } on SocketException catch (e) {
       return Future.value(
-          ResponseModel.named(message: "Bad Request", data: kNetworkError));
+          ResponseModel.named(message: "Bad Request", data: '$e'));
     } catch (e) {
       if (!(await CommonCode().checkInternetAccess())) {
         return Future.value(ResponseModel.named(
@@ -202,7 +202,7 @@ class HTTPClient extends GetConnect {
           message: kPoorInternetConnection, data: kPoorInternetConnection));
     }
     return Future.value(
-        ResponseModel.named(message: kNetworkError, data: kNetworkError));
+        ResponseModel.named(message: kServiceError, data: kServiceError));
   }
 }
 
@@ -210,17 +210,7 @@ class HTTPClient extends GetConnect {
 
 Future<Map<String, String>> _getHeaders() async {
   TokenModel? token = await UserSession().getToken();
-  if (token.isExpired) {
-    if (ProgressDialog().isOpened) {
-      ProgressDialog().dismissDialog();
-    }
-    await UserSession().logout();
-    CustomDialogs().showDialog('Alert', kSessionExpireMsg, DialogType.warning,
-        onOkBtnPressed: () {
-      // Get.offAllNamed(kLoginScreenRoute);
-    });
-    return {};
-  } else if (token.accessToken.isNotEmpty) {
+  if (token.accessToken.isNotEmpty) {
     return {'Authorization': 'Bearer ${token.accessToken}'};
   } else {
     return {};

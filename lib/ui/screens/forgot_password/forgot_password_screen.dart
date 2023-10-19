@@ -11,8 +11,6 @@ import 'reset_by_sms_screen/reset_by_sms_screen.dart';
 class ForgotPasswordScreen extends GetView<ForgotPasswordScreenController> {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
 
-  static const routeName = "forgot_password_screen";
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(

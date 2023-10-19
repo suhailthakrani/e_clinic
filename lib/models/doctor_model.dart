@@ -3,110 +3,140 @@ import '../models/general_models.dart';
 import '../models/user_model.dart';
 
 class Doctor {
-  String id = '';
-  String specialization = '';
-  String hospital_clinic_name = '';
-  String verification = 'PENDING';
-  String about = '';
-  Location location = Location.empty();
-  UserModel user = UserModel.empty();
-  List<String> appointment_types_allowed = ['PHYSICAL'];
-  List<Document> degree = [];
-  List<Schedule> schedule = [];
-  List<Charges> charges = [];
-  List<AppointmentModel> appointment = [];
-  List<Review> reviews = [];
-  List<Transactions> transactions = [];
+  String id = "";
+  String specialization = "";
+  String hospitalClinicName = "";
+  String verification = "";
+  String? about = "";
+  String locationId = "";
+  String userId = "";
+  List<String> appointmentTypesAllowed = [];
+  String firstName = "";
+  String lastName = "";
+  String image = "";
+  String address = "";
+  String city = "";
+  String state = "";
+  WorkingHours workingHours = WorkingHours.empty();
+  Charges charges = Charges.empty();
+  String reviewsCount = "";
+  String rating = "";
+
+  Doctor.empty();
 
   Doctor({
-    this.id = '',
-    this.specialization = '',
-    this.hospital_clinic_name = '',
-    this.verification = 'PENDING',
+    required this.id,
+    required this.specialization,
+    required this.hospitalClinicName,
+    required this.verification,
     required this.about,
-    required this.location,
-    required this.user,
-    required this.appointment_types_allowed,
-    required this.degree,
-    required this.schedule,
-    required this.charges ,
-    required this.appointment,
-    required this.reviews ,
-    required this.transactions,
+    required this.locationId,
+    required this.userId,
+    required this.appointmentTypesAllowed,
+    required this.firstName,
+    required this.lastName,
+    required this.image,
+    required this.address,
+    required this.city,
+    required this.state,
+    required this.workingHours,
+    required this.charges,
+    required this.reviewsCount,
+    required this.rating,
   });
 
-  Doctor.empty()
-      : id = '',
-        specialization = '',
-        hospital_clinic_name = '',
-        verification = '',
-        about = '',
-        location = Location.empty(),
-        user = UserModel.empty(),
-        appointment_types_allowed = [],
-        degree = [],
-        schedule = [],
-        charges = [],
-        appointment = [],
-        reviews = [],
-        transactions = [];
-
   factory Doctor.fromJson(Map<String, dynamic> json) {
-    return Doctor(
-      id: json['id'] ?? '',
-      specialization: json['specialization'] ?? '',
-      hospital_clinic_name: json['hospital_clinic_name'] ?? '',
-      verification: json['verification'] ?? 'PENDING',
-      about: json['about'],
-      location: Location.fromJson(json['location']),
-      user: UserModel.fromJson(json['user']),
-      appointment_types_allowed: (json['appointment_types_allowed'] as List<dynamic>?)
-          ?.map((e) => e.toString())
-          .toList() ??
-          ['PHYSICAL'],
-      degree: (json['degree'] as List<dynamic>?)
-          ?.map((e) => Document.fromJson(e))
-          .toList() ??
-          [],
-      schedule: (json['schedule'] as List<dynamic>?)
-          ?.map((e) => Schedule.fromJson(e))
-          .toList() ??
-          [],
-      charges: (json['charges'] as List<dynamic>?)
-          ?.map((e) => Charges.fromJson(e))
-          .toList() ??
-          [],
-      appointment: (json['appointment'] as List<dynamic>?)
-          ?.map((e) => AppointmentModel.fromJson(e))
-          .toList() ??
-          [],
-      reviews: (json['reviews'] as List<dynamic>?)
-          ?.map((e) => Review.fromJson(e))
-          .toList() ??
-          [],
-      transactions: (json['Transactions'] as List<dynamic>?)
-          ?.map((e) => Transactions.fromJson(e))
-          .toList() ??
-          [],
-    );
-  }
+  return Doctor(
+    id: json['id'] ?? "",
+    specialization: json['specialization'] ?? "",
+    hospitalClinicName: json['hospital_clinic_name'] ?? "",
+    verification: json['verification'] ?? "",
+    about: json['about'] ?? "",
+    locationId: json['locationId'] ?? "",
+    userId: json['userId'] ?? "",
+    appointmentTypesAllowed: List<String>.from(json['appointment_types_allowed'] ?? []),
+    firstName: json['first_name'] ?? "",
+    lastName: json['last_name'] ?? "",
+    image: json['image'] ?? "",
+    address: json['address'] ?? "",
+    city: json['city'] ?? "",
+    state: json['state'] ?? "",
+    workingHours: WorkingHours.fromJson(json['workingHours'] ??{}),
+    charges: Charges.fromJson(json['charges'] ?? {}),
+    reviewsCount: '${json['reviewsCount'] ?? ""}',
+    rating: '${json['rating'] ?? ""}',
+  );
+}
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'specialization': specialization,
-      'hospital_clinic_name': hospital_clinic_name,
+      'hospital_clinic_name': hospitalClinicName,
       'verification': verification,
       'about': about,
-      'location': location.toJson(),
-      'user': user.toJson(),
-      'appointment_types_allowed': appointment_types_allowed,
-      'degree': degree.map((e) => e.toJson()).toList(),
-      'schedule': schedule.map((e) => e.toJson()).toList(),
-      'charges': charges.map((e) => e.toJson()).toList(),
-      'appointment': appointment.map((e) => e.toJson()).toList(),
-      'reviews': reviews.map((e) => e.toJson()).toList(),
-      'Transactions': transactions.map((e) => e.toJson()).toList(),
+      'locationId': locationId,
+      'userId': userId,
+      'appointment_types_allowed': appointmentTypesAllowed,
+      'first_name': firstName,
+      'last_name': lastName,
+      'image': image,
+      'address': address,
+      'city': city,
+      'state': state,
+      'workingHours': workingHours,
+      'charges': charges,
+      'reviewsCount': reviewsCount,
+      'rating': rating,
+    };
+  }
+}
+class WorkingHours {
+  String startTime = '';
+  String endTime = '';
+
+  WorkingHours({
+    required this.startTime,
+    required this.endTime,
+  });
+  WorkingHours.empty();
+
+  factory WorkingHours.fromJson(Map<String, dynamic> json) {
+    return WorkingHours(
+      startTime: json['startTime']??'',
+      endTime: json['endTime']??'',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'startTime': startTime,
+      'endTime': endTime,
+    };
+  }
+}
+
+class Charges {
+  String physical ='';
+  String virtual = '';
+
+  Charges({
+    required this.physical,
+    required this.virtual,
+  });
+  Charges.empty();
+
+  factory Charges.fromJson(Map<String, dynamic> json) {
+    return Charges(
+      physical: "${json['physical'] ?? ''}",
+      virtual: "${json['virtual'] ?? ''}",
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'physical': physical,
+      'virtual': virtual,
     };
   }
 }

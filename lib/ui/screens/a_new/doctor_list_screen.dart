@@ -12,18 +12,18 @@ class DoctorsListView extends GetView<DoctorsListController> {
       appBar: AppBar(
         title: Text('Doctors List'),
       ),
-      body: ListView.builder(
-        itemCount: controller.getDoctors.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(controller.getDoctors[index].name),
-            subtitle: Text(controller.getDoctors[index].specialization),
-            onTap: () {
-              Get.toNamed('/doctor_details', arguments: {'index': index});
-            },
-          );
-        },
-      ),
+      // body: ListView.builder(
+      //   itemCount: controller.getDoctors.length,
+      //   itemBuilder: (context, index) {
+      //     return ListTile(
+      //       title: Text(controller.getDoctors[index].name),
+      //       subtitle: Text(controller.getDoctors[index].specialization),
+      //       onTap: () {
+      //         Get.toNamed('/doctor_details', arguments: {'index': index});
+      //       },
+      //     );
+      //   },
+      // ),
     );
   }
 }

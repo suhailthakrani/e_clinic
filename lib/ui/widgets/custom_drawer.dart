@@ -140,6 +140,7 @@ class CustomDrawer extends Drawer {
             ),
             title: const Text('Logout'),
             onTap: () {
+              Get.offAllNamed(kLoginScreenRoute);
               // Get.offNamed(kSettingsScreenRoute, predicate: ((route) => route.isFirst));
             },
           ),

@@ -60,19 +60,14 @@ class GeneralTextField extends StatelessWidget {
                           color: tfManager.errorMessage.isEmpty
                               ? kFieldBorderColor
                               : kRequiredRedColor),
-                  color: readOnly
-                      ? kFieldGreyColor
-                      : _withShadow.isTrue
-                          ? kWhiteColor
-                          : kFieldGreyColor,
-                  boxShadow: _withShadow.isTrue
-                      ? [
-                          const BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 1,
-                              color: kFieldShadowColor)
-                        ]
-                      : null),
+                  color: kWhiteColor
+                          ,
+                  boxShadow: [
+                    const BoxShadow(
+                        blurRadius: 3,
+                        spreadRadius: 1,
+                        color: kFieldShadowColor)
+                  ]),
               child: SizedBox(
                 width: Get.width,
                 child: Row(

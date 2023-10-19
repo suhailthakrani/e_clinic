@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../controllers/splash_screen_controller.dart';
 import '../../utils/colors.dart';
 
-/*Created By: Suhail Thakrani on 22-Sept-2023*/
 class SplashScreen extends GetView<SplashScreenController> {
   const SplashScreen({super.key});
 

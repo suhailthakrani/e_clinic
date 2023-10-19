@@ -45,7 +45,7 @@ class GeneralDatePickerField extends StatelessWidget {
             onTap: readOnly ? null : _selectDate,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(_withShadow ? 4 : 1),
+                borderRadius: BorderRadius.circular(2),
                 border:  _withShadow ? null : Border.all(color: kFieldBorderColor),
                 color: readOnly ? kFieldGreyColor : _withShadow ? kWhiteColor : kFieldGreyColor,
                 boxShadow: _withShadow ? [

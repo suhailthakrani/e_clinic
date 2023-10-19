@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:e_clinic/utils/dropdown_controller.dart';
 import '../utils/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import '../services/user_service.dart';
 import '../ui/widgets/custom_dialogs.dart';
 import '../ui/widgets/custom_progress_dialog.dart';
 import '../utils/constants.dart';
+import '../utils/date_time_manager.dart';
 import '../utils/text_field_manager.dart';
 import '../utils/text_filter.dart';
 import '../utils/user_session.dart';
@@ -28,12 +30,17 @@ class RegisterScreenController extends GetxController {
   TextFieldManager passwordController =
       TextFieldManager('Password', length: 50, filter: TextFilter.none);
   Rx<String> selectedGeder = 'SELECT'.obs;
-
-  List<String> genderList = [
+  DropdownController genderDDontroller = DropdownController(title: 'Gender', items: RxList([
     'SELECT',
     'MALE',
     'FEMALE',
-  ];
+  ]));
+
+ DateTimeManager dateOfBirthController = DateTimeManager("Date of Birth",
+      firstDate: DateTime(DateTime.now().year - 80),
+      lastDate: DateTime(
+          DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
+           
 
   Rx<String> selectedExperience = ''.obs;
 
@@ -57,8 +64,8 @@ class RegisterScreenController extends GetxController {
       'Hospital/ Clinic Name',
       length: 50,
       filter: TextFilter.none);
-  TextFieldManager cnicController =
-      TextFieldManager('CNIC', length: 50, filter: TextFilter.cnic);
+  // TextFieldManager cnicController =
+  //     TextFieldManager('CNIC', length: 50, filter: TextFilter.cnic);
   TextFieldManager addressController =
       TextFieldManager('State', length: 50, filter: TextFilter.alphaNumeric);
   TextFieldManager cityController =
@@ -96,31 +103,18 @@ class RegisterScreenController extends GetxController {
   }
 
   bool validateAllData() {
-    print('''
-     a ${firstNameController.validate()} &
-      2  ${lastNameController.validate()} &
-        3${(selectedGeder.value.isNotEmpty && selectedGeder.value != genderList.first)} &
-  4      ${emailController.validate()} &
-   5     ${passwordController.validate()} &
-    6    ${phoneNoController.validate()} &
-     7   ${(selectedExperience.value.isNotEmpty && selectedExperience.value != experienceList.first)} &
-      8  ${specializationController.validate()} &
-       9 ${cnicController.validate()}
-
-''');
+  
     bool valid = true;
     return valid &
         firstNameController.validate() &
         lastNameController.validate() &
-        (selectedGeder.value.isNotEmpty &&
-            selectedGeder.value != genderList.first) &
+        genderDDontroller.validate()&
         emailController.validate() &
         passwordController.validate() &
         phoneNoController.validate() &
         (selectedExperience.value.isNotEmpty &&
             selectedExperience.value != experienceList.first) &
-        specializationController.validate() &
-        cnicController.validate();
+        specializationController.validate();
   }
 
   void onRegisterClicked() async {
@@ -130,7 +124,7 @@ class RegisterScreenController extends GetxController {
       UserModel userModel = UserModel(
         firstName: firstNameController.text,
         lastName: lastNameController.text,
-        cnic: cnicController.text,
+        cnic: '',
         email: emailController.text,
         gender: selectedGeder.value,
         specialization: specializationController.text,

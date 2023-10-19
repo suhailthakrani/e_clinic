@@ -111,6 +111,7 @@ class PersonalInfoSettingsController extends GetxController {
       firstDate: DateTime(DateTime.now().year - 80),
       lastDate: DateTime(
           DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
+          
 }
 
 class EmailSettingsController extends GetxController {

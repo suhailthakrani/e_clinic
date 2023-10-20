@@ -9,34 +9,24 @@ class ForgotPasswordScreenController extends GetxController {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   RxInt selectedIndex = 0.obs;
-  List<PasswordResetMethod> passwordResetMethods = [
-    PasswordResetMethod(
+  List<PasswordResetMethodWidget> passwordResetMethods = [
+    PasswordResetMethodWidget(
       image: "assets/images/msg-icon.png",
       title: "Via SMS",
       subtitle: "+11 11*****11",
-      selected: false,
+      index: 0,
     ),
-    PasswordResetMethod(
+    PasswordResetMethodWidget(
       image: "assets/images/mail-icon.png",
       title: "Via Email",
       subtitle: "abc@gmail.com",
-      selected: false,
+      index: 1,
     ),
   ];
 
   void selectMethod(int index) {
-    for (var element in passwordResetMethods) {
-      element.selected = false;
-    }
-    passwordResetMethods[index].selected = true;
+    selectedIndex.value = index;
+    notifyChildrens();
   }
 
-  bool checkIfAllSelected() {
-    for (var element in passwordResetMethods) {
-      if (element.selected == true) {
-        return true;
-      }
-    }
-    return false;
-  }
 }

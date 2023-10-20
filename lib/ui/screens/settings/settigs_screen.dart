@@ -26,7 +26,7 @@ class SettingsScreen extends GetView<SettingsController> {
       // ),
       body: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.all( 16),
         height: Get.height,
         width: Get.width,
         child: Column(
@@ -34,9 +34,9 @@ class SettingsScreen extends GetView<SettingsController> {
           children: [
             Text(
               "Settings",
-              style: TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 32.w, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8.h),
+            SizedBox(height: 20.h),
             Text(
               "Personalize Your Account Settings",
               style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),

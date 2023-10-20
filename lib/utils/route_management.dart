@@ -3,7 +3,6 @@ import 'package:e_clinic/ui/screens/settings/components/notification_settings_sc
 import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../ui/screens/forgot_password/forgot_password_screen.dart';
 import '../ui/screens/main_screen/main_screen.dart';
 import '../ui/screens/payments/components/verification_screen/verification_driver_screen.dart';
 import '../ui/screens/payments/components/verification_screen/verification_id_screen.dart';
@@ -14,6 +13,7 @@ import '../ui/screens/settings/components/password_reset_settings.dart';
 import '../ui/screens/settings/components/personal_info_settings.dart';
 import '../ui/screens/settings/components/phone_settings.dart';
 import '../ui/screens/settings/components/professional_info_settings.dart';
+import '../ui/screens/signin/components/forgot_password_screen.dart';
 import '../ui/screens/signup/signup_screen.dart';
 import '../ui/screens/test_screen.dart';
 import 'package:get/get.dart';

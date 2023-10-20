@@ -45,7 +45,7 @@ class _MessageTileState extends State<MessageTile> {
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.black45,
-                  radius: 30,
+                  radius: 32,
                   child: Image.asset(
                     widget.image,
                     fit: BoxFit.cover,
@@ -65,7 +65,7 @@ class _MessageTileState extends State<MessageTile> {
                           Text(
                             widget.receiverName,
                             style: const TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -75,7 +75,7 @@ class _MessageTileState extends State<MessageTile> {
                         widget.recentMessage,
                         style: const TextStyle(
                           color: Colors.grey,
-                          fontSize: 12,
+                          fontSize: 13,
                           fontWeight: FontWeight.w400,
                         ),
                       ),

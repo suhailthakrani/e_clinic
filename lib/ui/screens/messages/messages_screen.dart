@@ -18,28 +18,20 @@ class MessagesScreen extends GetView<MessagesController> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(top: 16),
-          child: ScreenUtilInit(
-            designSize: Size(
-              MediaQuery.of(context).size.width,
-              MediaQuery.of(context).size.height,
-            ),
-            builder: (context, w) => Center(
-              child: Obx(
-                () => Column(
-                  children: [
-                    ...controller.messages,
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
-                      child: Center(
-                        child: Text(
-                          "You have reached the end.",
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ),
+          child: Obx(
+            () => Column(
+              children: [
+                ...controller.messages,
+                const Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
+                  child: Center(
+                    child: Text(
+                      "You have reached the end.",
+                      style: TextStyle(color: Colors.grey),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),

@@ -429,6 +429,7 @@ class MainScreen extends GetView<MainScreenController> {
           ),
         ),
       ),
+    
     );
   }
 
@@ -451,14 +452,14 @@ class MainScreen extends GetView<MainScreenController> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.all(16.h),
+              margin: EdgeInsets.only(left:16.h, top: 16),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
                   imgUrl,
                   fit: BoxFit.contain,
-                  height: Get.width * 0.12,
-                  width: Get.width * 0.12,
+                  height: Get.width * 0.15,
+                  width: Get.width * 0.15,
                   color: kPrimaryColor,
                 ),
               ),

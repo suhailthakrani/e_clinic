@@ -1,4 +1,5 @@
 
+import '../models/doctor_model.dart';
 import '../services/service_urls.dart';
 
 import '../models/response_model.dart';
@@ -17,26 +18,30 @@ class DoctorsService {
   }
   static final DoctorsService _instance = DoctorsService._internal();
 
-  Future getDoctorById({required String drID}) async {
-    ResponseModel responseModel = await _httpClient.getRequest(url: kGetDoctorsURL+drID);
+  // Future getDoctorById({required String drID}) async {
+  //   ResponseModel responseModel = await _httpClient.getRequest(url: kGetDoctorsURL+drID);
  
-    if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
-      //
-    } else{
-      CommonCode().showToast(message: responseModel.message);
-    }
-    //
-  }
-   Future getDoctorsList() async {
+  //   if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
+  //     //
+  //   } else{
+  //     CommonCode().showToast(message: responseModel.message);
+  //   }
+  //   //
+  // }
+   Future<List<Doctor>> getDoctorsList() async {
 
     ResponseModel responseModel = await _httpClient.getRequest(url: kGetDoctorsURL);
- 
+    List<Doctor> doctorList = [];
+
     if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
-      //
+
+      for (var data in (responseModel.data['doctors']??[])) {
+        doctorList.add(Doctor.fromJson(data));
+      }
     } else{
       CommonCode().showToast(message: responseModel.message);
     }
-    //
+    return doctorList;
   }
 
    Future getSpeializations() async {

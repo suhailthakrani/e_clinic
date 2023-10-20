@@ -14,13 +14,16 @@ class SettingsScreen extends GetView<SettingsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        elevation: 0,
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-      ),
+    return CustomScaffold(
+      scaffoldKey: controller.scaffoldKey,
+      screenName: "Settings",
+      className: runtimeType.toString(),
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: true,
+      //   elevation: 0,
+      //   backgroundColor: kWhiteColor,
+      //   foregroundColor: kBlackColor,
+      // ),
       body: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

@@ -90,22 +90,21 @@ class HTTPClient extends GetConnect {
               .timeout(const Duration(seconds: _requestTimeOut));
       log('───────────────────Get> $url\n${response.body}');
 
-      ResponseModel responseModel = ResponseModel.fromJson(
-          response.body is Map ? response.body : jsonDecode(response.body));
+      ResponseModel responseModel = ResponseModel.fromJson(response.body is Map ? response.body : jsonDecode(response.body));
       return responseModel;
     } on TimeoutException {
       return Future.value(ResponseModel.named(
           message: "Request TimeOut", data: kPoorInternetConnection));
-    } on SocketException {
+    } on SocketException catch (e){
       return Future.value(
-          ResponseModel.named(message: "Bad Request", data: kNetworkError));
+          ResponseModel.named(message: "Bad Request", data: '${e}'));
     } catch (e) {
       if (!(await CommonCode().checkInternetAccess())) {
         return Future.value(ResponseModel.named(
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
       return Future.value(
-          ResponseModel.named(message: kNetworkError, data: kNetworkError));
+          ResponseModel.named(message: kServiceError, data: kServiceError));
     }
   }
 
@@ -149,12 +148,12 @@ class HTTPClient extends GetConnect {
       ResponseModel response =
           ResponseModel.fromJson(jsonDecode(httpResponse.body));
       return Future.value(response);
-    } on TimeoutException {
+    } on TimeoutException catch (e) {
       return Future.value(ResponseModel.named(
-          message: "Request TimeOut", data: "Request TimeOut"));
-    } on SocketException {
+          message: "Request TimeOut", data: "$e"));
+    } on SocketException catch (e){
       return Future.value(
-          ResponseModel.named(message: "Bad Request", data: "Bad Request"));
+          ResponseModel.named(message: "Bad Request", data: "$e"));
     } catch (e) {
       if (!(await CommonCode().checkInternetAccess())) {
         return Future.value(ResponseModel.named(
@@ -190,12 +189,12 @@ class HTTPClient extends GetConnect {
     ResponseModel responseModel = ResponseModel.fromJson(
         response.body is Map ? response.body : jsonDecode(response.body));
     return responseModel;
-  } on TimeoutException {
-    return Future.value(ResponseModel.named(
-        message: "Request TimeOut", data: kPoorInternetConnection));
-  } on SocketException {
-    return Future.value(
-        ResponseModel.named(message: "Bad Request", data: kNetworkError));
+  } on TimeoutException catch (e) {
+      return Future.value(ResponseModel.named(
+          message: "Request TimeOut", data: "$e"));
+    } on SocketException catch (e){
+      return Future.value(
+          ResponseModel.named(message: "Bad Request", data: "$e"));
   } catch (e) {
     if (!(await CommonCode().checkInternetAccess())) {
       return Future.value(ResponseModel.named(

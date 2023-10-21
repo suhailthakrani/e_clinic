@@ -61,7 +61,7 @@ class HTTPClient extends GetConnect {
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
       return Future.value(
-          ResponseModel.named(message: kNetworkError, data: kNetworkError));
+          ResponseModel.named(message: kServiceError, data: e.toString()));
     }
   }
 

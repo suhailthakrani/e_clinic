@@ -11,28 +11,87 @@ import '../../models/doctor_model.dart';
 class MainScreenController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  RxInt selectedDrIndex = RxInt(-1);
+
   RxList<Doctor> doctorsList = <Doctor>[].obs;
 
-  RxList<CategoryModel> doctorsCategories = [
-    CategoryModel(dept: 'Dermatology', image: "assets/images/dermatology.png", noOfDr: '12'),
-    CategoryModel(dept: 'Surgery', image: "assets/images/surgery.png", noOfDr: '8'),
-    CategoryModel(dept: 'Ophthalmology', image: "assets/images/ophthalmology.png", noOfDr: '10'),
-    CategoryModel(dept: 'Orthopedics', image: "assets/images/orthopedics.png", noOfDr: '7'),
-    CategoryModel(dept: 'Cardiology', image: "assets/images/cardiology.png", noOfDr: '15'),
-    CategoryModel(dept: 'Radiology', image: "assets/images/radiology.png", noOfDr: '9'),
-    CategoryModel(dept: 'Gastroenterology', image: "assets/images/gastroenterology.png", noOfDr: '11'),
-    CategoryModel(dept: 'Urology', image: "assets/images/urology.png", noOfDr: '6'),
-    CategoryModel(dept: 'Anesthesiology', image: "assets/images/anesthesiology.png", noOfDr: '8'),
-    CategoryModel(dept: 'Oncology', image: "assets/images/oncology.png", noOfDr: '13'),
-  ].obs;
+  // RxList<CategoryModel> doctorsCategories = [
+  //   CategoryModel(dept: 'Psychiatry', image: "assets\images\Psychiatry.png", noOfDr: '12'),
+  //   CategoryModel(dept: 'Oncology', image: "assets/images/oncology.png", noOfDr: '13'),
+  //   CategoryModel(dept: 'Gastroenterology', image: "assets/images/gastroenterology.png", noOfDr: '11'),
+  //   CategoryModel(dept: 'Hematology', image: "assets/images/Hematology.png", noOfDr: '11'),
+  //   CategoryModel(dept: 'Cardiology', image: "assets/images/Cardiology.png", noOfDr: '15'),
+  //   CategoryModel(dept: 'Pediatrics', image: "assets/images/Pediatrics.png", noOfDr: '15'),
+  //   CategoryModel(dept: 'Neurology', image: "assets/images/Neurology.png", noOfDr: '15'),
+  //   CategoryModel(dept: 'Endocrinology', image: "assets/images/Endocrinology.png", noOfDr: '15'),
+  //   CategoryModel(dept: 'Dermatology', image: "assets/images/dermatology.png", noOfDr: '12'),
+  //   CategoryModel(dept: 'Urology', image: "assets/images/urology.png", noOfDr: '6'),
+  //   CategoryModel(dept: 'Cardo', image: "assets/images/surgery.png", noOfDr: '8'),
+  //   // CategoryModel(dept: 'Ophthalmology', image: "assets/images/ophthalmology.png", noOfDr: '10'),
+  //   // CategoryModel(dept: 'Orthopedics', image: "assets/images/orthopedics.png", noOfDr: '7'),
+
+  //   // CategoryModel(dept: 'Radiology', image: "assets/images/radiology.png", noOfDr: '9'),
+
+  //   // CategoryModel(dept: 'Anesthesiology', image: "assets/images/anesthesiology.png", noOfDr: '8'),
+
+  //   // CategoryModel(dept: 'Oncology', image: "assets/images/oncology.png", noOfDr: '13'),
+  // ].obs;
+
+  List<String> imagesList = [
+    "assets/images/Psychiatry.png",
+    "assets/images/oncology.png",
+    "assets/images/gastroenterology.png",
+    "assets/images/Hematology.png",
+    "assets/images/Cardiology.png",
+    "assets/images/Pediatrics.png",
+    "assets/images/Neurology.png",
+    "assets/images/Endocrinology.png",
+    "assets/images/dermatology.png",
+    "assets/images/urology.png",
+    "assets/images/surgery.png",
+    // Add more image paths as needed
+  ];
+
+  RxList<String> categoriesList = RxList([]);
+  RxList<String> categoriesImagesList =
+      RxList([]);
 
   TextFieldManager searchController = TextFieldManager("");
 
   @override
   Future<void> onInit() async {
+    categoriesList.value = await DoctorsService().getSpecializationList();
+    for (int i = 0; i < categoriesList.length; i++) {
+      String image = imagesList[i % imagesList.length];
+      categoriesImagesList.add(image);
+    }
+    categoriesList.add('dermatology');
+    categoriesImagesList.add("assets/images/dermatology.png");
+
     doctorsList.value = await DoctorsService().getDoctorsList();
-    log("-------------${doctorsList.map((element) => element.firstName).toList()}");
-    doctorsList.refresh();
+    doctorsList.add(
+      Doctor(
+        id: 'id',
+        specialization: "Test",
+        hospitalClinicName: "hospitalClinicName",
+        verification: "verification",
+        about: "about",
+        locationId: "locationId",
+        userId: "userId",
+        appointmentTypesAllowed: ["Physical"],
+        firstName: "firstName",
+        lastName: "lastName",
+        image: "assets/images/doctor.png",
+        address: "address",
+        city: "city",
+        state: "state",
+        workingHours: WorkingHours(startTime: 'startTime', endTime: 'endTime'),
+        charges: Charges(physical: 'physical', virtual: 'virtual'),
+        reviewsCount: 'reviewsCount',
+        rating: '3.2',
+      ),
+    );
+    // doctorsList.refresh();
     super.onInit();
   }
 
@@ -40,9 +99,14 @@ class MainScreenController extends GetxController {
 
   void selectScreen(int index) {
     selectedScreenIndex.value = index;
-    Get.back(); // Close the drawer after selecting a screen
+    Get.back();
+  }
+
+  void onDrIndexChanged(int index) {
+    selectedDrIndex.value = index;
   }
 }
+
 class CategoryModel {
   String dept;
   String image;
@@ -54,4 +118,3 @@ class CategoryModel {
     required this.noOfDr,
   });
 }
-

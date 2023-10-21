@@ -2,7 +2,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../ui/screens/forgot_password/components/password_reset_method.dart';
+import '../ui/screens/signin/components/password_reset_method.dart';
+
 
 /// Created by Suhail Thakrani 23-Sep-2023
 class ForgotPasswordScreenController extends GetxController {

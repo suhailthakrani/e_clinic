@@ -43,6 +43,21 @@ class DoctorsService {
     }
     return doctorList;
   }
+  Future<List<String>> getSpecializationList() async {
+
+    ResponseModel responseModel = await _httpClient.getRequest(url: kDoctorsSpeializationURL);
+    List<String> doctorList = [];
+
+    if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
+
+      for (var data in (responseModel.data['specializations']??[])) {
+        doctorList.add(data);
+      }
+    } else{
+      CommonCode().showToast(message: responseModel.message);
+    }
+    return doctorList;
+  }
 
    Future getSpeializations() async {
     ResponseModel responseModel = await _httpClient.getRequest(url: kDoctorsSpeializationURL);

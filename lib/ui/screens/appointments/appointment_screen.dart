@@ -18,52 +18,47 @@ class AppointmentsScreen extends GetView<AppointmentScreenController> {
       scaffoldKey: controller.scaffoldKey,
       className: runtimeType.toString(),
       screenName: 'Appointments',
-      body: ScreenUtilInit(
-        designSize: Size(
-          MediaQuery.of(context).size.width,
-          MediaQuery.of(context).size.height,
-        ),
-        builder: (context, w) => Center(
-          child: Obx(
-            () => Column(
-              children: [
-                SizedBox(height: 20.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    for (int i = 0; i < controller.appointmentTypes.length; i++)
-                      AppointmentType(
-                        title: controller.appointmentTypes[i],
-                        index: i,
-                        controller: controller,
-                      )
-                  ],
-                ),
-                SizedBox(height: 25.h),
-                if (controller.selectedAppointmentType.value == 1)
+      body: SingleChildScrollView(
+        child: Obx(
+              () => Column(
+                
+                children: [
+                  SizedBox(height: 20.h),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                          width: 150,
-                          child: TextButton(
-                            style: ElevatedButton.styleFrom(
-                                side: BorderSide(color: kBlack45Color)),
-                            onPressed: () {},
-                            child: Text('Date Filter'),
-                          )),
-                      SizedBox(width: 20.w),
+                      for (int i = 0; i < controller.appointmentTypes.length; i++)
+                        AppointmentType(
+                          title: controller.appointmentTypes[i],
+                          index: i,
+                          controller: controller,
+                        )
                     ],
                   ),
-                SizedBox(height: 25.h),
-                if (controller.selectedAppointmentType.value == 0)
-                  ...upComingAppointments
-                else
-                  ...previousAppointments
-              ],
+                  SizedBox(height: 25.h),
+                  if (controller.selectedAppointmentType.value == 1)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                            width: 150,
+                            child: TextButton(
+                              style: ElevatedButton.styleFrom(
+                                  side: BorderSide(color: kBlack45Color)),
+                              onPressed: () {},
+                              child: Text('Date Filter'),
+                            )),
+                        SizedBox(width: 20.w),
+                      ],
+                    ),
+                  SizedBox(height: 25.h),
+                  if (controller.selectedAppointmentType.value == 0)
+                    ...upComingAppointments
+                  else
+                    ...previousAppointments
+                ],
+              ),
             ),
-          ),
-        ),
       ),
     );
   }

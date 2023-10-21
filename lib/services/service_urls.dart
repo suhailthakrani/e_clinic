@@ -17,7 +17,7 @@ const String kUpdateChargesURL = "${kBaseURL}doctors/charges/";
 
 // About Doctors
 
-const String kGetDoctorsURL = "${kBaseURL}doctors/";
+const String kGetDoctorsURL = "${kBaseURL}doctors";
 const String kGetDoctorByIdURL = "${kBaseURL}doctors/";
 const String kDoctorsSpeializationURL = "${kBaseURL}doctors/specializations/";
 const String kGetDoctorScheduleURL = "${kBaseURL}doctors/$drId/schedule/"; 
@@ -30,5 +30,8 @@ const String kGetCompletedAppointmentsURL = "${kBaseURL}appointments/completed/"
 
 const String kAcceptAppointmentURL = "${kBaseURL}appointments/requests/accept";
 const String kRejectAppointmentURL = "${kBaseURL}appointments/requests/reject";
+
+const String kBookAppointmentURL = "${kBaseURL}appointments/create/";
+
 
 const String kAddPrescriptionURL = "${kBaseURL}prescription/";

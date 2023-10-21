@@ -1,3 +1,5 @@
+import 'package:e_clinic/controllers/a_new/book_appointment_screen_controller.dart';
+
 import '../controllers/a_new/doctor_list_controller.dart';
 import '../controllers/general_controllers.dart';
 import '../controllers/prescription_screen_controller.dart';
@@ -39,6 +41,8 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => PrescriptionScreenController());
 
      Get.lazyPut(() => DoctorsListController());
+
+     Get.lazyPut(() => BookAppointmentScreenController());
 
     Get.lazyPut(() => EmailSettingsController());
     Get.lazyPut(() => PhoneNoSettingsController());

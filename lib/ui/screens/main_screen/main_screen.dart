@@ -1,26 +1,19 @@
 import 'dart:convert';
+import 'dart:math';
 
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e_clinic/ui/widgets/general_button.dart';
-import 'package:e_clinic/ui/widgets/general_text_field.dart';
 import 'package:e_clinic/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../../../ui/widgets/button1.dart';
-import '../../../../ui/widgets/custom_drawer.dart';
-import '../../../../ui/widgets/custom_scaffold.dart';
-import '../../../../ui/widgets/widget_svg.dart';
-import '../../../../utils/colors.dart';
+import '../../../controllers/new/main_screen_controller.dart';
+import '../../widgets/custom_scaffold.dart';
+import '../../../utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/new/main_screen_controller.dart';
 import '../../widgets/custom_search_field.dart';
-import '../a_new/doctor_details_screen.dart';
-import 'components/instant_appointment_card.dart';
-import 'components/list_of_slider_items.dart';
-import 'components/main_heading.dart';
+
 
 class MainScreen extends GetView<MainScreenController> {
   const MainScreen({super.key});
@@ -207,22 +200,42 @@ class MainScreen extends GetView<MainScreenController> {
               SizedBox(
                 height: Get.height * 0.2,
                 child: Obx(
-                  () => ListView.builder(
+                  () => controller.doctorsList.isNotEmpty
+                  ? ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemCount: controller.doctorsCategories.length,
+                    itemCount: controller.categoriesList.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return SizedBox(
                         width: Get.width * 0.4,
                         child: buildCard(
-                          title: controller.doctorsCategories[index].dept,
-                          desc:
-                              '${controller.doctorsCategories[index].noOfDr} Specialists',
-                          imgUrl: controller.doctorsCategories[index].image,
+                          title: controller.categoriesList[index],
+                          desc: "${Random().nextInt(10)+1 } Specialists",
+                              // '${controller.doctorsCategories[index].noOfDr} Specialists',
+                          // imgUrl: controller.doctorsCategories[index].image,
+                          imgUrl: controller.categoriesImagesList[index]??"assets/images/dermatology.png",
                         ),
                       );
                     },
-                  ),
+                  )
+                  : ListView.builder(
+                            itemCount: 7,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => Container(
+                              margin: const EdgeInsets.only(right: 16),
+                              height: Get.height * 0.2,
+                              width: Get.width * 0.4,
+                              decoration: BoxDecoration(
+                                color: kWhiteColor,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade100,
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                          ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -240,117 +253,159 @@ class MainScreen extends GetView<MainScreenController> {
               ),
               const SizedBox(height: 16),
               SizedBox(
-                height: Get.height * 0.35,
-                child: controller.doctorsList.isNotEmpty
-                    ? Obx(
-                        () => ListView.builder(
-                          itemCount: controller.doctorsList.length,
-                          physics: const ClampingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => const DoctorDetailsScreen(),
-                                //   ),
-                                // );
-                                Get.toNamed(kDoctorsDetailsScreenRoute,
-                                    parameters: {
-                                      'doctor': jsonEncode(
-                                          controller.doctorsList[index])
-                                    });
-                              },
-                              child: Container(
-                                width: Get.width * 0.6,
-                                height: Get.height * 0.35,
-                                padding: const EdgeInsets.all(8),
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      top: 0,
-                                      right: 14,
-                                      left: 14,
-                                      child: Container(
-                                        height: Get.width * 0.35,
-                                        width: Get.height * 0.24,
-                                        decoration: BoxDecoration(
-                                          color: kPrimaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                        ),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          child: Image.network(
-                                            controller.doctorsList[index].image,
-                                            fit: BoxFit.cover,
-                                            errorBuilder: (context, child,
-                                                    loadingProgress) =>
-                                                const Center(
-                                              child:
-                                                  CircularProgressIndicator(),
+                  height: Get.height * 0.35,
+                  child: Obx(
+                    () => controller.doctorsList.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: controller.doctorsList.length,
+                            physics: const ClampingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => const DoctorDetailsScreen(),
+                                  //   ),
+                                  // );
+                                  controller.onDrIndexChanged(index);
+                                  Get.toNamed(kDoctorsDetailsScreenRoute);
+                                },
+                                child: Container(
+                                  width: Get.width * 0.6,
+                                  height: Get.height * 0.35,
+                                  padding: const EdgeInsets.all(8),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        top: 0,
+                                        right: 14,
+                                        left: 14,
+                                        child: Container(
+                                          height: Get.width * 0.35,
+                                          width: Get.height * 0.24,
+                                          decoration: BoxDecoration(
+                                            color: kPrimaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            child: Image.network(
+                                              controller
+                                                  .doctorsList[index].image,
+                                              fit: BoxFit.cover,
+                                              errorBuilder: (context, child,
+                                                      loadingProgress) =>
+                                                  const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Positioned(
-                                      top: Get.width * 0.30,
-                                      // bottom: 100,
-                                      right: 0,
-                                      left: 0,
-                                      bottom: 0,
-                                      child: Card(
-                                        margin: EdgeInsets.zero,
-                                        elevation: 4,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                        ),
-                                        child: Container(
-                                          width: double.maxFinite,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 12),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Text(
-                                                "${controller.doctorsList[index].firstName} ${controller.doctorsList[index].lastName}",
-                                                style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w700,
+                                      const SizedBox(width: 12),
+                                      Positioned(
+                                        top: Get.width * 0.33,
+                                        // bottom: 100,
+                                        right: 0,
+                                        left: 0,
+                                        bottom: 0,
+                                        child: Card(
+                                          margin: EdgeInsets.zero,
+                                          elevation: 4,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          child: Container(
+                                            width: double.maxFinite,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12, vertical: 8),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text(
+                                                  "Dr. ${controller.doctorsList[index].firstName} ${controller.doctorsList[index].lastName}",
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                controller.doctorsList[index]
-                                                    .specialization,
-                                                style: const TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
+                                                Text(
+                                                  controller.doctorsList[index]
+                                                      .specialization,
+                                                  style: TextStyle(
+                                                    color: kPrimaryColor,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
-                                              ),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.all(4),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  color: kFieldShadowColor,
-                                                ),
-                                                child: Row(
+                                                Row(
                                                   children: [
-                                                    const Icon(
-                                                      CupertinoIcons.time,
-                                                      size: 16,
+                                                    RatingBarIndicator(
+                                                      rating: double.parse(
+                                                          controller
+                                                              .doctorsList[
+                                                                  index]
+                                                              .rating),
+                                                      itemBuilder:
+                                                          (context, index) =>
+                                                              const Icon(
+                                                        Icons.star,
+                                                        color: Colors.amber,
+                                                      ),
+                                                      itemCount: 5,
+                                                      itemSize: 15.0,
+                                                      direction:
+                                                          Axis.horizontal,
                                                     ),
-                                                    const SizedBox(width: 8),
+                                                    Text(
+                                                      "  (${controller.doctorsList[index].reviewsCount}+)",
+                                                      style: const TextStyle(
+                                                        color: Colors.black54,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    const Text(
+                                                      "Experience: ",
+                                                      style: TextStyle(
+                                                        color: Colors.black54,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      " ${Random().nextInt(10) + 1} Years",
+                                                      style: const TextStyle(
+                                                        color: Colors.black87,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    // const Icon(
+                                                    //   CupertinoIcons.time,
+                                                    //   size: 16,
+                                                    // ),
+                                                    // const SizedBox(width: 4),
                                                     Text(
                                                       "${controller.doctorsList[index].workingHours.startTime} to ${controller.doctorsList[index].workingHours.endTime}",
                                                       style: const TextStyle(
@@ -362,47 +417,67 @@ class MainScreen extends GetView<MainScreenController> {
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                              const Text(
-                                                " 5 Year + Experience",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    // Icon(
+                                                    //   Icons.location_on,
+                                                    //   color: kPrimaryColor,
+                                                    //   size: 18,
+                                                    // ),
+                                                    // SizedBox(width: 4),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${controller.doctorsList[index].address} ${controller.doctorsList[index].city}",
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: const TextStyle(
+                                                          color: kBlack90Color,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons.arrow_forward,
+                                                      color: kPrimaryColor,
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 20)
-                                  ],
+                                      const SizedBox(height: 20)
+                                    ],
+                                  ),
                                 ),
+                              );
+                            },
+                          )
+                        : ListView.builder(
+                            itemCount: 7,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => Container(
+                              margin: const EdgeInsets.only(right: 16),
+                              height: Get.height * 0.2,
+                              width: Get.width * 0.5,
+                              decoration: BoxDecoration(
+                                color: kWhiteColor,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade100,
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                            );
-                          },
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount: 7,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => Container(
-                          margin: const EdgeInsets.only(right: 16),
-                          height: Get.height * 0.2,
-                          width: Get.width * 0.5,
-                          decoration: BoxDecoration(
-                            color: kWhiteColor,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade100,
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(16),
+                            ),
                           ),
-                        ),
-                      ),
-              ),
+                  )),
 
               // Column(
               //   children: [
@@ -429,7 +504,6 @@ class MainScreen extends GetView<MainScreenController> {
           ),
         ),
       ),
-    
     );
   }
 
@@ -452,7 +526,7 @@ class MainScreen extends GetView<MainScreenController> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(left:16.h, top: 16),
+              margin: EdgeInsets.only(left: 16.h, top: 16),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
@@ -461,6 +535,7 @@ class MainScreen extends GetView<MainScreenController> {
                   height: Get.width * 0.15,
                   width: Get.width * 0.15,
                   color: kPrimaryColor,
+                  errorBuilder: (context, error, stackTrace) => Container(),
                 ),
               ),
             ),

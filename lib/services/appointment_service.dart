@@ -32,67 +32,75 @@ class AppointmentService {
     //
   }
 
-  Future<List<Appointment>> getRequestedAppointmentsList() async {
-    List<Appointment> appointLst = [];
+  // Future<List<AppointmentModel>> getRequestedAppointmentModelsList() async {
+  //   List<AppointmentModel> appointLst = [];
 
-    ResponseModel responseModel =  await _httpClient.getRequest(url: kGetAppointmentRequestsURL);
+  //   ResponseModel responseModel =  await _httpClient.getRequest(url: kGetAppointmentRequestsURL);
 
-    if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
-      for (var app in responseModel.data) {
-        appointLst.add(Appointment.fromJson(app));
-      }
-    } else {
-      CommonCode().showToast(message: responseModel.message);
-    }
-    return appointLst;
-  }
+  //   if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
+  //     for (var app in responseModel.data) {
+  //       appointLst.add(AppointmentModel.fromJson(app));
+  //     }
+  //   } else {
+  //     CommonCode().showToast(message: responseModel.message);
+  //   }
+  //   return appointLst;
+  // }
 
-  Future<List<Appointment>> getCompletedAppointmentsList() async {
-    List<Appointment> appointLst = [];
+  // Future<List<AppointmentModel>> getCompletedAppointmentModelsList() async {
+  //   List<AppointmentModel> appointLst = [];
 
-    ResponseModel responseModel =  await _httpClient.getRequest(url: kGetCompletedAppointmentsURL);
+  //   ResponseModel responseModel =  await _httpClient.getRequest(url: kGetCompletedAppointmentsURL);
 
-    if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
-      for (var app in responseModel.data) {
-        appointLst.add(Appointment.fromJson(app));
-      }
-    } else {
-      CommonCode().showToast(message: responseModel.message);
-    }
-    return appointLst;
-  }
-
-  Future<String> acceptAppointment({required String appId}) async {
+  //   if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
+  //     for (var app in responseModel.data) {
+  //       appointLst.add(AppointmentModel.fromJson(app));
+  //     }
+  //   } else {
+  //     CommonCode().showToast(message: responseModel.message);
+  //   }
+  //   return appointLst;
+  // }
+   Future<String> bookAppointment({required AppointmentModel appointment}) async {
     ResponseModel responseModel = await _httpClient.postRequest(
-      url: kAcceptAppointmentURL,
-      requestBody: {'appointmentId': appId},
-      requireToken: true,
+      url: kBookAppointmentURL,
+      requestBody: appointment.toJson(),
     );
     return responseModel.message;
   }
 
-  Future<String> rejectAppointment({required String appId}) async {
-    ResponseModel responseModel = await _httpClient.postRequest(
-      url: kRejectAppointmentURL,
-      requestBody: {'appointmentId': appId},
-      requireToken: true,
-    );
-    return responseModel.message;
-  }
 
-  Future prescribeAppointmentRequestByID({
-    required String appointmentId,
-  }) async {
-    ResponseModel responseModel = await _httpClient.postRequest(
-      url: kAddPrescriptionURL,
-      requestBody: /*TODO: */ {},
-      requireToken: false,
-    );
-    if (responseModel.message == "Success" && responseModel.data != null) {
-      //
-    } else {
-      // user.responseMessage = responseModel.message;
-    }
-    // return user;
-  }
+  // Future<String> acceptAppointment({required String appId}) async {
+  //   ResponseModel responseModel = await _httpClient.postRequest(
+  //     url: kAcceptAppointmentURL,
+  //     requestBody: {'appointmentId': appId},
+  //     requireToken: true,
+  //   );
+  //   return responseModel.message;
+  // }
+
+  // Future<String> rejectAppointment({required String appId}) async {
+  //   ResponseModel responseModel = await _httpClient.postRequest(
+  //     url: kRejectAppointmentURL,
+  //     requestBody: {'appointmentId': appId},
+  //     requireToken: true,
+  //   );
+  //   return responseModel.message;
+  // }
+
+  // Future prescribeAppointmentRequestByID({
+  //   required String appointmentId,
+  // }) async {
+  //   ResponseModel responseModel = await _httpClient.postRequest(
+  //     url: kAddPrescriptionURL,
+  //     requestBody: /*TODO: */ {},
+  //     requireToken: false,
+  //   );
+  //   if (responseModel.message == "Success" && responseModel.data != null) {
+  //     //
+  //   } else {
+  //     // user.responseMessage = responseModel.message;
+  //   }
+  //   // return user;
+  // }
 }

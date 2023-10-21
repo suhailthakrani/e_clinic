@@ -31,6 +31,7 @@ const String kPhoneNoSettingsScreenRoute = "/phone_no_settings_screen";
 const String kPasswordSettingsScreenRoute = "/password_settings_screen";
 
 const String kDoctorsDetailsScreenRoute = "/doctors_details";
+const String kBookAppointmentScreenRoute = "/book_appointment_screen";
 
 //
 const String kPermissionPermanentlyDenied =

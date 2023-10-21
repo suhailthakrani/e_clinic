@@ -23,7 +23,7 @@ class AppointmentType extends StatelessWidget {
       ),
       builder: (context, w) => InkWell(
         onTap: () {
-          controller.selectAppointmentType(index);
+          // controller.selectAppointmentType(index);
         },
         child: AnimatedOpacity(
           opacity:

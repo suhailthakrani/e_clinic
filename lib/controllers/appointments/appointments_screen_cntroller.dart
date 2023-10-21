@@ -14,8 +14,8 @@ import '../../utils/date_time_manager.dart';
 class AppointmentScreenController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  RxList<Appointment> appointmentsRequests = <Appointment>[].obs;
-  RxList<Appointment> appointmentsCompleted = <Appointment>[].obs;
+  RxList<AppointmentModel> appointmentsRequests = <AppointmentModel>[].obs;
+  RxList<AppointmentModel> appointmentsCompleted = <AppointmentModel>[].obs;
   DateTimeManager sortingDate = DateTimeManager("Date of Birth");
 
   List<String> appointmentTypes = [
@@ -42,48 +42,48 @@ class AppointmentScreenController extends GetxController {
     return formattedTime;
   }
 
-  Future<void> selectAppointmentType(int index) async {
-    selectedAppointmentType.value = index;
-    if (appointmentTypes.isEmpty) {
-      appointmentsRequests.value =
-          await AppointmentService().getRequestedAppointmentsList();
-    }
-    if (index == 1 && appointmentsCompleted.isEmpty) {
-      appointmentsCompleted.value =
-          await AppointmentService().getCompletedAppointmentsList();
-    }
-  }
+  // Future<void> selectAppointmentType(int index) async {
+  //   selectedAppointmentType.value = index;
+  //   if (appointmentTypes.isEmpty) {
+  //     appointmentsRequests.value =
+  //         await AppointmentService().getRequestedAppointmentsList();
+  //   }
+  //   if (index == 1 && appointmentsCompleted.isEmpty) {
+  //     appointmentsCompleted.value =
+  //         await AppointmentService().getCompletedAppointmentsList();
+  //   }
+  // }
 
-  Future<void> acceptAppointment(String appointmentId) async {
-    String response =
-        await AppointmentService().acceptAppointment(appId: appointmentId);
-    if (response == "Success") {
-      CommonCode().showSuccessToast(
-        message: "The Appointment has been Accepted!",
-      );
-    } else {
-      CommonCode().showToast(
-        message: "Unable to Accept an Appointment!",
-      );
-    }
-  }
+  // Future<void> acceptAppointment(String appointmentId) async {
+  //   String response =
+  //       await AppointmentService().acceptAppointment(appId: appointmentId);
+  //   if (response == "Success") {
+  //     CommonCode().showSuccessToast(
+  //       message: "The Appointment has been Accepted!",
+  //     );
+  //   } else {
+  //     CommonCode().showToast(
+  //       message: "Unable to Accept an Appointment!",
+  //     );
+  //   }
+  // }
 
-  Future<void> rejectAppointment(String appointmentId) async {
-    CustomDialogs().showAwesomeConfirmationDialog(
-      "Are you sure you want to cancel appointment?",
-      onOkBtnPressed: () async {
-        String response =
-            await AppointmentService().acceptAppointment(appId: appointmentId);
-        if (response == "Success") {
-          CommonCode().showToast(
-            message: "The Appointment has been Rejected!",
-          );
-        } else {
-          CommonCode().showToast(
-            message: "Unable to Reject an Appointment!",
-          );
-        }
-      },
-    );
-  }
+  // Future<void> rejectAppointment(String appointmentId) async {
+  //   CustomDialogs().showAwesomeConfirmationDialog(
+  //     "Are you sure you want to cancel appointment?",
+  //     onOkBtnPressed: () async {
+  //       String response =
+  //           await AppointmentService().acceptAppointment(appId: appointmentId);
+  //       if (response == "Success") {
+  //         CommonCode().showToast(
+  //           message: "The Appointment has been Rejected!",
+  //         );
+  //       } else {
+  //         CommonCode().showToast(
+  //           message: "Unable to Reject an Appointment!",
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 }

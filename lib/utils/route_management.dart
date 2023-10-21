@@ -1,8 +1,9 @@
-import 'package:e_clinic/ui/screens/a_new/doctor_details_screen.dart';
+import 'package:e_clinic/ui/screens/main_screen/components/book_appointment_screen.dart';
 import 'package:e_clinic/ui/screens/settings/components/notification_settings_screen.dart';
 import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/screens/main_screen/components/doctor_details_screen.dart';
 import '../ui/screens/main_screen/main_screen.dart';
 import '../ui/screens/payments/components/verification_screen/verification_driver_screen.dart';
 import '../ui/screens/payments/components/verification_screen/verification_id_screen.dart';
@@ -157,11 +158,11 @@ class RouteManagement {
           page: () => DoctorDetailsScreen(),
           binding: ScreensBindings(),
         ),
-  //       GetPage(
-  //         name: '/book_appointment',
-  //         page: () => BookAppointmentView(),
-  //         binding: DoctorsBinding(),
-  //       ),
+        GetPage(
+          name: kBookAppointmentScreenRoute,
+          page: () => const BookAppointmentScreen(),
+          binding: ScreensBindings(),
+        ),
       // GetPage(name: '/logout', page: () => LogoutScreen()),
     ];
   }

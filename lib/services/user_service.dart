@@ -1,5 +1,7 @@
 /*Created By: Suhail Thakrani on 23-Sept-2023*/
 
+import 'dart:math';
+
 import '../models/user_login_model.dart';
 import '../services/service_urls.dart';
 
@@ -48,12 +50,13 @@ class UserService {
         url: kLoginURL,
         requestBody: {'email': username, 'password': password},
         requireToken: false);
-    if (responseModel.message == "Success" &&
+    if ((responseModel.message == "Login successful" || responseModel.message == "Success")&&
         responseModel.data != null &&
         responseModel.data['token'] != null) {
+          print("================================================${responseModel.toString()}");
       user = UserModel.fromJson(responseModel.data['user'] ?? {});
-      UserSession().saveToken(
-          token: TokenModel.fromString(responseModel.data['token'] ?? ''));
+      UserSession().saveToken(token: TokenModel.fromString(responseModel.data['token'] ?? ''));
+      print("=========================${responseModel.data['token'] ?? ''}");
     } else {
       user.responseMessage = responseModel.message;
     }

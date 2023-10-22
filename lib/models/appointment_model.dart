@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:intl/intl.dart';
+
 import '../models/doctor_model.dart';
 import '../models/general_models.dart';
 import '../models/patient_model.dart';
@@ -51,17 +55,21 @@ class AppointmentModel {
   }
   AppointmentModel.empty();
 
-  Map<String, dynamic> toJson() {
+  Map<String, String> toJson() {
+    String formattedDateTime = DateFormat("yyyy-MM-ddTHH:mm:ss.SSS").format(date.toUtc());
+    log("====================${formattedDateTime}");
     return {
       // 'id': id,
-      'date': '2023-10-22T15:30:08.504Z',
+      'doctorId': doctorId,
+      'patient_name': patientName,
+      'date': '${formattedDateTime}Z',
       'time': time,
       // 'charges': charges,
       'appointment_type': type,
-      'patient_name': patientName,
+      
       'message': message,
       // 'doctorId': doctor.id,
-      'doctorId': doctorId,
+      
       // 'Patient': patient.toJson(),
       // 'patientId': patientId,
       // 'status': status,

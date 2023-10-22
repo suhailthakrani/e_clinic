@@ -1,5 +1,6 @@
-import '../../../../controllers/payments/payment_screen_controller.dart';
-import '../../../../utils/colors.dart';
+import 'package:e_clinic/utils/colors.dart';
+
+import '../../../../../controllers/payments/payment_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,7 @@ class PaymentMethodCard extends GetView<PaymentsController> {
               borderRadius: BorderRadius.circular(16.w),
               elevation:  controller.selectedPaymentIndex.value == index  ? 10 : 0,
               child: Container(
-                height: 70.h,
+                height: 60.h,
                 width: 160.w,
                 decoration: BoxDecoration(
                   color:  controller.selectedPaymentIndex.value == index  ? kPrimaryColor : Colors.white,

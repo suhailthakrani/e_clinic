@@ -86,21 +86,21 @@ class CustomDrawer extends Drawer {
             //         predicate: ((route) => route.isFirst));
             //   },
             // ),
-            // ListTile(
-            //   leading: Padding(
-            //     padding: const EdgeInsets.all(12),
-            //     child: Image.asset(
-            //       'assets/images/payments.png',
-            //       scale: 0.1,
-            //       color: kPrimaryColor,
-            //     ),
-            //   ),
-            //   title: const Text('Payments'),
-            //   onTap: () {
-            //     Get.offAllNamed(kPaymentScreenRoute,
-            //         predicate: ((route) => route.isFirst));
-            //   },
-            // ),
+            ListTile(
+              leading: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Image.asset(
+                  'assets/images/payments.png',
+                  scale: 0.1,
+                  color: kPrimaryColor,
+                ),
+              ),
+              title: const Text('Payments'),
+              onTap: () {
+                Get.offAllNamed(kPaymentScreenRoute,
+                    predicate: ((route) => route.isFirst));
+              },
+            ),
             // ListTile(
             //   leading: Padding(
             //     padding: const EdgeInsets.all(12),

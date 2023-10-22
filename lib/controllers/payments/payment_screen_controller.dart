@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../ui/screens/payments/components/payment_method_card.dart';
 
 class PaymentsController extends GetxController {
 

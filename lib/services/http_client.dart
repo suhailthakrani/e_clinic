@@ -61,7 +61,7 @@ class HTTPClient extends GetConnect {
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
       return Future.value(
-          ResponseModel.named(message: kServiceError, data: e.toString()));
+          ResponseModel.named(message: e.toString(), data: e.toString()));
     }
   }
 
@@ -117,14 +117,14 @@ class HTTPClient extends GetConnect {
           ResponseModel.named(message: kNoInternetMsg, data: kNoInternetMsg));
     }
     try {
-      // Map<String, String> customHeader = await _getHeaders();
+      Map<String, String> customHeader = await _getHeaders();
       // customHeader['Connection'] = 'keep-alive';
       // customHeader['Accept'] = 'application/json';
       // customHeader['Content-Type'] = 'multipart/form-data';
       http.MultipartRequest request =
           http.MultipartRequest('POST', Uri.parse(url));
 
-      // request.headers.addAll(customHeader);
+      request.headers.addAll(customHeader);
       request.fields.addAll(fields);
 
       for (MapEntry<String, String> file in files.entries) {
@@ -141,12 +141,13 @@ class HTTPClient extends GetConnect {
       http.StreamedResponse streamedResponse = await request.send();
       http.Response httpResponse =
           await http.Response.fromStream(streamedResponse);
-      print('────────────────────url> $url');
-      print('────────────────────files> $files');
-      print('────────────────────fields> $fields');
-      print('────────────────────Response.body> ${httpResponse.body}');
+      log('────────────────────url> $url');
+      log('────────────────────files> $files');
+      log('────────────────────fields> $fields');
+      log('────────────────────Response.body> ${httpResponse.body}');
       ResponseModel response =
           ResponseModel.fromJson(jsonDecode(httpResponse.body));
+      log(response.toString());
       return Future.value(response);
     } on TimeoutException catch (e) {
       return Future.value(ResponseModel.named(
@@ -154,14 +155,14 @@ class HTTPClient extends GetConnect {
     } on SocketException catch (e){
       return Future.value(
           ResponseModel.named(message: "Bad Request", data: "$e"));
-    } catch (e) {
+    } on Exception catch (e) {
       if (!(await CommonCode().checkInternetAccess())) {
         return Future.value(ResponseModel.named(
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
       log('---------------------------${e.toString()}');
       return Future.value(
-          ResponseModel.named(message: 'ERROR', data: e.toString()));
+          ResponseModel.named(message: e.toString(), data: e.toString()));
     }
   }
 
@@ -209,9 +210,14 @@ class HTTPClient extends GetConnect {
 
 Future<Map<String, String>> _getHeaders() async {
   TokenModel? token = await UserSession().getToken();
-  if (token.accessToken.isNotEmpty) {
-    return {'Authorization': 'Bearer ${token.accessToken}'};
+  log("==============${token.accessToken}");
+ if (token.accessToken.isNotEmpty) {
+    print('----------------------------______________________');
+    return {'X-Auth-Token': token.accessToken};
+    // return {'Authorization': 'Bearer ${token.accessToken}'};
   } else {
+    print('\______________________');
+
     return {};
   }
 }

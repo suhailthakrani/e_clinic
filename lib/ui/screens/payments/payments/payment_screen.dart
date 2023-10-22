@@ -1,13 +1,14 @@
-import '../../../ui/screens/payments/components/payment_method_card.dart';
-import '../../../ui/widgets/custom_scaffold.dart';
-import '../../../ui/widgets/input_field.dart';
-import '../../../utils/text_styles.dart';
+import 'package:e_clinic/controllers/payments/payment_screen_controller.dart';
+import 'package:e_clinic/ui/widgets/button2.dart';
+import 'package:e_clinic/ui/widgets/custom_scaffold.dart';
+import 'package:e_clinic/utils/text_styles.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/payments/payment_screen_controller.dart';
-import '../../widgets/button2.dart';
+import '../../../widgets/input_field.dart';
+import 'components/payment_method_card.dart';
 import 'components/small_info_button.dart';
 
 class PaymentsScreen extends GetView<PaymentsController> {
@@ -37,7 +38,7 @@ class PaymentsScreen extends GetView<PaymentsController> {
                         SizedBox(width: 10.w),
                         Text(
                           "Add Payment Method",
-                          style: textTheme.displayMedium,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.h),
                         ),
                       ],
                     ),

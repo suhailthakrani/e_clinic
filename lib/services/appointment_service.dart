@@ -61,12 +61,13 @@ class AppointmentService {
   //   }
   //   return appointLst;
   // }
-   Future<String> bookAppointment({required AppointmentModel appointment}) async {
+   Future<ResponseModel> bookAppointment({required AppointmentModel appointment}) async {
     ResponseModel responseModel = await _httpClient.postRequest(
       url: kBookAppointmentURL,
       requestBody: appointment.toJson(),
+      requireToken: true,
     );
-    return responseModel.message;
+    return responseModel;
   }
 
 

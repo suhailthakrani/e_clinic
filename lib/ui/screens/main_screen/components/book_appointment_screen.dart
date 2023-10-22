@@ -40,7 +40,21 @@ class BookAppointmentScreen extends GetView<BookAppointmentScreenController> {
             ),
             GeneralDropdown.withShadow(
               controller: controller.genderDDontroller,
+              onItemChanged: (item) {
+                if(item.toString().toLowerCase() == "physical") {
+                  controller.paymentController.controller.text = 'RS. ${controller.doctor.value.charges.physical}'; 
+                } else{
+                  controller.paymentController.controller.text = 'RS. ${controller.doctor.value.charges.virtual}';
+                }
+              },
             ),
+             GeneralTextField.withBorder(
+              tfManager: controller.paymentController,
+              paddingVertical: 0,
+              paddingHorizontal: 0,
+              readOnly: true,
+            ),
+            
             GeneralTextField.withBorder(
               tfManager: controller.emailController,
               paddingVertical: 0,

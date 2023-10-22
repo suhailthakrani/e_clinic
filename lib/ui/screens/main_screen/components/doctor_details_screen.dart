@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:e_clinic/controllers/a_new/doctor_list_controller.dart';
@@ -284,7 +285,7 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                 onPressed: () {
                   
                   Get.toNamed(kBookAppointmentScreenRoute, arguments: {
-                    'drID': controller.doctorsList[controller.selectedDrIndex.value].id
+                    'dr': controller.doctorsList[controller.selectedDrIndex.value]
                   });
                 },
                 text: 'Book Appointment',

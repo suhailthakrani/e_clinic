@@ -122,8 +122,9 @@ class BookAppointmentScreenController extends GetxController {
       pd.dismissDialog();
       if (response.message == "Success") {
         String paymentUrl = response.data['paymentLink'] ?? 'https://checkout.stripe.com/c/pay/cs_test_a10YiUee9RDxLZVuLogPY21LAeFPN0PyBMu0wNZDc7MnvDGBp6Yi54H0GY#fidkdWxOYHwnPyd1blpxYHZxWjA0S21DcURCVmNzZG5WY2o2fWRiMU9udVNQVkNAT2NDcnVKQ31nN3RkVGhDYzwwTEw3aEBqd0EyN1BXdTRscnR%2FM0xGfU1tb21EQEtDQWB2Z0loZGhqYFFHNTVGT3BJVWpgMScpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl';
-        
-        Get.offAll(ConfrimPaymentScreen(paymentUrl: paymentUrl, appointmentModel: appointment));
+        String appointmentId = response.data['id'] ??'';
+        // Get.offAll(ConfrimPaymentScreen(paymentUrl: paymentUrl, appointmentModel: appointment));
+        Get.toNamed(kPaymentScreenRoute, arguments: {'id': appointmentId});
         print("--------------------${response.data}");
 
       } else {

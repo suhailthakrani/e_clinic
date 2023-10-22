@@ -231,6 +231,7 @@ class MessageBar extends StatelessWidget {
         height: 38.h,
         width: 320.w,
         child: InputField(
+          controller: TextEditingController(),
           hint: "",
           label: "Message",
           prefixIcon: IconButton(

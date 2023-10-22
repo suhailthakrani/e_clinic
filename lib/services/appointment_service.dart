@@ -32,6 +32,8 @@ class AppointmentService {
     //
   }
 
+  
+
   // Future<List<AppointmentModel>> getRequestedAppointmentModelsList() async {
   //   List<AppointmentModel> appointLst = [];
 
@@ -65,6 +67,14 @@ class AppointmentService {
     ResponseModel responseModel = await _httpClient.postRequest(
       url: kBookAppointmentURL,
       requestBody: appointment.toJson(),
+      requireToken: true,
+    );
+    return responseModel;
+  }
+
+   Future<ResponseModel> confrimPayment({required String appointmentId}) async {
+    ResponseModel responseModel = await _httpClient.postRequest(
+      url: kGetAppointmentsURL+appointmentId,
       requireToken: true,
     );
     return responseModel;

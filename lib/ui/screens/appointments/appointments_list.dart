@@ -1,8 +1,7 @@
 
 import '../../../utils/app_enum.dart';
 import 'components/appointment_card.dart';
-import 'components/previous_appointment_card.dart';
-import 'components/upcoming_appointment_card.dart';
+
 
 List<AppointmentCard> upComingAppointments = [
   AppointmentCard(

@@ -1,12 +1,12 @@
 import 'package:e_clinic/utils/colors.dart';
 
-import '../../../../../controllers/payments/payment_screen_controller.dart';
+import '../../../../controllers/payments/payment_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 
-class PaymentMethodCard extends GetView<PaymentsController> {
+class PaymentMethodCard extends GetView<PaymentScreenController> {
   const PaymentMethodCard({
     Key? key,
     required this.text,

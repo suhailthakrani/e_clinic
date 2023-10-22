@@ -1,6 +1,5 @@
 import 'package:e_clinic/ui/screens/main_screen/components/book_appointment_screen.dart';
 import 'package:e_clinic/ui/screens/payments/confrim_payment_screen.dart';
-import 'package:e_clinic/ui/screens/payments/payments/payment_screen.dart';
 import 'package:e_clinic/ui/screens/settings/components/notification_settings_screen.dart';
 import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import '../ui/screens/main_screen/main_screen.dart';
 // import '../ui/screens/payments/components/verification_screen/verification_driver_screen.dart';
 // import '../ui/screens/payments/components/verification_screen/verification_id_screen.dart';
 // import '../ui/screens/payments/components/verification_screen/verification_passport_screen.dart';
+import '../ui/screens/payments/payment_screen.dart';
 import '../ui/screens/settings/components/account_settings.dart';
 import '../ui/screens/settings/components/email_settings.dart';
 import '../ui/screens/settings/components/password_reset_settings.dart';

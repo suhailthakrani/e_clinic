@@ -47,7 +47,7 @@ class HTTPClient extends GetConnect {
       log('───────────────────POST> $url\n${response.body}');
 
       ResponseModel responseModel = ResponseModel.fromJson(
-          response.body is Map ? response.body : jsonDecode(response.body));
+          response.body is Map ? response.body : jsonDecode(response != null? response.body:''));
       return responseModel;
     } on TimeoutException {
       return Future.value(ResponseModel.named(
@@ -55,13 +55,13 @@ class HTTPClient extends GetConnect {
     } on SocketException catch (e) {
       return Future.value(
           ResponseModel.named(message: "Bad Request", data: '$e'));
-    } catch (e) {
+    } on Exception catch (e) {
       if (!(await CommonCode().checkInternetAccess())) {
         return Future.value(ResponseModel.named(
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
       return Future.value(
-          ResponseModel.named(message: e.toString(), data: e.toString()));
+          ResponseModel.named(message: kServiceError, data: e.toString()));
     }
   }
 

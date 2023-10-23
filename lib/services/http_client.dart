@@ -47,7 +47,7 @@ class HTTPClient extends GetConnect {
       log('───────────────────POST> $url\n${response.body}');
 
       ResponseModel responseModel = ResponseModel.fromJson(
-          response.body is Map ? response.body : jsonDecode(response != null? response.body:''));
+          response.body is Map ? response.body : jsonDecode(response.body));
       return responseModel;
     } on TimeoutException {
       return Future.value(ResponseModel.named(
@@ -61,7 +61,7 @@ class HTTPClient extends GetConnect {
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
       return Future.value(
-          ResponseModel.named(message: kServiceError, data: e.toString()));
+          ResponseModel.named(message: e.toString(), data: e.toString()));
     }
   }
 
@@ -104,7 +104,7 @@ class HTTPClient extends GetConnect {
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
       return Future.value(
-          ResponseModel.named(message: kServiceError, data: kServiceError));
+          ResponseModel.named(message: e.toString(), data: e.toString()));
     }
   }
 
@@ -211,7 +211,17 @@ class HTTPClient extends GetConnect {
 Future<Map<String, String>> _getHeaders() async {
   TokenModel? token = await UserSession().getToken();
   log("==============${token.accessToken}");
- if (token.accessToken.isNotEmpty) {
+   if(token.isExpired){
+    if(ProgressDialog().isOpened){
+      ProgressDialog().dismissDialog();
+    }
+    await UserSession().logout();
+    CustomDialogs().showDialog('Alert', kSessionExpireMsg, DialogType.warning, onOkBtnPressed: (){
+      Get.offAllNamed(kLoginScreenRoute);
+    });
+    return {};
+  }
+ else if (token.accessToken.isNotEmpty) {
     print('----------------------------______________________');
     return {'X-Auth-Token': token.accessToken};
     // return {'Authorization': 'Bearer ${token.accessToken}'};

@@ -1,6 +1,7 @@
 import 'package:e_clinic/controllers/payments/payment_screen_controller.dart';
 import 'package:e_clinic/ui/widgets/button2.dart';
 import 'package:e_clinic/ui/widgets/custom_scaffold.dart';
+import 'package:e_clinic/utils/colors.dart';
 import 'package:e_clinic/utils/text_styles.dart';
 
 import 'package:flutter/material.dart';
@@ -16,10 +17,17 @@ class PaymentsScreen extends GetView<PaymentScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      scaffoldKey: controller.scaffoldKey,
-      className: runtimeType.toString(),
-      screenName: 'Manage Payment',
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        elevation: 0,
+        backgroundColor: kWhiteColor,
+        foregroundColor: kBlackColor,
+        title: Text(
+          'Confrim Payment',
+          style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.all(15.w),
@@ -103,7 +111,7 @@ class PaymentsScreen extends GetView<PaymentScreenController> {
               SizedBox(height: 5.h),
               SizedBox(
                 height: 50.h,
-                width: 320.w,
+                width: Get.width * 0.9,
                 child: InputField(
                   controller: controller.cardHolderNameCOntroller,
                   hint: "Christie Doe",
@@ -129,7 +137,7 @@ class PaymentsScreen extends GetView<PaymentScreenController> {
                         SizedBox(height: 5.h),
                         SizedBox(
                           height: 56.h,
-                          width: 150.w,
+                          width: Get.width * 0.45,
                           child: InputField(
                             controller: controller.expiryDateCOntroller,
                             hint: "MM/YY",
@@ -162,10 +170,10 @@ class PaymentsScreen extends GetView<PaymentScreenController> {
                         SizedBox(height: 5.h),
                         SizedBox(
                           height: 56.h,
-                          width: 150.w,
+                          width: Get.width * 0.45,
                           child: InputField(
                             controller: controller.cvcCOntroller,
-                            hint: "MM/YY",
+                            hint: "CVV / CVC",
                             label: "",
                           ),
                         ),

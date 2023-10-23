@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:e_clinic/models/response_model.dart';
 import 'package:e_clinic/services/appointment_service.dart';
 import 'package:e_clinic/ui/widgets/custom_dialogs.dart';
+import 'package:e_clinic/ui/widgets/custom_progress_dialog.dart';
 import 'package:e_clinic/utils/common_code.dart';
 import 'package:e_clinic/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -69,9 +70,10 @@ class PaymentScreenController extends GetxController {
 
   Future<void> confrimPayment() async {
     if (isAllDataValid()) {
+      ProgressDialog pd = ProgressDialog()..showDialog();
       ResponseModel responseModel = await AppointmentService()
           .confrimPayment(appointmentId: appointmentId.value);
-
+      pd.dismissDialog();
       if (responseModel.message == 'Success') {
         CustomDialogs().showAwesomeConfirmationDialog(
             'You have Successfully created an Appointment!',

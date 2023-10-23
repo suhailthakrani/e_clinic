@@ -5,7 +5,7 @@ class TokenModel {
 
   TokenModel.fromString(String token) {
     accessToken = token;
-    // expiryTime = DateTime.now().add(const Duration(days: 20)).toString();
+    expiryTime = DateTime.now().add(const Duration(days:1)).toString();
   }
 
   TokenModel.fromSession(Map<String, dynamic> json) {

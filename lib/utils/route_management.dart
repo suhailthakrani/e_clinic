@@ -1,3 +1,4 @@
+import 'package:e_clinic/controllers/a_new/doctor_list_controller.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/book_appointment_screen.dart';
 import 'package:e_clinic/ui/screens/payments/confrim_payment_screen.dart';
 import 'package:e_clinic/ui/screens/settings/components/notification_settings_screen.dart';
@@ -5,6 +6,7 @@ import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/screens/main_screen/components/doctor_details_screen.dart';
+import '../ui/screens/main_screen/components/doctor_list_screen.dart';
 import '../ui/screens/main_screen/main_screen.dart';
 // import '../ui/screens/payments/components/verification_screen/verification_driver_screen.dart';
 // import '../ui/screens/payments/components/verification_screen/verification_id_screen.dart';
@@ -149,8 +151,8 @@ class RouteManagement {
         binding: ScreensBindings(),
       ),
       // GetPage(
-      //   name: kConfrimPaymentScreenRoute,
-      //   page: () => const ConfrimPaymentScreen(),
+      //   name: kDoctorsListScreenRoute,
+      //   page: () => const DoctorsListScreen(),
       //   binding: ScreensBindings(),
       // ),
       GetPage(

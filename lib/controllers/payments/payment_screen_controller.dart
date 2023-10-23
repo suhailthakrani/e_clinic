@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_clinic/models/response_model.dart';
 import 'package:e_clinic/services/appointment_service.dart';
 import 'package:e_clinic/ui/widgets/custom_dialogs.dart';
@@ -75,14 +76,14 @@ class PaymentScreenController extends GetxController {
           .confrimPayment(appointmentId: appointmentId.value);
       pd.dismissDialog();
       if (responseModel.message == 'Success') {
-        CustomDialogs().showAwesomeConfirmationDialog(
-            'You have Successfully created an Appointment!',
-            onOkBtnPressed: () {
+        CustomDialogs().showDialog('Success','You have Successfully created an Appointment!', DialogType.success, onOkBtnPressed: (){
           Get.offAllNamed(kMainScreenRoute);
         });
       }
     } else {
-      print("object");
+        CustomDialogs().showDialog('Alert','Unable to pay for an Appointment!', DialogType.error, onOkBtnPressed: (){
+        Get.back();
+        });
     }
   }
 }

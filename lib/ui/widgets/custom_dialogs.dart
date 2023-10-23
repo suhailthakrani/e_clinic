@@ -217,7 +217,7 @@ class CustomDialogs {
         margin: const EdgeInsets.all(6),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50),
-            child: Image.asset("assets/icons/logo.png")
+            child: Image.asset("assets/images/success_icon.png")
         ),
       ),
       btnOkText: 'YES',
@@ -247,7 +247,7 @@ class CustomDialogs {
       desc: description,
       customHeader: Container(
           margin: const EdgeInsets.all(12.0),
-          child: Image.asset("assets/images/sindh_gov_blue_logo.png")),
+          child: Image.asset("assets/images/success_icon.png")),
       btnOkOnPress: () {
         if(onOkBtnPressed != null ){onOkBtnPressed();}
       },

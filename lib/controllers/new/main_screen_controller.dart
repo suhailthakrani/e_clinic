@@ -12,8 +12,10 @@ class MainScreenController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   RxInt selectedDrIndex = RxInt(-1);
+  RxString category = ''.obs;
 
   RxList<Doctor> doctorsList = <Doctor>[].obs;
+  RxList<Doctor> categorywiseDOctors = RxList([]); 
 
   // RxList<CategoryModel> doctorsCategories = [
   //   CategoryModel(dept: 'Psychiatry', image: "assets\images\Psychiatry.png", noOfDr: '12'),
@@ -53,6 +55,7 @@ class MainScreenController extends GetxController {
   ];
 
   RxList<String> categoriesList = RxList([]);
+
   RxList<String> categoriesImagesList =
       RxList([]);
 
@@ -65,7 +68,7 @@ class MainScreenController extends GetxController {
       String image = imagesList[i % imagesList.length];
       categoriesImagesList.add(image);
     }
-    categoriesList.add('dermatology');
+    categoriesList.add('Dermatology');
     categoriesImagesList.add("assets/images/dermatology.png");
 
     doctorsList.value = await DoctorsService().getDoctorsList();
@@ -94,7 +97,7 @@ class MainScreenController extends GetxController {
     // doctorsList.refresh();
     super.onInit();
   }
-
+ 
   final RxInt selectedScreenIndex = 0.obs;
 
   void selectScreen(int index) {

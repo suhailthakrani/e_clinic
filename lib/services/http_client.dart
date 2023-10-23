@@ -46,8 +46,10 @@ class HTTPClient extends GetConnect {
       log('───────────────────POST> $requestBody');
       log('───────────────────POST> $url\n${response.body}');
 
+      
+
       ResponseModel responseModel = ResponseModel.fromJson(
-          response.body is Map ? response.body : jsonDecode(response.body));
+          response.body is Map ? response.body : jsonDecode(response.body ?? ''));
       return responseModel;
     } on TimeoutException {
       return Future.value(ResponseModel.named(
@@ -60,8 +62,12 @@ class HTTPClient extends GetConnect {
         return Future.value(ResponseModel.named(
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
+      if(e.toString().contains('Invalid credentials')) {
+        return Future.value(
+          ResponseModel.named(message: "Invalid credentials", data: e.toString()));
+      }
       return Future.value(
-          ResponseModel.named(message: e.toString(), data: e.toString()));
+          ResponseModel.named(message: kServiceError, data: e.toString()));
     }
   }
 

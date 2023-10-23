@@ -42,7 +42,7 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => ProfessionalInfoSettingsController());
     Get.lazyPut(() => PrescriptionScreenController());
 
-     Get.lazyPut(() => DoctorsListController());
+    //  Get.lazyPut(() => DoctorsListController());
 
      Get.lazyPut(() => BookAppointmentScreenController());
 

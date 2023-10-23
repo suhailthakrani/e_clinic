@@ -73,7 +73,7 @@ class AppointmentService {
   }
 
    Future<ResponseModel> confrimPayment({required String appointmentId}) async {
-    ResponseModel responseModel = await _httpClient.postRequest(
+    ResponseModel responseModel = await _httpClient.putRequest(
       url: kGetAppointmentsURL+appointmentId,
       requireToken: true,
     );

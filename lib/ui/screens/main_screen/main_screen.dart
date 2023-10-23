@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:e_clinic/models/doctor_model.dart';
+import 'package:e_clinic/services/service_urls.dart';
 import 'package:e_clinic/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -13,7 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../widgets/custom_search_field.dart';
-
+import 'components/doctor_list_screen.dart';
 
 class MainScreen extends GetView<MainScreenController> {
   const MainScreen({super.key});
@@ -200,42 +202,62 @@ class MainScreen extends GetView<MainScreenController> {
               SizedBox(
                 height: Get.height * 0.2,
                 child: Obx(
-                  () => controller.doctorsList.isNotEmpty
-                  ? ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: controller.categoriesList.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        width: Get.width * 0.4,
-                        child: buildCard(
-                          title: controller.categoriesList[index],
-                          desc: "${Random().nextInt(10)+1 } Specialists",
-                              // '${controller.doctorsCategories[index].noOfDr} Specialists',
-                          // imgUrl: controller.doctorsCategories[index].image,
-                          imgUrl: controller.categoriesImagesList[index]??"assets/images/dermatology.png",
-                        ),
-                      );
-                    },
-                  )
-                  : ListView.builder(
-                            itemCount: 7,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => Container(
-                              margin: const EdgeInsets.only(right: 16),
-                              height: Get.height * 0.2,
+                  () => controller.categoriesList.isNotEmpty
+                      ? ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: controller.categoriesList.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return SizedBox(
                               width: Get.width * 0.4,
-                              decoration: BoxDecoration(
-                                color: kWhiteColor,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.shade100,
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(16),
+                              child: InkWell(
+                                onTap: () async {
+                                  List<Doctor> doctors = [];
+                                  try {
+                                    doctors = controller.doctorsList
+                                        .where((p0) =>p0.specialization.isNotEmpty)
+                                        .toList();
+                                    print(doctors);
+                                  } on Exception catch (e) {
+                                    // TODO
+                                  }
+                                  await Get.to(() => DoctorsListScreen(
+                                      doctors: doctors,
+                                      category:
+                                          controller.categoriesList[index]));
+                                },
+                                child: buildCard(
+                                  title: controller.categoriesList[index],
+                                  desc:
+                                      "${Random().nextInt(10) + 1} Specialists",
+                                  // '${controller.doctorsCategories[index].noOfDr} Specialists',
+                                  // imgUrl: controller.doctorsCategories[index].image,
+                                  imgUrl:
+                                      controller.categoriesImagesList[index] ??
+                                          "assets/images/dermatology.png",
+                                ),
                               ),
+                            );
+                          },
+                        )
+                      : ListView.builder(
+                          itemCount: 7,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => Container(
+                            margin: const EdgeInsets.only(right: 16),
+                            height: Get.height * 0.2,
+                            width: Get.width * 0.4,
+                            decoration: BoxDecoration(
+                              color: kWhiteColor,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade100,
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(16),
                             ),
                           ),
+                        ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -389,12 +411,12 @@ class MainScreen extends GetView<MainScreenController> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      " ${Random().nextInt(10) + 1} Years",
+                                                      " ${Random().nextInt(10) + 1}+ Years",
                                                       style: const TextStyle(
-                                                        color: Colors.black87,
-                                                        fontSize: 14,
+                                                        color: Colors.black54,
+                                                        fontSize: 13,
                                                         fontWeight:
-                                                            FontWeight.w600,
+                                                            FontWeight.w500,
                                                       ),
                                                     ),
                                                   ],
@@ -407,10 +429,10 @@ class MainScreen extends GetView<MainScreenController> {
                                                     // ),
                                                     // const SizedBox(width: 4),
                                                     Text(
-                                                      "${controller.doctorsList[index].workingHours.startTime} to ${controller.doctorsList[index].workingHours.endTime}",
+                                                      "Timing: ${controller.doctorsList[index].workingHours.startTime} to ${controller.doctorsList[index].workingHours.endTime}",
                                                       style: const TextStyle(
                                                         color: kBlack90Color,
-                                                        fontSize: 14,
+                                                        fontSize: 13,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
@@ -430,9 +452,10 @@ class MainScreen extends GetView<MainScreenController> {
                                                     // SizedBox(width: 4),
                                                     Expanded(
                                                       child: Text(
-                                                        "${controller.doctorsList[index].address} ${controller.doctorsList[index].city}",
+                                                        "Address: ${controller.doctorsList[index].address} ${controller.doctorsList[index].city}",
                                                         maxLines: 2,
-                                                        overflow: TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: const TextStyle(
                                                           color: kBlack90Color,
                                                           fontSize: 12,

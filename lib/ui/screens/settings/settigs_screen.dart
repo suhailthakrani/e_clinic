@@ -26,7 +26,7 @@ class SettingsScreen extends GetView<SettingsController> {
       // ),
       body: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
-        padding: const EdgeInsets.all( 16),
+        padding: const EdgeInsets.all(16),
         height: Get.height,
         width: Get.width,
         child: Column(
@@ -41,22 +41,54 @@ class SettingsScreen extends GetView<SettingsController> {
               "Personalize Your Account Settings",
               style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 20.h),
             Container(
+              height: Get.height * 0.7,
               decoration: BoxDecoration(
                   color: kWhiteColor,
-                  borderRadius: BorderRadius.circular(8.r),
-                  boxShadow: const [
-                    BoxShadow(color: kFieldShadowColor, offset: Offset(-1, -1)),
-                    BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
+                  borderRadius: BorderRadius.circular(12.r),
+                  boxShadow:  [
+                    BoxShadow(color: kFieldShadowColor.withOpacity(0.5), offset: Offset(-2, -2)),
+                    BoxShadow(color: kFieldShadowColor.withOpacity(0.5), offset: Offset(2, 2))
                   ]),
               padding: EdgeInsets.symmetric(vertical: 8.h),
               child: Column(
                 children: [
+                  // CustomTile(
+                  //     title: 'Account Settings',
+                  //     onTap: () {
+                  //       Get.toNamed(kAccountSettingsScreenRoute);
+                  //     }),
+                  // const Divider(),
+
                   CustomTile(
-                      title: 'Account Settings',
+                      title: 'Personal Info',
                       onTap: () {
-                        Get.toNamed(kAccountSettingsScreenRoute);
+                        Get.toNamed(kPersonalInfoSettingsScreenRoute);
+                      }),
+                  const Divider(),
+                  // CustomTile(
+                  //     title: 'Professional Info',
+                  //     onTap: () {
+                  //       Get.toNamed(kProfessionalInfoSettingsScreenRoute);
+                  //     }),
+                  // const Divider(),
+                  CustomTile(
+                      title: 'Email',
+                      onTap: () {
+                        Get.toNamed(kEmailSettingsScreenRoute);
+                      }),
+                  const Divider(),
+                  CustomTile(
+                      title: 'Phone Number',
+                      onTap: () {
+                        Get.toNamed(kPhoneNoSettingsScreenRoute);
+                      }),
+                  const Divider(),
+                  CustomTile(
+                      title: 'Password',
+                      onTap: () {
+                        Get.toNamed(kPasswordSettingsScreenRoute);
                       }),
                   const Divider(),
                   CustomTile(
@@ -65,11 +97,25 @@ class SettingsScreen extends GetView<SettingsController> {
                         Get.toNamed(kNotificationSettingsScreenRoute);
                       }),
                   const Divider(),
-                  CustomTile(
-                    title: 'Logout',
+
+                  ListTile(
+                    dense: true,
+                    // contentPadding: EdgeInsets.zero,
+                    tileColor: kWhiteColor,
+                    titleTextStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: kRequiredRedColor),
+                    splashColor: kFieldBorderColor,
+                    title: const Text('Deactivate Account'),
                     onTap: () {},
-                    icon: const SizedBox(),
                   ),
+                  // const Divider(),
+                  // CustomTile(
+                  //   title: 'Logout',
+                  //   onTap: () {},
+                  //   icon: const SizedBox(),
+                  // ),
                 ],
               ),
             ),

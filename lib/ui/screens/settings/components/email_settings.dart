@@ -27,12 +27,13 @@ class EmailSettingsScreen extends GetView<EmailSettingsController> {
         child: Container(
           height: Get.height,
           width: Get.width,
+          //  margin: EdgeInsets.all(16),
           decoration: BoxDecoration(
               color: kWhiteColor,
-              borderRadius: BorderRadius.circular(8.r),
-              boxShadow: const [
-                BoxShadow(color: kFieldShadowColor, offset: Offset(-1, -1)),
-                BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
+              borderRadius: BorderRadius.circular(12.r),
+              boxShadow:  [
+                BoxShadow(color: Colors.grey.shade200, offset: Offset(-2, -2)),
+                BoxShadow(color: Colors.grey.shade200, offset: Offset(2, 2))
               ]),
           padding: EdgeInsets.all(16.w),
           child: SingleChildScrollView(
@@ -41,17 +42,17 @@ class EmailSettingsScreen extends GetView<EmailSettingsController> {
               children: [
               
                
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 GeneralTextField.withShadow(
                   tfManager: controller.currentEmailControler,
                   paddingVertical: 0,
-                  paddingHorizontal: 4,
+                  paddingHorizontal: 0,
                 ),
                 SizedBox(height: 20.h),
                 GeneralTextField.withShadow(
                   tfManager: controller.newEmailControler,
                   paddingVertical: 0,
-                  paddingHorizontal: 4,
+                  paddingHorizontal: 0,
                 ),
                 SizedBox(height: 20.h),
                 const Padding(
@@ -67,13 +68,13 @@ class EmailSettingsScreen extends GetView<EmailSettingsController> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 GeneralTextField.withShadow(
                   tfManager: controller.confrimEmailControler,
                   paddingVertical: 0,
-                  paddingHorizontal: 4,
+                  paddingHorizontal: 0,
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 50),
                 Center(
                   child: SizedBox(
                     width: Get.width * 0.9,

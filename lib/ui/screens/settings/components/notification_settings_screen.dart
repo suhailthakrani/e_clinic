@@ -1,10 +1,5 @@
 import '../../../../controllers/general_controllers.dart';
-import '../../../../controllers/settings/account_settings_screen_controller.dart';
-import '../../../../ui/widgets/custom_scaffold.dart';
-import '../../../../ui/widgets/custom_tile.dart';
 import '../../../../utils/colors.dart';
-import '../../../../utils/constants.dart';
-import '../../../../utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,12 +22,12 @@ class NotificationsSettingsScreen
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8),
+        // margin: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(12.r),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
+        // padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
         child: Container(
           decoration: BoxDecoration(
               color: kWhiteColor,
@@ -48,6 +43,7 @@ class NotificationsSettingsScreen
               children: [
                 for (int i = 0; i < 10; i++)
                   ListTile(
+                    minVerticalPadding: 12,
                     title: const Text(
                       'Appointment reminders and updates',
                       maxLines: 1,
@@ -59,9 +55,12 @@ class NotificationsSettingsScreen
                       fontWeight: FontWeight.w600,
                     
                     ),
-                    subtitle: const Text(
-                      'You’ve got upcoming appointments or there are other updates about your bookings.',
-                      maxLines: 3,
+                    subtitle: const Padding(
+                      padding: EdgeInsets.symmetric(vertical:4.0),
+                      child: Text(
+                        'You’ve got upcoming appointments or there are other updates about your bookings.',
+                        maxLines: 3,
+                      ),
                     ),
                     trailing: Switch(value: i%2 != 0, onChanged: (value) {}),
                   ),

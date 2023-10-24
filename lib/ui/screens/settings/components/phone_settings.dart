@@ -27,12 +27,13 @@ class PhoneNoSettingsScreen extends GetView<PhoneNoSettingsController> {
         child: Container(
           height: Get.height,
           width: Get.width,
+          // margin: EdgeInsets.all(16),
           decoration: BoxDecoration(
               color: kWhiteColor,
-              borderRadius: BorderRadius.circular(8.r),
-              boxShadow: const [
-                BoxShadow(color: kFieldShadowColor, offset: Offset(-1, -1)),
-                BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
+              borderRadius: BorderRadius.circular(12.r),
+              boxShadow:  [
+                BoxShadow(color: Colors.grey.shade200, offset: Offset(-2, -2)),
+                BoxShadow(color: Colors.grey.shade200, offset: Offset(2, 2))
               ]),
           padding: EdgeInsets.all(16.w),
           child: SingleChildScrollView(
@@ -65,7 +66,7 @@ class PhoneNoSettingsScreen extends GetView<PhoneNoSettingsController> {
                   paddingVertical: 0,
                   paddingHorizontal: 4,
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 50.h),
                 Center(
                   child: SizedBox(
                     width: Get.width * 0.9,
@@ -77,9 +78,9 @@ class PhoneNoSettingsScreen extends GetView<PhoneNoSettingsController> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: const BorderSide(color: kBlueColor)),
+                            side:  BorderSide(color: kPrimaryColor)),
                         foregroundColor: kWhiteColor,
-                        backgroundColor: kBlueColor,
+                        backgroundColor: kPrimaryColor,
                       ),
                       child: const Text(
                         "Send OTP",
@@ -97,9 +98,9 @@ class PhoneNoSettingsScreen extends GetView<PhoneNoSettingsController> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: const BorderSide(color: kBlueColor)),
+                            side:  BorderSide(color: kPrimaryColor)),
                         backgroundColor: kWhiteColor,
-                        foregroundColor: kBlueColor,
+                        foregroundColor: kPrimaryColor,
                       ),
                       child: const Text(
                         "Cancel",

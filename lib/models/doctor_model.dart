@@ -1,5 +1,4 @@
 import '../models/appointment_model.dart';
-import '../models/general_models.dart';
 import '../models/user_model.dart';
 
 class Doctor {

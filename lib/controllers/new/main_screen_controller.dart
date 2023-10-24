@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:e_clinic/controllers/a_new/doctor_list_controller.dart';
 import 'package:e_clinic/services/doctors_service.dart';
 import 'package:e_clinic/utils/text_field_manager.dart';
 import 'package:flutter/material.dart';

@@ -223,7 +223,7 @@ Future<Map<String, String>> _getHeaders() async {
     }
     await UserSession().logout();
     CustomDialogs().showDialog('Alert', kSessionExpireMsg, DialogType.warning, onOkBtnPressed: (){
-      Get.offAllNamed(kLoginScreenRoute);
+      Get.off(kLoginScreenRoute);
     });
     return {};
   }

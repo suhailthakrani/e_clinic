@@ -38,7 +38,7 @@ class PasswordSettingsScreen extends GetView<PasswordSettingsController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 GeneralTextField.withShadow(
                   tfManager: controller.currentPasswordControler,
                   paddingVertical: 0,
@@ -82,9 +82,9 @@ class PasswordSettingsScreen extends GetView<PasswordSettingsController> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: const BorderSide(color: kBlueColor)),
+                            side:  BorderSide(color: kPrimaryColor)),
                         foregroundColor: kWhiteColor,
-                        backgroundColor: kBlueColor,
+                        backgroundColor: kPrimaryColor,
                       ),
                       child: const Text(
                         "Save Changes",
@@ -102,9 +102,9 @@ class PasswordSettingsScreen extends GetView<PasswordSettingsController> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(color: kBlueColor)),
+                            side: BorderSide(color: kPrimaryColor)),
                         backgroundColor: kWhiteColor,
-                        foregroundColor: kBlueColor,
+                        foregroundColor: kPrimaryColor,
                       ),
                       child: const Text(
                         "Cancel",

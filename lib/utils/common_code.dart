@@ -75,18 +75,23 @@ class CommonCode {
     return false;
   }
 
-  Widget showProgressIndicator(bool visibility, bool isListEmpty) {
+   Widget showProgressIndicator(bool visibility, bool isListEmpty) {
     return visibility ? Visibility(
         visible: visibility,
         child:  Padding(
-            padding: const EdgeInsets.only(top: 100),
+            padding: EdgeInsets.only(top: Get.height*0.3),
             child: Center(child: CircularProgressIndicator(color: kPrimaryColor,strokeWidth: 2)))
     ) : Visibility(
       visible: isListEmpty,
       child: Container(
         alignment: Alignment.center,
-        padding: const EdgeInsets.only(top: 100),
-        child: const Text('No Data Found !', style: TextStyle(fontSize: 20, color: kTextHintColor),),
+        padding: EdgeInsets.only(top: Get.height*0.3),
+        child: Column(
+          children: [
+            Image.asset('assets/icons_new/empty-list.png', width: 120, color: kFieldShadowColor,),
+            const Text('No Data Found!', style: TextStyle(fontSize: 22, color: kFieldShadowColor, fontWeight: FontWeight.bold),),
+          ],
+        ),
       ),
     );
   }

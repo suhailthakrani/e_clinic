@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:e_clinic/controllers/a_new/doctor_list_controller.dart';
+import 'package:e_clinic/controllers/new/doctor_details_screen_controller.dart';
 import 'package:e_clinic/controllers/new/main_screen_controller.dart';
 import 'package:e_clinic/ui/widgets/general_button.dart';
 import 'package:e_clinic/utils/constants.dart';
@@ -14,7 +15,7 @@ import 'package:get/get.dart';
 import '../../../../utils/colors.dart';
 import '../../../widgets/ratings_card.dart';
 
-class DoctorDetailsScreen extends GetView<MainScreenController> {
+class DoctorDetailsScreen extends GetView<DoctorDetailsScreenController> {
   // final int doctorIndex;
 
   DoctorDetailsScreen({
@@ -73,9 +74,7 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                         height: Get.height * 0.24,
                         decoration: ShapeDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(controller
-                                .doctorsList[controller.selectedDrIndex.value]
-                                .image),
+                            image: NetworkImage(controller.doctor.value.image),
                             fit: BoxFit.fill,
                           ),
                           shape: RoundedRectangleBorder(
@@ -92,7 +91,7 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                 child: Row(
                   children: [
                     Text(
-                      "Dr. ${controller.doctorsList[controller.selectedDrIndex.value].firstName} ${controller.doctorsList[controller.selectedDrIndex.value].lastName}",
+                      "Dr. ${controller.doctor.value.firstName} ${controller.doctor.value.lastName}",
                       style: const TextStyle(
                         color: Color(0xFF333333),
                         fontSize: 20,
@@ -118,11 +117,15 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
               Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(width: 20, height: 20, child: Image.asset('assets/images/icons8-verified-48.png'),),
+                  SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: Image.asset('assets/images/icons8-verified-48.png'),
+                  ),
                   const SizedBox(width: 8),
                   Text(
-                    controller.doctorsList[controller.selectedDrIndex.value].specialization,
-                    style:  TextStyle(
+                    controller.doctor.value.specialization,
+                    style: TextStyle(
                       color: kPrimaryColor,
                       fontSize: 14,
                       fontFamily: 'Poppins',
@@ -135,8 +138,7 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                   Row(
                     children: [
                       RatingBarIndicator(
-                        rating:
-                            double.parse(controller.doctorsList[controller.selectedDrIndex.value].rating),
+                        rating: double.parse(controller.doctor.value.rating),
                         itemBuilder: (context, index) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -146,7 +148,7 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                         direction: Axis.horizontal,
                       ),
                       Text(
-                        "  (${controller.doctorsList[controller.selectedDrIndex.value].reviewsCount}+)",
+                        "  (${controller.doctor.value.reviewsCount}+)",
                         style: const TextStyle(
                           color: Colors.black54,
                           fontSize: 12,
@@ -162,7 +164,10 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
               ),
               Row(
                 children: [
-                   Icon(Icons.call, color: kPrimaryColor,),
+                  Icon(
+                    Icons.call,
+                    color: kPrimaryColor,
+                  ),
                   const SizedBox(
                     width: 8,
                   ),
@@ -180,13 +185,16 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
               const SizedBox(
                 height: 8,
               ),
-               Row(
+              Row(
                 children: [
-                  Icon(Icons.mail_outline, color: kPrimaryColor,),
+                  Icon(
+                    Icons.mail_outline,
+                    color: kPrimaryColor,
+                  ),
                   const SizedBox(
                     width: 8,
                   ),
-                 const Text(
+                  const Text(
                     'mediinfo-tlprt@eclinic.com',
                     style: TextStyle(
                       color: Color(0xFF333333),
@@ -200,10 +208,10 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
               const SizedBox(
                 height: 8,
               ),
-               Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 const Text(
+                  const Text(
                     'Experience:',
                     style: TextStyle(
                       color: Color(0xFF333333),
@@ -213,7 +221,7 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                     ),
                   ),
                   Text(
-                    '${Random().nextInt(10)+1}+ years',
+                    '${Random().nextInt(10) + 1}+ years',
                     style: const TextStyle(
                       color: Color(0xFF333333),
                       fontSize: 14,
@@ -226,10 +234,10 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
               const SizedBox(
                 height: 8,
               ),
-               Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 const Text(
+                  const Text(
                     'Working Time: ',
                     style: TextStyle(
                       color: Color(0xFF333333),
@@ -240,7 +248,7 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                   ),
                   Expanded(
                     child: Text(
-                      'Monday- Friday : ${controller.doctorsList[controller.selectedDrIndex.value].workingHours.startTime} - ${controller.doctorsList[controller.selectedDrIndex.value].workingHours.endTime}',
+                      'Monday- Friday : ${controller.doctor.value.workingHours.startTime} - ${controller.doctor.value.workingHours.endTime}',
                       maxLines: 2,
                       style: const TextStyle(
                         color: Color(0xFF333333),
@@ -252,12 +260,11 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                   ),
                 ],
               ),
-                            const SizedBox(height: 20),
-
-               Row(
+              const SizedBox(height: 20),
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 const Text(
+                  const Text(
                     'Charges: ',
                     style: TextStyle(
                       color: Color(0xFF333333),
@@ -268,7 +275,7 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                   ),
                   Expanded(
                     child: Text(
-                      'Physical : ${controller.doctorsList[controller.selectedDrIndex.value].charges.physical} & Online : ${controller.doctorsList[controller.selectedDrIndex.value].charges.virtual}',
+                      'Physical : ${controller.doctor.value.charges.physical} & Online : ${controller.doctor.value.charges.virtual}',
                       maxLines: 2,
                       style: const TextStyle(
                         color: Color(0xFF333333),
@@ -283,10 +290,8 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
               const SizedBox(height: 20),
               GeneralButton(
                 onPressed: () {
-                  
-                  Get.toNamed(kBookAppointmentScreenRoute, arguments: {
-                    'dr': controller.doctorsList[controller.selectedDrIndex.value]
-                  });
+                  Get.toNamed(kBookAppointmentScreenRoute,
+                      arguments: {'dr': controller.doctor.value});
                 },
                 text: 'Book Appointment',
                 color: kPrimaryColor,
@@ -294,9 +299,9 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                 margin: 0,
               ),
               const SizedBox(height: 20),
-               Text(
-                'About Dr. ${controller.doctorsList[controller.selectedDrIndex.value].firstName} ${controller.doctorsList[controller.selectedDrIndex.value].lastName} ',
-                style:const TextStyle(
+              Text(
+                'About Dr. ${controller.doctor.value.firstName} ${controller.doctor.value.lastName} ',
+                style: const TextStyle(
                   color: Color(0xFF333333),
                   fontSize: 20,
                   fontFamily: 'Poppins',
@@ -305,9 +310,11 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
               ),
               const SizedBox(height: 20),
               Text(
-                (controller.doctorsList[controller.selectedDrIndex.value].about != null && controller.doctorsList[controller.selectedDrIndex.value].about!.isNotEmpty)  
-                ?"${controller.doctorsList[controller.selectedDrIndex.value].about}":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac diam in nisl euismod tempor. Quisque auctor, orci non accumsan volutpat, nisi tellus commodo urna, vel lobortis dui risus vel mauris. Aliquam erat volutpat. Maecenas eu sapien nec felis scelerisque tincidunt ut id nulla. Curabitur nec dolor eu urna congue venenatis. Proin tincidunt ut felis ac fermentum. Vestibulum rhoncus justo nec justo pulvinar, et tincidunt mi facilisis. Integer eget ipsum felis. Fusce vitae feugiat mi, et tristique ipsum. In pellentesque posuere sem, a aliquet ligula cursus nec. Morbi ut quam non urna commodo vulputate vitae a orci. Nam vitae laoreet arcu. Fusce volutpat risus sed massa feugiat, vel tristique urna tristique.",
-                style:const TextStyle(
+                (controller.doctor.value.about != null &&
+                        controller.doctor.value.about!.isNotEmpty)
+                    ? "${controller.doctor.value.about}"
+                    : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac diam in nisl euismod tempor. Quisque auctor, orci non accumsan volutpat, nisi tellus commodo urna, vel lobortis dui risus vel mauris. Aliquam erat volutpat. Maecenas eu sapien nec felis scelerisque tincidunt ut id nulla. Curabitur nec dolor eu urna congue venenatis. Proin tincidunt ut felis ac fermentum. Vestibulum rhoncus justo nec justo pulvinar, et tincidunt mi facilisis. Integer eget ipsum felis. Fusce vitae feugiat mi, et tristique ipsum. In pellentesque posuere sem, a aliquet ligula cursus nec. Morbi ut quam non urna commodo vulputate vitae a orci. Nam vitae laoreet arcu. Fusce volutpat risus sed massa feugiat, vel tristique urna tristique.",
+                style: const TextStyle(
                   color: Color(0xFF999999),
                   fontSize: 16,
                   fontFamily: 'Poppins',
@@ -332,29 +339,31 @@ class DoctorDetailsScreen extends GetView<MainScreenController> {
                   fontSize: 18,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w600,
-                  
                 ),
               ),
               const SizedBox(height: 20),
-               Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                 Icon(Icons.star_border, color: kPrimaryColor,),
-                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                   children: [
-                     Text(
-                          controller.doctorsList[controller.selectedDrIndex.value].specialization,
-                          style:const TextStyle(
-                            color: Color(0xFF166FFF),
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w500,
-                            height: 0.09,
-                          ),
+                  Icon(
+                    Icons.star_border,
+                    color: kPrimaryColor,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        controller.doctor.value.specialization,
+                        style: const TextStyle(
+                          color: Color(0xFF166FFF),
+                          fontSize: 16,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          height: 0.09,
                         ),
-                   ],
-                 ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               const SizedBox(height: 20),

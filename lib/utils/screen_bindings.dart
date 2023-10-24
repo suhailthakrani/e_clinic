@@ -1,8 +1,9 @@
 import 'package:e_clinic/controllers/a_new/book_appointment_screen_controller.dart';
 import 'package:e_clinic/controllers/a_new/confrim_payment_screen_controller.dart';
+import 'package:e_clinic/controllers/new/doctor_details_screen_controller.dart';
+import 'package:e_clinic/controllers/new/doctor_list_screen_controller.dart';
 import 'package:e_clinic/controllers/payments/payment_screen_controller.dart';
 
-import '../controllers/a_new/doctor_list_controller.dart';
 import '../controllers/general_controllers.dart';
 import '../controllers/prescription_screen_controller.dart';
 import '../controllers/register_screen_controller.dart';
@@ -42,7 +43,8 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => ProfessionalInfoSettingsController());
     Get.lazyPut(() => PrescriptionScreenController());
 
-    //  Get.lazyPut(() => DoctorsListController());
+     Get.lazyPut(() => DoctorDetailsScreenController());
+     Get.lazyPut(() => DoctorListScreenController());
 
      Get.lazyPut(() => BookAppointmentScreenController());
 

@@ -211,20 +211,14 @@ class MainScreen extends GetView<MainScreenController> {
                             return SizedBox(
                               width: Get.width * 0.4,
                               child: InkWell(
-                                onTap: () async {
-                                  List<Doctor> doctors = [];
-                                  try {
-                                    doctors = controller.doctorsList
-                                        .where((p0) =>p0.specialization.isNotEmpty)
-                                        .toList();
-                                    print(doctors);
-                                  } on Exception catch (e) {
-                                    // TODO
-                                  }
-                                  await Get.to(() => DoctorsListScreen(
-                                      doctors: doctors,
-                                      category:
-                                          controller.categoriesList[index]));
+                                onTap: () {
+                          
+                                  Navigator.pushNamed(context, kDoctorsListScreenRoute,
+                                    arguments: {
+                                      "category":
+                                          controller.categoriesList[index],
+                                    },
+                                  );
                                 },
                                 child: buildCard(
                                   title: controller.categoriesList[index],
@@ -291,8 +285,11 @@ class MainScreen extends GetView<MainScreenController> {
                                   //     builder: (context) => const DoctorDetailsScreen(),
                                   //   ),
                                   // );
-                                  controller.onDrIndexChanged(index);
-                                  Get.toNamed(kDoctorsDetailsScreenRoute);
+                                  // controller.onDrIndexChanged(index);
+                                  Get.toNamed(kDoctorsDetailsScreenRoute,
+                                      arguments: {
+                                        "dotor": controller.doctorsList[index],
+                                      });
                                 },
                                 child: Container(
                                   width: Get.width * 0.6,

@@ -24,6 +24,10 @@ class AppointmentScreenController extends GetxController {
   ];
   RxInt selectedAppointmentType = 0.obs;
 
+  void onDrIndexChanged(int index) {
+    selectedAppointmentType.value = index;
+  }
+
   @override
   Future<void> onInit() async {
    

@@ -1,5 +1,6 @@
 /*Created By: Suhail Thakrani on 23-Sept-2023*/
 
+import 'package:e_clinic/models/new_appointment_model.dart';
 import 'package:e_clinic/services/service_urls.dart';
 
 import '../models/appointment_model.dart';
@@ -49,20 +50,20 @@ class AppointmentService {
   //   return appointLst;
   // }
 
-  // Future<List<AppointmentModel>> getCompletedAppointmentModelsList() async {
-  //   List<AppointmentModel> appointLst = [];
+  Future<List<AppointmentModelNew>> getCompletedAppointmentModelsList() async {
+    List<AppointmentModelNew> appointLst = [];
 
-  //   ResponseModel responseModel =  await _httpClient.getRequest(url: kGetCompletedAppointmentsURL);
+    ResponseModel responseModel =  await _httpClient.getRequest(url: "${kGetAppointmentsURL}patient");
 
-  //   if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
-  //     for (var app in responseModel.data) {
-  //       appointLst.add(AppointmentModel.fromJson(app));
-  //     }
-  //   } else {
-  //     CommonCode().showToast(message: responseModel.message);
-  //   }
-  //   return appointLst;
-  // }
+    if (responseModel.message == "Success" && responseModel.data != null && responseModel.data.length > 0) {
+      for (var app in responseModel.data) {
+        appointLst.add(AppointmentModelNew.fromJson(app));
+      }
+    } else {
+      CommonCode().showToast(message: responseModel.message);
+    }
+    return appointLst;
+  }
    Future<ResponseModel> bookAppointment({required AppointmentModel appointment}) async {
     ResponseModel responseModel = await _httpClient.postRequest(
       url: kBookAppointmentURL,

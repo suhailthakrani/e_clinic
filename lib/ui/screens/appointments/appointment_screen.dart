@@ -1,3 +1,6 @@
+import 'package:e_clinic/ui/screens/appointments/components/appointment_card.dart';
+import 'package:e_clinic/ui/screens/appointments/components/appointment_card_new.dart';
+
 import '../../../controllers/appointments/appointments_screen_cntroller.dart';
 import '../../../ui/screens/appointments/components/appointment_type_widget.dart';
 
@@ -53,9 +56,12 @@ class AppointmentsScreen extends GetView<AppointmentScreenController> {
                     ),
                   SizedBox(height: 25.h),
                   if (controller.selectedAppointmentType.value == 0)
-                    ...upComingAppointments
+                     for(int i = 0; i<controller.appointmentsCompleted.length; i++)
+                    AppointmentCardNew(controller.appointmentsCompleted[i], controller: controller,)
                   else
-                    ...previousAppointments
+                    for(int i = 0; i<controller.appointmentsCompleted.length; i++)
+                    AppointmentCardNew(controller.appointmentsCompleted[i], controller: controller,)
+                    // ...previousAppointments
                 ],
               ),
             ),

@@ -127,6 +127,7 @@ class AppointmentCard extends StatelessWidget {
                   ),
               ],
             ),
+            
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

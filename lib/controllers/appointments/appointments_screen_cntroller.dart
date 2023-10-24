@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:e_clinic/models/new_appointment_model.dart';
 import '/../models/appointment_model.dart';
 import '/../models/appointment_type.dart';
 import '/../services/appointment_service.dart';
@@ -14,8 +15,8 @@ import '../../utils/date_time_manager.dart';
 class AppointmentScreenController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  RxList<AppointmentModel> appointmentsRequests = <AppointmentModel>[].obs;
-  RxList<AppointmentModel> appointmentsCompleted = <AppointmentModel>[].obs;
+  RxList<AppointmentModelNew> appointmentsRequests = <AppointmentModelNew>[].obs;
+  RxList<AppointmentModelNew> appointmentsCompleted = <AppointmentModelNew>[].obs;
   DateTimeManager sortingDate = DateTimeManager("Date of Birth");
 
   List<String> appointmentTypes = [
@@ -30,7 +31,7 @@ class AppointmentScreenController extends GetxController {
 
   @override
   Future<void> onInit() async {
-   
+    appointmentsCompleted.value = await AppointmentService().getCompletedAppointmentModelsList();
     super.onInit();
   }
 

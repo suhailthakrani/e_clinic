@@ -369,11 +369,11 @@ class MainScreen extends GetView<MainScreenController> {
                                                 Row(
                                                   children: [
                                                     RatingBarIndicator(
-                                                      rating: double.parse(
-                                                          controller
+                                                      rating: double.tryParse(
+                                                          (controller
                                                               .doctorsList[
                                                                   index]
-                                                              .rating),
+                                                              .rating)) ??3.0,
                                                       itemBuilder:
                                                           (context, index) =>
                                                               const Icon(

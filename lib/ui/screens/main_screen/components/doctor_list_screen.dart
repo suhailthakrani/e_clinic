@@ -119,8 +119,8 @@ class DoctorsListScreen extends GetView<DoctorListScreenController> {
                                     Row(
                                       children: [
                                         RatingBarIndicator(
-                                          rating: double.parse(
-                                              controller.doctors[index].rating),
+                                          rating: double.tryParse(
+                                              controller.doctors[index].rating)??3.8,
                                           itemBuilder: (context, index) =>
                                               const Icon(
                                             Icons.star,

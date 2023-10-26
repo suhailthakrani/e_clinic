@@ -32,35 +32,51 @@ class SettingsScreen extends GetView<SettingsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Settings",
-              style: TextStyle(fontSize: 32.w, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20.h),
-            Text(
-              "Personalize Your Account Settings",
-              style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 20.h),
+            
             Container(
-              height: Get.height * 0.7,
+              height: Get.height * 0.8,
               decoration: BoxDecoration(
                   color: kWhiteColor,
                   borderRadius: BorderRadius.circular(12.r),
-                  boxShadow:  [
-                    BoxShadow(color: kFieldShadowColor.withOpacity(0.5), offset: Offset(-2, -2)),
-                    BoxShadow(color: kFieldShadowColor.withOpacity(0.5), offset: Offset(2, 2))
+                  boxShadow: [
+                    BoxShadow(
+                        color: kFieldShadowColor.withOpacity(0.5),
+                        offset: Offset(-2, -2)),
+                    BoxShadow(
+                        color: kFieldShadowColor.withOpacity(0.5),
+                        offset: Offset(2, 2))
                   ]),
               padding: EdgeInsets.symmetric(vertical: 8.h),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 16.h),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Settings",
+                          style:
+                              TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10.h),
+                        Text(
+                          "Personalize Your Account Settings",
+                          style:
+                              TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
                   // CustomTile(
                   //     title: 'Account Settings',
                   //     onTap: () {
                   //       Get.toNamed(kAccountSettingsScreenRoute);
                   //     }),
                   // const Divider(),
-
+                  const SizedBox(height: 40),
                   CustomTile(
                       title: 'Personal Info',
                       onTap: () {

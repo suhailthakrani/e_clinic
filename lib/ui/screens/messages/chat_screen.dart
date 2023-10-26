@@ -1,3 +1,5 @@
+import 'package:e_clinic/ui/screens/messages/components/audio_tile.dart';
+
 import '../../../utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,17 +15,20 @@ class ChatScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 70.h,
+          elevation: 0,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          title: Row(
+          leadingWidth: 32.w,
+          title: const Row(
             children: [
-              const CircleAvatar(
-                radius: 16,
+              CircleAvatar(
+                radius: 20,
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('Chat'),
                   Text(
                     "Online",
@@ -38,13 +43,14 @@ class ChatScreen extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.video_call_outlined, color: kPrimaryColor),
+              icon: Icon(Icons.video_call_outlined, color: kPrimaryColor, size: 35.h,),
               onPressed: () {},
             ),
             IconButton(
               icon: Icon(Icons.call, color: kPrimaryColor),
               onPressed: () {},
             ),
+            const SizedBox(width: 10)
           ],
         ),
         body: SingleChildScrollView(
@@ -54,7 +60,7 @@ class ChatScreen extends StatelessWidget {
               MediaQuery.of(context).size.height,
             ),
             builder: (context, w) => Container(
-              padding: EdgeInsets.all(15.w),
+              padding: EdgeInsets.only(left:16.w, right: 16.w, bottom: 16),
               child: Column(
                 children: [
                   const RecieverDetails(),
@@ -64,9 +70,7 @@ class ChatScreen extends StatelessWidget {
                     text: "Hey, James here. How can i help you?",
                   ),
                   SizedBox(height: 20.h),
-                  const SenderChatItem(
-                    text: "Audio 12345678910",
-                  ),
+                 const AudioMessageWidget(duration: '23:00', isSender: true),
                   SizedBox(height: 20.h),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,7 +173,7 @@ class RecieverDetails extends StatelessWidget {
     return Column(
       children: [
         const CircleAvatar(
-          radius: 60,
+          radius: 54,
         ),
         const SizedBox(height: 20),
         const Text(
@@ -228,7 +232,7 @@ class MessageBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: SizedBox(
-        height: 38.h,
+        height: 45.h,
         width: 320.w,
         child: InputField(
           controller: TextEditingController(),

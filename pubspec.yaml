@@ -57,6 +57,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   syncfusion_flutter_datepicker: ^23.1.41
   webview_flutter: ^4.4.1
+  socket_io_client: ^2.0.3+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -142,15 +142,15 @@ class PhoneNoSettingsController extends GetxController {
 
 class PasswordSettingsController extends GetxController {
   TextFieldManager currentPasswordControler = TextFieldManager(
-      'Current Password Number',
+      'Current Password',
       length: 50,
       filter: TextFilter.none);
   TextFieldManager newPasswordControler = TextFieldManager(
-      'New Password Number',
+      'New Password',
       length: 50,
       filter: TextFilter.none);
   TextFieldManager confrimPasswordControler = TextFieldManager(
-      'Confrim Password Number',
+      'Confrim Password',
       length: 50,
       filter: TextFilter.none);
 }

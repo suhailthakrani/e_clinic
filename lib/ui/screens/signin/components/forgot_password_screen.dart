@@ -34,7 +34,7 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordScreenController> {
                 children: [
                  
                   SizedBox(height: 50.h),
-                  Image.asset("assets/images/forgot-pass.png", height: Get.height * 0.2,),
+                  Image.asset("assets/images/forgot-pass.png", height: Get.height * 0.18,),
                   const Text(
                     "Select which contact details should we use to reset your password",
                     style: TextStyle(
@@ -70,7 +70,7 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordScreenController> {
                       text: "Continue",
                       borderRadius: 30,
                       onPress: () {
-                        Get.to(ResetBySmsScreen());
+                        Get.to(const ResetBySmsScreen());
                       },
                     ),
                   ),

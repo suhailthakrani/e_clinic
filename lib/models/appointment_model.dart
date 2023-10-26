@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:intl/intl.dart';
 
 import '../models/doctor_model.dart';
-import '../models/general_models.dart';
-import '../models/patient_model.dart';
 
 class AppointmentModel {
   String id = '';

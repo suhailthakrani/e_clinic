@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:e_clinic/controllers/a_new/doctor_list_controller.dart';
 import 'package:e_clinic/controllers/new/doctor_details_screen_controller.dart';
 import 'package:e_clinic/controllers/new/main_screen_controller.dart';
 import 'package:e_clinic/ui/widgets/general_button.dart';

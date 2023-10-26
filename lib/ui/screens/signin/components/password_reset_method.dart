@@ -29,7 +29,7 @@ class PasswordResetMethodWidget extends GetView<ForgotPasswordScreenController> 
         child: Obx(
           ()=> Container(
             alignment: Alignment.center,
-            height: 130.h,
+            height: 100.h,
             width: 370.w,
             decoration: BoxDecoration(
               color: index == controller.selectedIndex.value ? kPrimaryColor : Colors.transparent,
@@ -39,6 +39,7 @@ class PasswordResetMethodWidget extends GetView<ForgotPasswordScreenController> 
                 width: 1,
               ),
             ),
+            
             child: InkWell(
               customBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -49,19 +50,31 @@ class PasswordResetMethodWidget extends GetView<ForgotPasswordScreenController> 
                 );
               },
               // splashColor: const Color.fromARGB(248, 157, 162, 197),
-              child: ListTile(
-                contentPadding: const EdgeInsets.all(20),
-                leading: CircleAvatar(
-                  child: Image.asset(
-                    image,
-                    fit: BoxFit.cover,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(width: 20),
+                   CircleAvatar(
+                    radius: 24,
+                      child: Image.asset(
+                        image,
+                        color: Colors.white,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                      title,
+                      style: titleStyle,
+                    ),
+                    Text(subtitle, style: subtitleStyle),
+                    ],
                   ),
-                ),
-                title: Text(
-                  title,
-                  style: titleStyle,
-                ),
-                subtitle: Text(subtitle, style: subtitleStyle),
+                ],
               ),
             ),
           ),

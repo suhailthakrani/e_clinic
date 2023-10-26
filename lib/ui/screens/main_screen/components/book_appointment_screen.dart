@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:e_clinic/controllers/a_new/doctor_list_controller.dart';
 import 'package:e_clinic/ui/widgets/general_button.dart';
 import 'package:e_clinic/ui/widgets/general_date_picker_field.dart';
 import 'package:e_clinic/ui/widgets/general_dropdown.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-import '../../../../controllers/a_new/book_appointment_screen_controller.dart';
+import '../../../../controllers/appointments/book_appointment_screen_controller.dart';
 import '../../../widgets/general_text_field.dart';
 
 class BookAppointmentScreen extends GetView<BookAppointmentScreenController> {

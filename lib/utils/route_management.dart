@@ -1,9 +1,6 @@
-import 'package:e_clinic/controllers/a_new/doctor_list_controller.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/book_appointment_screen.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/doctor_list_screen.dart';
-import 'package:e_clinic/ui/screens/payments/confrim_payment_screen.dart';
 import 'package:e_clinic/ui/screens/settings/components/notification_settings_screen.dart';
-import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/screens/main_screen/components/doctor_details_screen.dart';
@@ -17,10 +14,8 @@ import '../ui/screens/settings/components/email_settings.dart';
 import '../ui/screens/settings/components/password_reset_settings.dart';
 import '../ui/screens/settings/components/personal_info_settings.dart';
 import '../ui/screens/settings/components/phone_settings.dart';
-import '../ui/screens/settings/components/professional_info_settings.dart';
 import '../ui/screens/signin/components/forgot_password_screen.dart';
 import '../ui/screens/signup/signup_screen.dart';
-import '../ui/screens/test_screen.dart';
 import 'package:get/get.dart';
 
 import '../ui/screens/appointments/appointment_screen.dart';
@@ -34,11 +29,7 @@ import 'screen_bindings.dart';
 class RouteManagement {
   static List<GetPage> getPages() {
     return [
-      GetPage(
-        name: kTestScreenRoute,
-        page: () => const TestScreen(),
-        binding: ScreensBindings(),
-      ),
+    
       GetPage(
         name: kMainScreenRoute,
         page: () => const MainScreen(),
@@ -71,11 +62,6 @@ class RouteManagement {
         binding: ScreensBindings(),
       ),
       GetPage(
-        name: kAccountSettingsScreenRoute,
-        page: () => const AccountSettingsScreen(),
-        binding: ScreensBindings(),
-      ),
-      GetPage(
         name: kLoginScreenRoute,
         page: () => const LoginScreen(),
         binding: ScreensBindings(),
@@ -90,31 +76,7 @@ class RouteManagement {
         page: () => const ForgotPasswordScreen(),
         binding: ScreensBindings(),
       ),
-      // GetPage(
-      //   name: kPasswordResetMethodsScreenRoute,
-      //   page: () => const ForgotPasswordScreen(),
-      //   binding: ScreensBindings(),
-      // ),
-      // GetPage(
-      //   name: kResetPasswordBySMSScreenRoute,
-      //   page: () => const ResetPasswordBySMSScreen(),
-      //   binding: ScreensBindings(),
-      // ),
-      // GetPage(
-      //   name: kVerificationIDScreenRoute,
-      //   page: () => const VerificationIdScreen(),
-      //   binding: ScreensBindings(),
-      // ),
-      // GetPage(
-      //   name: kVerificationDriverScreenRoute,
-      //   page: () => const VerificationDriverScreen(),
-      //   binding: ScreensBindings(),
-      // ),
-      // GetPage(
-      //   name: kVerificationPassportScreenRoute,
-      //   page: () => const VerificationPassportScreen(),
-      //   binding: ScreensBindings(),
-      // ),
+     
       GetPage(
         name: kNotificationSettingsScreenRoute,
         page: () => const NotificationsSettingsScreen(),
@@ -140,16 +102,6 @@ class RouteManagement {
         page: () => const PasswordSettingsScreen(),
         binding: ScreensBindings(),
       ),
-      GetPage(
-        name: kProfessionalInfoSettingsScreenRoute,
-        page: () => const ProfessionalInfoSettingsScreen(),
-        binding: ScreensBindings(),
-      ),
-      GetPage(
-        name: kPrescriptionScreenRoute,
-        page: () => const PrescriptionsScreen(),
-        binding: ScreensBindings(),
-      ),
       
       GetPage(
         name: kDoctorsListScreenRoute,
@@ -166,7 +118,6 @@ class RouteManagement {
         page: () => const BookAppointmentScreen(),
         binding: ScreensBindings(),
       ),
-      // GetPage(name: '/logout', page: () => LogoutScreen()),
     ];
   }
 }

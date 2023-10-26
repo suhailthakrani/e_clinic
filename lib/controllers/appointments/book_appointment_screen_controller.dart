@@ -1,16 +1,10 @@
-import 'dart:convert';
-import 'dart:ffi';
-import 'dart:math';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_clinic/models/appointment_model.dart';
 import 'package:e_clinic/models/response_model.dart';
 import 'package:e_clinic/services/appointment_service.dart';
-import 'package:e_clinic/ui/screens/payments/confrim_payment_screen.dart';
 import 'package:e_clinic/ui/widgets/custom_dialogs.dart';
-import 'package:e_clinic/utils/common_code.dart';
 import 'package:e_clinic/utils/constants.dart';
-import 'package:e_clinic/utils/date_time_manager.dart';
 import 'package:e_clinic/utils/text_filter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,7 +12,6 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../models/doctor_model.dart';
 import '../../ui/widgets/custom_progress_dialog.dart';
-import '../../ui/widgets/ratings_card.dart';
 import '../../utils/dropdown_controller.dart';
 import '../../utils/text_field_manager.dart';
 

@@ -9,7 +9,6 @@ import '../ui/screens/main_screen/main_screen.dart';
 // import '../ui/screens/payments/components/verification_screen/verification_id_screen.dart';
 // import '../ui/screens/payments/components/verification_screen/verification_passport_screen.dart';
 import '../ui/screens/payments/payment_screen.dart';
-import '../ui/screens/settings/components/account_settings.dart';
 import '../ui/screens/settings/components/email_settings.dart';
 import '../ui/screens/settings/components/password_reset_settings.dart';
 import '../ui/screens/settings/components/personal_info_settings.dart';

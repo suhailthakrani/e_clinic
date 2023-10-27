@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:e_clinic/ui/screens/messages/components/audio_tile.dart';
 
 import '../../../utils/colors.dart';
@@ -127,14 +128,19 @@ class ChatScreen extends StatelessWidget {
             ),
           ),
         ),
-        bottomSheet: const Padding(
+        bottomSheet: Padding(
           padding:  EdgeInsets.all(18.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MessageBar(),
               SizedBox(width: 5),
-              SendButton(),
+              InkWell(
+                onTap: () async {
+                  // await ShocketService().canRotate;
+                },
+                child: SendButton(),
+              ),
             ],
           ),
         ),

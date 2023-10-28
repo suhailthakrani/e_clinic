@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:e_clinic/controllers/new/doctor_details_screen_controller.dart';
 import 'package:e_clinic/controllers/new/main_screen_controller.dart';
 import 'package:e_clinic/models/message_model.dart';
@@ -9,6 +8,7 @@ import 'package:e_clinic/ui/widgets/general_button.dart';
 import 'package:e_clinic/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -167,12 +167,21 @@ class DoctorDetailsScreen extends GetView<DoctorDetailsScreenController> {
               ),
               Row(
                 children: [
-                  Chip(
-                    avatar: Icon(
-                      Icons.call,
-                      color: kPrimaryColor,
+                  InkWell(
+                    onTap: () async {
+                      // Change number whenever it will be given in doctor model from Server
+                      await FlutterPhoneDirectCaller.callNumber('+923483053712');
+                      // FlutterPhoneDirectCaller.callNumber(
+                      //     '${(+442055555555') ?? '+923483053712'}');
+                      // launchUrlString('tel: +923483053712');
+                    },
+                    child: Chip(
+                      avatar: Icon(
+                        Icons.call,
+                        color: kPrimaryColor,
+                      ),
+                      label: const Text('Try Call'),
                     ),
-                    label: const Text('Try Call'),
                   ),
                   const SizedBox(
                     width: 8,

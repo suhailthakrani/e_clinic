@@ -27,11 +27,11 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => AppointmentScreenController());
     Get.lazyPut(() => PaymentScreenController());
     Get.lazyPut(() => SettingsController());
-    Get.lazyPut(() => PasswordResetMethodsController());
-    Get.lazyPut(() => ResetPasswordBySMSController());
-    Get.lazyPut(() => VerificationIDController());
-    Get.lazyPut(() => VerificationDriverController());
-    Get.lazyPut(() => VerificationPassportController());
+    // Get.lazyPut(() => PasswordResetMethodsController());
+    // Get.lazyPut(() => ResetPasswordBySMSController());
+    // Get.lazyPut(() => VerificationIDController());
+    // Get.lazyPut(() => VerificationDriverController());
+    // Get.lazyPut(() => VerificationPassportController());
     Get.lazyPut(() => NotificationSettingsController());
     Get.lazyPut(() => PersonalInfoSettingsController());
     Get.lazyPut(() => PrescriptionScreenController());

@@ -9,7 +9,7 @@ class ResponseModel {
 
   ResponseModel.fromJson(Map<String, dynamic> json) {
     message = '${json["message"]??""}';
-    data = json["data"];
+    data = json["data"]??'';
   }
 
   @override

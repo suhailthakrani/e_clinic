@@ -25,78 +25,70 @@ class MessageTile extends StatefulWidget {
 class _MessageTileState extends State<MessageTile> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ChatScreen(),
+    return Column(
+      
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
           ),
-        );
-      },
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-            ),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.black45,
-                  radius: 32,
-                  child: Image.asset(
-                    widget.image,
-                    fit: BoxFit.cover,
-                  ),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.black45,
+                radius: 32,
+                child: Image.asset(
+                  widget.image,
+                  fit: BoxFit.cover,
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          if (widget.pinned)
-                            const Icon(
-                              Icons.push_pin_sharp,
-                              color: Colors.grey,
-                            ),
-                          Text(
-                            widget.receiverName,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        if (widget.pinned)
+                          const Icon(
+                            Icons.push_pin_sharp,
+                            color: Colors.grey,
                           ),
-                        ],
-                      ),
-                      Text(
-                        widget.recentMessage,
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
+                        Text(
+                          widget.receiverName,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
+                      ],
+                    ),
+                    Text(
+                      widget.recentMessage,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Text(
-                  widget.recentMessageTime,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
+              ),
+              Text(
+                widget.recentMessageTime,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const Divider(
-            height: 20
-          ),
-        ],
-      ),
+        ),
+        const Divider(
+          height: 20
+        ),
+      ],
     );
   }
 }

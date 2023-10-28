@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:e_clinic/controllers/new/doctor_details_screen_controller.dart';
 import 'package:e_clinic/controllers/new/main_screen_controller.dart';
+import 'package:e_clinic/models/message_model.dart';
+import 'package:e_clinic/ui/screens/messages/chat_screen.dart';
 import 'package:e_clinic/ui/widgets/general_button.dart';
 import 'package:e_clinic/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -137,7 +139,9 @@ class DoctorDetailsScreen extends GetView<DoctorDetailsScreenController> {
                   Row(
                     children: [
                       RatingBarIndicator(
-                        rating: double.tryParse(controller.doctor.value.rating)??3.7,
+                        rating:
+                            double.tryParse(controller.doctor.value.rating) ??
+                                3.7,
                         itemBuilder: (context, index) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -163,55 +167,83 @@ class DoctorDetailsScreen extends GetView<DoctorDetailsScreenController> {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.call,
-                    color: kPrimaryColor,
+                  Chip(
+                    avatar: Icon(
+                      Icons.call,
+                      color: kPrimaryColor,
+                    ),
+                    label: const Text('Try Call'),
                   ),
                   const SizedBox(
                     width: 8,
                   ),
-                  const Text(
-                    '+44 20 5555 5555',
-                    style: TextStyle(
-                      color: Color(0xFF333333),
-                      fontSize: 16,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
+                  InkWell(
+                    onTap: (){
+                      Get.to(ChatScreen(
+                          message: MessageSend(
+                            id: controller.doctor.value.id, 
+                            participant: Participant(
+                              id: '', 
+                              firstName: controller.doctor.value.firstName, 
+                              lastName: controller.doctor.value.lastName
+                              ), 
+                            message: ''
+                          )
+                        )
+                      );
+                    },
+                    child: Chip(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      avatar: Icon(
+                        Icons.message_outlined,
+                        color: kPrimaryColor,
+                      ),
+                      label: const Text('Message'),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.mail_outline,
-                    color: kPrimaryColor,
+              // Row(
+              //   children: [
+              //     Icon(
+              //       Icons.call,
+              //       color: kPrimaryColor,
+              //     ),
+              //     const SizedBox(
+              //       width: 8,
+              //     ),
+              //     const Text(
+              //       '+44 20 5555 5555',
+              //       style: TextStyle(
+              //         color: Color(0xFF333333),
+              //         fontSize: 16,
+              //         fontFamily: 'Poppins',
+              //         fontWeight: FontWeight.w500,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+
+              Chip(
+                avatar: Icon(
+                  Icons.mail_outline,
+                  color: kPrimaryColor,
+                ),
+                label: const Text(
+                  'mediinfo-tlprt@eclinic.com',
+                  style: TextStyle(
+                    color: Color(0xFF333333),
+                    fontSize: 16,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
                   ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  const Text(
-                    'mediinfo-tlprt@eclinic.com',
-                    style: TextStyle(
-                      color: Color(0xFF333333),
-                      fontSize: 16,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 8,
+                ),
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Experience:',
+                    'Experience: ',
                     style: TextStyle(
                       color: Color(0xFF333333),
                       fontSize: 13,
@@ -230,62 +262,60 @@ class DoctorDetailsScreen extends GetView<DoctorDetailsScreenController> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Working Time: ',
-                    style: TextStyle(
-                      color: Color(0xFF333333),
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Monday- Friday : ${controller.doctor.value.workingHours.startTime} - ${controller.doctor.value.workingHours.endTime}',
-                      maxLines: 2,
-                      style: const TextStyle(
+              const SizedBox(height: 8),
+             Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Working Time: ',
+                      style: TextStyle(
                         color: Color(0xFF333333),
-                        fontSize: 14,
+                        fontSize: 13,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Charges: ',
-                    style: TextStyle(
-                      color: Color(0xFF333333),
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
+                    Expanded(
+                      child: Text(
+                        'Monday- Friday : ${controller.doctor.value.workingHours.startTime} - ${controller.doctor.value.workingHours.endTime}',
+                        maxLines: 2,
+                        style: const TextStyle(
+                          color: Color(0xFF333333),
+                          fontSize: 14,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Physical : ${controller.doctor.value.charges.physical} & Online : ${controller.doctor.value.charges.virtual}',
-                      maxLines: 2,
-                      style: const TextStyle(
+                  ],
+                ),
+              const SizedBox(height: 8),
+             Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Charges: ',
+                      style: TextStyle(
                         color: Color(0xFF333333),
-                        fontSize: 14,
+                        fontSize: 13,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    Expanded(
+                      child: Text(
+                        'Physical : ${controller.doctor.value.charges.physical} & Online : ${controller.doctor.value.charges.virtual}',
+                        maxLines: 2,
+                        style: const TextStyle(
+                          color: Color(0xFF333333),
+                          fontSize: 14,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               const SizedBox(height: 20),
               GeneralButton(
                 onPressed: () {

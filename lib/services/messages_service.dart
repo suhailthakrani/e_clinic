@@ -1,49 +1,55 @@
+import 'dart:developer';
+
+import 'package:e_clinic/models/message_model.dart';
+import 'package:e_clinic/models/response_model.dart';
+import 'package:e_clinic/services/http_client.dart';
 import 'package:e_clinic/services/service_urls.dart';
+import 'package:e_clinic/utils/common_code.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class SocketService {
+class MessagesService {
 
-  late io.Socket _socket;
+  static final MessagesService _instance = MessagesService._internal();
 
-  SocketService._internal() {
-    _socket = io.io('https://api.eclinic.live/api');
+  factory MessagesService() => _instance;
+
+  MessagesService._internal() {
+    _httpClient = HTTPClient();
   }
+  
+  late HTTPClient _httpClient;
 
-  factory SocketService() {
-    return _instance;
-  }
-  static final SocketService _instance = SocketService._internal();
+  Future<List<MessageGet>> getAllConservations() async {
+  ResponseModel responseModel = await _httpClient.getRequest(url: '${kBaseURL}messages/conversations/list');
+  List<MessageGet> messages = [];
 
-  void connect() {
-    _socket.connect();
-  }
+  if (responseModel.message == "Success" &&
+      responseModel.data != null &&
+      responseModel.data is List) {
+    List<dynamic> dataList = responseModel.data;
 
-  void disconnect() {
-    _socket.disconnect();
-  }
-
-  void createMessage(String message) {
-    _socket.emit('data', message);
-  }
-
-  Future<List<String>> getAllMessages() async {
-    final response = await http.get(Uri.parse('${kBaseURL}messages/conversations/list'));
-    if (response.statusCode == 200) {
-      List<dynamic> data = json.decode(response.body);
-      return data.cast<String>();
-    } else {
-      throw Exception('Failed to load messages');
+    for (var data in dataList) {
+      messages.add(MessageGet.fromJson(data));
     }
+  } else {
+    CommonCode().showToast(message: responseModel.message);
   }
 
-  Future<String> getSingleMessageById(String id) async {
-    final response = await http.get(Uri.parse('https://api.eclinic.live/api/messages/$id'));
-    if (response.statusCode == 200) {
-      return response.body;
+  return messages;
+}
+
+  Future<MessageSend> getConservationById(String id) async {
+    ResponseModel responseModel = await _httpClient.getRequest(url: '${kBaseURL}messages/$id');
+    MessageSend message = MessageSend.empty();
+    if (responseModel.message == "Success" && responseModel.data != null && responseModel.data is Map) {
+        return MessageSend.fromJson(responseModel.data);
     } else {
-      throw Exception('Failed to load message');
+      CommonCode().showToast(message: responseModel.message);
     }
+    return message;
   }
+  
+
 }

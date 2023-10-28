@@ -1,5 +1,9 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:e_clinic/controllers/messages_screen_controler.dart';
+import 'package:e_clinic/models/message_model.dart';
+import 'package:e_clinic/services/messages_service.dart';
 import 'package:e_clinic/ui/screens/messages/components/audio_tile.dart';
+import 'package:get/get.dart';
 
 import '../../../utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +11,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../widgets/input_field.dart';
 
+class ChatScreen extends StatefulWidget {
+  final MessageSend message;
+  const ChatScreen({Key? key, required this.message}) : super(key: key);
 
-class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  List<String> messagees = [
+    "Good morning! How are you feeling today?",
+    "I'm feeling much better, thank you!",
+    "That's great to hear! Have you been taking the prescribed medication?",
+    "Yes, I've been taking it regularly.",
+    "Wonderful! Keep up with the medication and let me know if you have any concerns.",
+    "Sure thing! I'll make sure to do that.",
+  "Thank you, Dr. It's been a great help."
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -20,31 +39,51 @@ class ChatScreen extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          leadingWidth: 32.w,
-          title: const Row(
+          leadingWidth: 40.w,
+          title: Row(
             children: [
               CircleAvatar(
                 radius: 20,
-              ),
-              SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Chat'),
-                  Text(
-                    "Online",
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 12,
-                    ),
+                child: ClipRRect(
+                  child: Image.asset(
+                    widget.message.participant.image ?? '',
+                    errorBuilder: (context, error, stackTrace) =>
+                        const SizedBox(),
                   ),
-                ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${widget.message.participant.firstName} ${widget.message.participant.lastName}",
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                    const Text(
+                      "Online",
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.video_call_outlined, color: kPrimaryColor, size: 35.h,),
+              icon: Icon(
+                Icons.video_call_outlined,
+                color: kPrimaryColor,
+                size: 35.h,
+              ),
               onPressed: () {},
             ),
             IconButton(
@@ -55,91 +94,39 @@ class ChatScreen extends StatelessWidget {
           ],
         ),
         body: SingleChildScrollView(
-          child: ScreenUtilInit(
-            designSize: Size(
-              MediaQuery.of(context).size.width,
-              MediaQuery.of(context).size.height,
-            ),
-            builder: (context, w) => Container(
-              padding: EdgeInsets.only(left:16.w, right: 16.w, bottom: 16),
-              child: Column(
-                children: [
-                  const RecieverDetails(),
-                  const ChatStartTime(),
-                  SizedBox(height: 20.h),
-                  const RecieverChatItem(
-                    text: "Hey, James here. How can i help you?",
-                  ),
-                  SizedBox(height: 20.h),
-                 const AudioMessageWidget(duration: '23:00', isSender: true),
-                  SizedBox(height: 20.h),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          alignment: Alignment.center,
-                          width: 275.w,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(10.w),
-                              bottomLeft: Radius.circular(10.w),
-                              topLeft: Radius.circular(10.w),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset("assets/images/patient1.png"),
-                              Image.asset("assets/images/patient2.png"),
-                              Container(
-                                height: 71.h,
-                                width: 34.w,
-                                decoration: BoxDecoration(
-                                  color: greyishColor,
-                                  borderRadius: BorderRadius.circular(4.w),
-                                ),
-                                child: const Icon(
-                                  Icons.add,
-                                  color: Colors.grey,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5.h),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: const Text(
-                          "10:00 PM",
-                          style: TextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+          padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 100),
+          child: Column(
+            children: [
+              RecieverDetails(
+                participant: widget.message.participant,
               ),
-            ),
+              const ChatStartTime(),
+              SizedBox(height: 20.h),
+              for (int index = 0; index < messagees.length; index++)
+                if (index % 2 == 0)
+                  RecieverChatItem(
+                    text: messagees[index],
+                  )
+                else
+                  SenderChatItem(
+                    text: messagees[index],
+                  ),
+              SizedBox(height: 20.h),
+            ],
           ),
         ),
         bottomSheet: Padding(
-          padding:  EdgeInsets.all(18.0),
+          padding: const EdgeInsets.all(18.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MessageBar(),
-              SizedBox(width: 5),
+              const MessageBar(),
+              const SizedBox(width: 5),
               InkWell(
                 onTap: () async {
-                  // await ShocketService().canRotate;
+                  // controller.sendMessage();
                 },
-                child: SendButton(),
+                child: const SendButton(),
               ),
             ],
           ),
@@ -170,8 +157,10 @@ class ChatStartTime extends StatelessWidget {
 }
 
 class RecieverDetails extends StatelessWidget {
+  final Participant participant;
   const RecieverDetails({
     Key? key,
+    required this.participant,
   }) : super(key: key);
 
   @override
@@ -179,20 +168,19 @@ class RecieverDetails extends StatelessWidget {
     return Column(
       children: [
         const CircleAvatar(
-          radius: 54,
+          radius: 42,
         ),
-        const SizedBox(height: 20),
-        const Text(
-          "Dr. John Doe",
-          style: TextStyle(
+        const SizedBox(height: 10),
+        Text(
+          "Dr. ${participant.firstName} ${participant.lastName}",
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
           ),
         ),
-        SizedBox(height: 10.h),
         SizedBox(
           height: 30.h,
-          width: 200.w,
+          width: Get.width * 0.8,
           child: const Text(
             "This is a small bio description to let users express themselves",
             textAlign: TextAlign.center,

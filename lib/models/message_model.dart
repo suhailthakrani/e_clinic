@@ -37,6 +37,7 @@ class MessageSend {
     required this.message,
 
   });
+  MessageSend.empty();
 
   factory MessageSend.fromJson(Map<String, dynamic> json) {
     return MessageSend(

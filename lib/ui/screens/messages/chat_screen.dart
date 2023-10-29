@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:e_clinic/controllers/messages_screen_controler.dart';
 import 'package:e_clinic/models/message_model.dart';
+import 'package:e_clinic/models/token_model.dart';
 import 'package:e_clinic/services/messages_service.dart';
-import 'package:e_clinic/services/service_urls.dart';
 import 'package:e_clinic/services/socket_service.dart';
-import 'package:e_clinic/ui/screens/messages/components/audio_tile.dart';
 import 'package:e_clinic/utils/common_code.dart';
+import 'package:e_clinic/utils/user_session.dart';
 import 'package:get/get.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -26,66 +28,36 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-
-  late io.Socket _socket;
-  List<MessageGet> receivedMessages = [];
-  List<String> messagees = [
-    "Good morning! How are you feeling today?",
-    "I'm feeling much better, thank you!",
-    "That's great to hear! Have you been taking the prescribed medication?",
-    "Yes, I've been taking it regularly.",
-    "Wonderful! Keep up with the medication and let me know if you have any concerns.",
-    "Thank you, Dr. It's been a great help.",
-    "Sure thing! I'll make sure to do that.",
-  ];
-
+  // late io.Socket _socket;
+ 
+  late WebSocketChannel _channel;
   TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    connect();
-    // socketService.socket.on('message', (data) {
-    //   setState(() {
-    //     var receivedMessage = MessageGet.fromJson(jsonDecode(data));
-    //     receivedMessages.add(receivedMessage);
-    //   });
-    // });
+    // _channel = IOWebSocketChannel.connect('wss://api.eclinic.live',headers: {'Connection':"upgrade", 'Upgrade': 'websocket'});
+        _channel = IOWebSocketChannel.connect('wss://echo.websocket.org');
+
+    _channel.stream.listen((message) {
+      // Handle received message
+      print('Received message: $message');
+    }); 
   }
-
-  void connect() {
-    try {
-  _socket = io.io('https://api.eclinic.live', <String,dynamic> {
-    "transports": ['websocket'],
-    "autoConnect": false,
-  });
   
-  log("_)))__)))___))___))__${_socket.auth}");
-   
-    _socket.connect();
-     _socket.onConnect((_) {
-  log('Socket connected');
-  print('Socket connected');
-    });
-} on Exception catch (e) {
-  log("||||||||||| ${e}");
-}
-  print('Socket connected OR NOT: ${_socket.connected}');
-}
 
-void sendMessage(String message) {
+  void sendMessage(String message) {
     MessageSend messageSend = MessageSend(
       id: widget.message.participant.id,
       participant: widget.message.participant,
       message: message,
     );
-
-    _socket.emit('message', jsonEncode(messageSend));
+    _channel.sink.add(jsonEncode(messageSend.toJson()));
   }
 
   @override
   void dispose() {
-    // socketService.disconnect();
+    _channel.sink.close();
     super.dispose();
   }
 
@@ -161,36 +133,31 @@ void sendMessage(String message) {
               ),
               const ChatStartTime(),
               SizedBox(height: 20.h),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: messagees.length,
-                itemBuilder: (context, index) {
-                  if (index % 2 == 0) {
-                    return RecieverChatItem(
-                      text: messagees[index],
-                    );
-                  } else {
-                    return SenderChatItem(
-                      text: messagees[index],
-                    );
-                  }
-                },
-              ),
-              // for (int index = 0; index < messagees.length; index++)
+              // ListView.builder(
+              //   physics: const NeverScrollableScrollPhysics(),
+              //   shrinkWrap: true,
+              //   itemCount: messagees.length,
+              //   itemBuilder: (context, index) {
+              //     if (index % 2 == 0) {
+              //       return RecieverChatItem(
+              //         text: messagees[index],
+              //       );
+              //     } else {
+              //       return SenderChatItem(
+              //         text: messagees[index],
+              //       );
+              //     }
+              //   },
+              // ),
+              // StreamBuilder(
+              //   stream: _webSocket?.asBroadcastStream(),
+              //   builder: (context, snapshot) {
+              //     return Text(snapshot.hasData ? '${snapshot.data}' : 'No DATA');
+              //   },
+              // ),
 
               SizedBox(height: 20.h),
-              // SizedBox(
-              //   height: 400,
-              //   child: ListView.builder(
-              //     itemCount: receivedMessages.length,
-              //     itemBuilder: (context, index) {
-              //       return ListTile(
-              //         title: Text(receivedMessages[index].id),
-              //       );
-              //     },
-              //   ),
-              // )
+            
             ],
           ),
         ),
@@ -215,7 +182,7 @@ void sendMessage(String message) {
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: kGreyColor)),
+                          borderSide: const BorderSide(color: kGreyColor)),
                       suffixIcon: IconButton(
                         icon: Icon(
                           Icons.keyboard_voice,
@@ -236,19 +203,14 @@ void sendMessage(String message) {
                     id: widget.message.participant.id,
                     participant: widget.message.participant,
                     message: controller.text,
-                  );
-                  print("================qweqweqwe=======${messagees.last}");
-                  _socket.send([
-
-                  ]);
-                  sendMessage(jsonEncode(messageSend));
+                  );            
+                  sendMessage(jsonEncode(messageSend.toJson()));
                   // SocketService().sendSocketMessage(
                   //     message: messageSend,
                   //     onSent: () {
                   //       CommonCode().showSuccessToast(message: "Message Sent");
                   //     });
-                  messagees.add(controller.text);
-                  print("=======1111111111================${messagees.last}");
+                  controller.clear();
                   setState(() {});
                 },
                 child: const SendButton(),
@@ -365,7 +327,7 @@ class RecieverChatItem extends StatelessWidget {
                 topRight: Radius.circular(10.w),
               ),
             ),
-            child:  Text(text),
+            child: Text(text),
           ),
         ),
         SizedBox(height: 5.h),
@@ -414,7 +376,6 @@ class SenderChatItem extends StatelessWidget {
               ),
             ),
             child: Text(
-              
               text,
               style: const TextStyle(color: Colors.white),
             ),

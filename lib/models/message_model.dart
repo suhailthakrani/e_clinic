@@ -2,11 +2,13 @@ class MessageGet {
   String id = '';
   Participant participant = Participant.empty();
   String unreadCount = '';
+  String message = ''; // Added this line
 
   MessageGet({
     required this.id,
     required this.participant,
     required this.unreadCount,
+    required this.message, // Added this line
   });
 
   factory MessageGet.fromJson(Map<String, dynamic> json) {
@@ -14,6 +16,7 @@ class MessageGet {
       id: json['id']??'',
       participant: Participant.fromJson(json['Participant']??{'id': '','Participant': {},'unreadCount': '0',}),
       unreadCount: "${json['unreadCount']??''}",
+      message: json['messageText'] ?? '', // Added this line
     );
   }
 
@@ -22,6 +25,7 @@ class MessageGet {
       'id': id,
       'Participant': participant.toJson(),
       'unreadCount': unreadCount,
+      'message': message, // Added this line
     };
   }
 }
@@ -35,7 +39,6 @@ class MessageSend {
     required this.id,
     required this.participant,
     required this.message,
-
   });
   MessageSend.empty();
 
@@ -55,6 +58,8 @@ class MessageSend {
     };
   }
 }
+
+
 
 class Participant {
   String id = '';

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:e_clinic/controllers/messages_screen_controler.dart';
 import 'package:e_clinic/models/message_model.dart';
@@ -28,36 +29,43 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  // late io.Socket _socket;
- 
-  late WebSocketChannel _channel;
+  // late io.Socket socket;
+
+  // late WebSocketChannel _channel;
   TextEditingController controller = TextEditingController();
+  WebSocket? ws;
+  RxList<MessageGet> receivedMessages = RxList([]);
+  RxList<MessageSend> sendMessages = RxList([]);
 
   @override
   void initState() {
     super.initState();
-    // _channel = IOWebSocketChannel.connect('wss://api.eclinic.live',headers: {'Connection':"upgrade", 'Upgrade': 'websocket'});
-        _channel = IOWebSocketChannel.connect('wss://api.eclinic.live');
-
-    _channel.stream.listen((message) {
-      // Handle received message
-      print('Received message: $message');
-    }); 
+    call();
   }
-  
 
-  void sendMessage(String message) {
-    MessageSend messageSend = MessageSend(
-      id: widget.message.participant.id,
-      participant: widget.message.participant,
-      message: message,
-    );
-    _channel.sink.add(jsonEncode(messageSend.toJson()));
+  Future<void> call() async {
+    await connectToServer();
+  }
+
+  void sendMessage(MessageSend messageSend) {
+    print("-------------${ws != null && ws!.readyState == WebSocket.open}");
+    if (ws != null && ws!.readyState == WebSocket.open) {
+      ws!.add(jsonEncode(messageSend.toJson()));
+      print("-------------${ws?.done}");
+    } else {
+      print('WebSocket connection is not open.');
+    }
+  }
+
+  void handleMessage(MessageGet message) {
+    setState(() {
+      receivedMessages.add(message);
+    });
   }
 
   @override
   void dispose() {
-    _channel.sink.close();
+    ws?.close(); // Close the WebSocket connection when the widget is disposed
     super.dispose();
   }
 
@@ -133,6 +141,21 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               const ChatStartTime(),
               SizedBox(height: 20.h),
+              Obx(
+                ()=> ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: receivedMessages.length,
+                  itemBuilder: (context, index) {
+                    final message = receivedMessages[index];
+                    return ListTile(
+                      title: Text(message.id),
+                      subtitle: Text(
+                        '${message.participant.firstName} ${message.participant.lastName}',
+                      ),
+                    );
+                  },
+                ),
+              ),
               // ListView.builder(
               //   physics: const NeverScrollableScrollPhysics(),
               //   shrinkWrap: true,
@@ -157,7 +180,6 @@ class _ChatScreenState extends State<ChatScreen> {
               // ),
 
               SizedBox(height: 20.h),
-            
             ],
           ),
         ),
@@ -203,8 +225,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     id: widget.message.participant.id,
                     participant: widget.message.participant,
                     message: controller.text,
-                  );            
-                  sendMessage(jsonEncode(messageSend.toJson()));
+                  );
+                  sendMessage(messageSend);
                   // SocketService().sendSocketMessage(
                   //     message: messageSend,
                   //     onSent: () {
@@ -220,6 +242,35 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> connectToServer() async {
+    try {
+      Random r = Random();
+      String key = base64.encode(List<int>.generate(8, (_) => r.nextInt(255)));
+
+      HttpClient client = HttpClient();
+      HttpClientRequest request =
+          await client.getUrl(Uri.parse('https://api.eclinic.live'));
+      request.headers.add('connection', 'Upgrade');
+      request.headers.add('upgrade', 'websocket');
+      request.headers.add('Sec-WebSocket-Version', '13');
+      request.headers.add('Sec-WebSocket-Key', key);
+      HttpClientResponse response = await request.close();
+
+      print("========================${response.connectionInfo?.localPort}");
+      print("========================${response.headers}");
+      Socket socket = await response.detachSocket();
+
+      ws = WebSocket.fromUpgradedSocket(socket, serverSide: false);
+
+      ws?.listen((event) {
+        final Map<String, dynamic> jsonMessage = jsonDecode(event);
+        handleMessage(MessageGet.fromJson(jsonMessage));
+      });
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 }
 

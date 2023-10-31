@@ -188,7 +188,7 @@ class DoctorDetailsScreen extends GetView<DoctorDetailsScreenController> {
                   ),
                   InkWell(
                     onTap: (){
-                      Get.to(ChatScreen(
+                      Navigator.push(context, MaterialPageRoute(builder:(context) => ChatScreen(
                           message: MessageSend(
                             id: controller.doctor.value.id, 
                             participant: Participant(
@@ -198,8 +198,7 @@ class DoctorDetailsScreen extends GetView<DoctorDetailsScreenController> {
                               ), 
                             message: ''
                           )
-                        )
-                      );
+                        ),));
                     },
                     child: Chip(
                       padding: const EdgeInsets.symmetric(horizontal: 12),

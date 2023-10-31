@@ -43,7 +43,7 @@ class MainScreenController extends GetxController {
     "assets/images/oncology.png",
     "assets/images/gastroenterology.png",
     "assets/images/Hematology.png",
-    "assets/images/Cardiology.png",
+    "assets/images/cardiology.png",
     "assets/images/Pediatrics.png",
     "assets/images/Neurology.png",
     "assets/images/Endocrinology.png",

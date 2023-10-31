@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 
 import '../../widgets/custom_search_field.dart';
 import 'components/doctor_list_screen.dart';
+import 'components/doctor_search_deligate.dart';
 
 class MainScreen extends GetView<MainScreenController> {
   const MainScreen({super.key});
@@ -41,6 +42,12 @@ class MainScreen extends GetView<MainScreenController> {
               height: 50,
               hint: 'Search for Doctors',
               focusNode: FocusNode(),
+              onTap: () {
+                showSearch(
+                  context: context,
+                  delegate: DoctorSearchDelegate(controller.doctorsList, controller.searchController.controller.text),
+                );
+              },
             ),
           ),
           // bottom: PreferredSize(
@@ -212,8 +219,9 @@ class MainScreen extends GetView<MainScreenController> {
                               width: Get.width * 0.4,
                               child: InkWell(
                                 onTap: () {
-                          
-                                  Navigator.pushNamed(context, kDoctorsListScreenRoute,
+                                  Navigator.pushNamed(
+                                    context,
+                                    kDoctorsListScreenRoute,
                                     arguments: {
                                       "category":
                                           controller.categoriesList[index],
@@ -370,10 +378,11 @@ class MainScreen extends GetView<MainScreenController> {
                                                   children: [
                                                     RatingBarIndicator(
                                                       rating: double.tryParse(
-                                                          (controller
-                                                              .doctorsList[
-                                                                  index]
-                                                              .rating)) ??3.0,
+                                                              (controller
+                                                                  .doctorsList[
+                                                                      index]
+                                                                  .rating)) ??
+                                                          3.0,
                                                       itemBuilder:
                                                           (context, index) =>
                                                               const Icon(

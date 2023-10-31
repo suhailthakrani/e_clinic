@@ -37,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     // _channel = IOWebSocketChannel.connect('wss://api.eclinic.live',headers: {'Connection':"upgrade", 'Upgrade': 'websocket'});
-        _channel = IOWebSocketChannel.connect('wss://echo.websocket.org');
+        _channel = IOWebSocketChannel.connect('wss://api.eclinic.live');
 
     _channel.stream.listen((message) {
       // Handle received message

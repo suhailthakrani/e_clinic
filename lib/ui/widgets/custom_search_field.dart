@@ -9,13 +9,15 @@ class CustomSearchField extends StatelessWidget {
   final double height;
   final String hint;
   final FocusNode focusNode;
+  
+  final Function() onTap;
 
   const CustomSearchField({
     Key? key,
     required this.controller,
     required this.height,
     required this.hint,
-    required this.focusNode,
+    required this.focusNode, required this.onTap,
   }): super(key: key);
 
   @override
@@ -39,14 +41,17 @@ class CustomSearchField extends StatelessWidget {
           borderRadius: BorderRadius.circular(40),
         ),
         padding: const EdgeInsets.only(left: 12),
-        suffix: Container(
-          width: MediaQuery.of(context).size.width * 0.18,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: kPrimaryColor,
-            borderRadius: BorderRadius.circular(40),
+        suffix: GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.18,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: kPrimaryColor,
+              borderRadius: BorderRadius.circular(40),
+            ),
+            child: const Icon(Icons.search),
           ),
-          child: const Icon(Icons.search),
         ),
       ),
     );

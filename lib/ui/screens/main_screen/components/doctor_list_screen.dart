@@ -1,12 +1,7 @@
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:e_clinic/controllers/new/doctor_list_screen_controller.dart';
-import 'package:e_clinic/models/doctor_model.dart';
-import 'package:e_clinic/services/doctors_service.dart';
-import 'package:e_clinic/ui/widgets/custom_progress_dialog.dart';
 import 'package:e_clinic/utils/colors.dart';
-import 'package:e_clinic/utils/common_code.dart';
 import 'package:e_clinic/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

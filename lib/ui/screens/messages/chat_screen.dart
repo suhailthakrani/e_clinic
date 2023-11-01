@@ -33,9 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   // late WebSocketChannel _channel;
   TextEditingController controller = TextEditingController();
-  WebSocket? ws;
-  RxList<MessageGet> receivedMessages = RxList([]);
-  RxList<MessageSend> sendMessages = RxList([]);
+  late io.Socket socket;
 
   @override
   void initState() {
@@ -47,15 +45,69 @@ class _ChatScreenState extends State<ChatScreen> {
     await connectToServer();
   }
 
-  void sendMessage(MessageSend messageSend) {
-    print("-------------${ws != null && ws!.readyState == WebSocket.open}");
-    if (ws != null && ws!.readyState == WebSocket.open) {
-      ws!.add(jsonEncode(messageSend.toJson()));
-      print("-------------${ws?.done}");
-    } else {
-      print('WebSocket connection is not open.');
+  Future<void> connectToServer() async {
+    try {
+      // Connect to the server
+      socket = io.io('https://api.eclinic.live', <String, dynamic>{
+        'transports': ['websocket'],
+        'autoConnect': false,
+      });
+
+      // Add event listeners
+      socket.on('connect', (_) {
+        print('Connected to server');
+        // Join the chat room or perform any necessary setup
+        socket.emit('message', widget.message.participant.id);
+      });
+
+      socket.on('message', (data) {
+        handleMessage(MessageGet.fromJson(data));
+      });
+
+      // Connect to the server
+      socket.connect();
+    } catch (e) {
+      print('Error: $e');
     }
   }
+
+  void sendMessage(MessageSend messageSend) {
+    if (socket.connected) {
+      socket.emit('message', messageSend.toJson());
+    } else {
+      print('Socket connection is not open.');
+    }
+  }
+
+  @override
+  void dispose() {
+    socket.disconnect(); // Disconnect the socket when the widget is disposed
+    super.dispose();
+  }
+
+  // WebSocket? ws;
+  RxList<MessageGet> receivedMessages = RxList([]);
+  RxList<MessageSend> sendMessages = RxList([]);
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   call();
+  // }
+
+  // Future<void> call() async {
+  //   await connectToServer();
+  // }
+
+  // void sendMessage(MessageSend messageSend) {
+  //   print("-------------${ws != null && ws!.readyState == WebSocket.open}");
+  //   if (ws != null && ws!.readyState == WebSocket.open) {
+  //     ws!.add(jsonEncode(messageSend.toJson()));
+  //     print("-------------${ws?.done}");
+  //   } else {
+  //     print('WebSocket connection is not open.');
+  //   }
+  // }
 
   void handleMessage(MessageGet message) {
     setState(() {
@@ -63,11 +115,11 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    ws?.close(); // Close the WebSocket connection when the widget is disposed
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   ws?.close(); // Close the WebSocket connection when the widget is disposed
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -136,13 +188,11 @@ class _ChatScreenState extends State<ChatScreen> {
           padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 100),
           child: Column(
             children: [
-              RecieverDetails(
-                participant: widget.message.participant,
-              ),
-              const ChatStartTime(),
+              // ... Existing code ...
+
               SizedBox(height: 20.h),
               Obx(
-                ()=> ListView.builder(
+                () => ListView.builder(
                   shrinkWrap: true,
                   itemCount: receivedMessages.length,
                   itemBuilder: (context, index) {
@@ -156,30 +206,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   },
                 ),
               ),
-              // ListView.builder(
-              //   physics: const NeverScrollableScrollPhysics(),
-              //   shrinkWrap: true,
-              //   itemCount: messagees.length,
-              //   itemBuilder: (context, index) {
-              //     if (index % 2 == 0) {
-              //       return RecieverChatItem(
-              //         text: messagees[index],
-              //       );
-              //     } else {
-              //       return SenderChatItem(
-              //         text: messagees[index],
-              //       );
-              //     }
-              //   },
-              // ),
-              // StreamBuilder(
-              //   stream: _webSocket?.asBroadcastStream(),
-              //   builder: (context, snapshot) {
-              //     return Text(snapshot.hasData ? '${snapshot.data}' : 'No DATA');
-              //   },
-              // ),
 
-              SizedBox(height: 20.h),
+              // ... Existing code ...
             ],
           ),
         ),
@@ -202,6 +230,11 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                         onPressed: () {},
                       ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: kPrimaryColor,
+                          )),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(color: kGreyColor)),
@@ -219,21 +252,28 @@ class _ChatScreenState extends State<ChatScreen> {
               const SizedBox(width: 5),
               GestureDetector(
                 onTap: () {
-                  print(
-                      "====```````````===================${controller.value}");
+                  print("====```````````===================${controller.text}");
                   MessageSend messageSend = MessageSend(
                     id: widget.message.participant.id,
                     participant: widget.message.participant,
                     message: controller.text,
                   );
+                  sendMessages.add(messageSend);
+                  Future.delayed(Duration(seconds: 3), () {
+                    receivedMessages.add(
+                      MessageGet(
+                        id: widget.message.participant.id,
+                        participant: widget.message.participant,
+                        unreadCount: 3.toString(),
+                        message: controller.text,
+                      ),
+                    );
+                  });
                   sendMessage(messageSend);
-                  // SocketService().sendSocketMessage(
-                  //     message: messageSend,
-                  //     onSent: () {
-                  //       CommonCode().showSuccessToast(message: "Message Sent");
-                  //     });
-                  controller.clear();
-                  setState(() {});
+                  setState(() {
+                    
+                  });
+                  // controller.clear();
                 },
                 child: const SendButton(),
               ),
@@ -244,34 +284,34 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Future<void> connectToServer() async {
-    try {
-      Random r = Random();
-      String key = base64.encode(List<int>.generate(8, (_) => r.nextInt(255)));
+//   Future<void> connectToServer() async {
+//     try {
+//       Random r = Random();
+//       String key = base64.encode(List<int>.generate(8, (_) => r.nextInt(255)));
 
-      HttpClient client = HttpClient();
-      HttpClientRequest request =
-          await client.getUrl(Uri.parse('https://api.eclinic.live'));
-      request.headers.add('connection', 'Upgrade');
-      request.headers.add('upgrade', 'websocket');
-      request.headers.add('Sec-WebSocket-Version', '13');
-      request.headers.add('Sec-WebSocket-Key', key);
-      HttpClientResponse response = await request.close();
+//       HttpClient client = HttpClient();
+//       HttpClientRequest request =
+//           await client.getUrl(Uri.parse('https://api.eclinic.live'));
+//       request.headers.add('connection', 'Upgrade');
+//       request.headers.add('upgrade', 'websocket');
+//       request.headers.add('Sec-WebSocket-Version', '13');
+//       request.headers.add('Sec-WebSocket-Key', key);
+//       HttpClientResponse response = await request.close();
 
-      print("========================${response.connectionInfo?.localPort}");
-      print("========================${response.headers}");
-      Socket socket = await response.detachSocket();
+//       print("========================${response.connectionInfo?.localPort}");
+//       print("========================${response.headers}");
+//       Socket socket = await response.detachSocket();
 
-      ws = WebSocket.fromUpgradedSocket(socket, serverSide: false);
+//       ws = WebSocket.fromUpgradedSocket(socket, serverSide: false);
 
-      ws?.listen((event) {
-        final Map<String, dynamic> jsonMessage = jsonDecode(event);
-        handleMessage(MessageGet.fromJson(jsonMessage));
-      });
-    } catch (e) {
-      print('Error: $e');
-    }
-  }
+//       ws?.listen((event) {
+//         final Map<String, dynamic> jsonMessage = jsonDecode(event);
+//         handleMessage(MessageGet.fromJson(jsonMessage));
+//       });
+//     } catch (e) {
+//       print('Error: $e');
+//     }
+//   }
 }
 
 class ChatStartTime extends StatelessWidget {

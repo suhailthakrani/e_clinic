@@ -66,6 +66,10 @@ class HTTPClient extends GetConnect {
         return Future.value(
           ResponseModel.named(message: "Invalid credentials", data: e.toString()));
       }
+      else if(e.toString().contains('Email not verified.')){
+        return Future.value(
+          ResponseModel.named(message: 'Email not verified.', data: e.toString()));
+      }
       return Future.value(
           ResponseModel.named(message: kServiceError, data: e.toString()));
     }

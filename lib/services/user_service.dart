@@ -2,12 +2,15 @@
 
 import 'dart:math';
 
+import 'package:e_clinic/models/me_model.dart';
+
 import '../models/user_login_model.dart';
 import '../services/service_urls.dart';
 
 import '../models/response_model.dart';
 import '../models/token_model.dart';
 import '../models/user_model.dart';
+import '../utils/common_code.dart';
 import '../utils/user_session.dart';
 import 'http_client.dart';
 
@@ -61,5 +64,18 @@ class UserService {
       user.responseMessage = responseModel.message;
     }
     return user;
+  }
+
+  
+
+   Future<MeModel> getMyData() async {
+    ResponseModel responseModel = await _httpClient.getRequest(url: kGetMeURL);
+    if (responseModel.message == "Success" && responseModel.data != null && responseModel.data is Map) {
+      return MeModel.fromJson(responseModel.data);
+    } else{
+      CommonCode().showToast(message: responseModel.message);
+    }
+    return MeModel.fromJson({});
+    
   }
 }

@@ -35,3 +35,5 @@ const String kBookAppointmentURL = "${kBaseURL}appointments/create/";
 
 
 const String kAddPrescriptionURL = "${kBaseURL}prescription/";
+
+const String kGetMeURL = "${kBaseURL}auth/me/";

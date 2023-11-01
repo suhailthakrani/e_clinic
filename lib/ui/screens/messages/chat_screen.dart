@@ -4,10 +4,12 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:e_clinic/controllers/messages_screen_controler.dart';
+import 'package:e_clinic/models/me_model.dart';
 import 'package:e_clinic/models/message_model.dart';
 import 'package:e_clinic/models/token_model.dart';
 import 'package:e_clinic/services/messages_service.dart';
 import 'package:e_clinic/services/socket_service.dart';
+import 'package:e_clinic/services/user_service.dart';
 import 'package:e_clinic/utils/common_code.dart';
 import 'package:e_clinic/utils/user_session.dart';
 import 'package:get/get.dart';
@@ -29,9 +31,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  // late io.Socket socket;
-
-  // late WebSocketChannel _channel;
+  MeModel meModel = MeModel.fromJson({});
   TextEditingController controller = TextEditingController();
   late io.Socket socket;
 
@@ -41,7 +41,9 @@ class _ChatScreenState extends State<ChatScreen> {
     call();
   }
 
+
   Future<void> call() async {
+    meModel = await UserService().getMyData();
     await connectToServer();
   }
 
@@ -57,12 +59,20 @@ class _ChatScreenState extends State<ChatScreen> {
       socket.on('connect', (_) {
         print('Connected to server');
         // Join the chat room or perform any necessary setup
-        socket.emit('message', widget.message.participant.id);
+        socket.emit('join', widget.message.id);
+        socket.emit('set-user', meModel.id);
+        socket.emit('leave', widget.message.id);
+
+        
       });
 
-      socket.on('message', (data) {
-        handleMessage(MessageGet.fromJson(data));
+      socket.emit('message', {
+        'conservationId': widget.message.id,
+        'message': controller.text,
+        'sender': meModel.id,
+        'receiver': widget.message.participant.id,
       });
+
 
       // Connect to the server
       socket.connect();

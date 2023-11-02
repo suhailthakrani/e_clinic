@@ -35,6 +35,8 @@ class _ChatScreenState extends State<ChatScreen> {
   TextEditingController controller = TextEditingController();
   late io.Socket socket;
 
+   List<Message> chatMessages = [];
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> call() async {
-    meModel = await UserService().getMyData();
+    meModel = await UserSession().getMe();
     await connectToServer();
   }
 
@@ -63,9 +65,23 @@ class _ChatScreenState extends State<ChatScreen> {
         // socket.emit('leave', widget.message.id);
       });
 
-      socket.on('message', (data) {
-        print(data);
+      socket.on('new-messages', (data) {
+        print("-------------${data}");
+        setState(() {
+          chatMessages.add(
+            Message.fromJson(data??{})
+          );
+        });        
       });
+      socket.on('message', (data) {
+        print("-------------${data}");
+        setState(() {
+          chatMessages.add(
+            Message.fromJson(data??{})
+          );
+        });        
+      });
+      
       // Connect to the server
       socket.connect();
     } catch (e) {
@@ -73,11 +89,29 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void sendMessage(MessageSend messageSend) {
+  void sendMessage(Message message) {
     if (socket.connected) {
-      socket.emit('message', messageSend.toJson());
+        setState(() {
+        chatMessages.add(message);
+      });
+       socket.on('new-messages', (data) {
+        print("-------------${data}");
+        setState(() {
+          chatMessages.add(
+            Message.fromJson(data??{})
+          );
+        });        
+      });
+      socket.emit('message', message.toJson());
     } else {
-      print('Socket connection is not open.');
+      socket.connect();
+      
+      if(socket.connected) {
+        socket.emit('message', message.toJson());
+      } else{
+        print('Socket connection is not open.');
+      }
+      
     }
   }
 
@@ -88,8 +122,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   // WebSocket? ws;
-  RxList<MessageGet> receivedMessages = RxList([]);
-  RxList<MessageSend> sendMessages = RxList([]);
+ 
+
 
   // @override
   // void initState() {
@@ -111,9 +145,9 @@ class _ChatScreenState extends State<ChatScreen> {
   //   }
   // }
 
-  void handleMessage(MessageGet message) {
+  void handleMessage(Message message) {
     setState(() {
-      receivedMessages.add(message);
+      chatMessages.add(message);
     });
   }
 
@@ -193,21 +227,31 @@ class _ChatScreenState extends State<ChatScreen> {
               // ... Existing code ...
 
               SizedBox(height: 20.h),
-              Obx(
-                () => ListView.builder(
+               ListView.builder(
                   shrinkWrap: true,
-                  itemCount: sendMessages.length,
+                  itemCount: chatMessages.length,
                   itemBuilder: (context, index) {
-                    final message = sendMessages[index];
-                    return ListTile(
-                      title: Text(message.id),
-                      subtitle: Text(
-                        '${message.participant.firstName} ${message.participant.lastName}',
-                      ),
-                    );
+                    final message = chatMessages[index];
+                    if(message.senderId == meModel.id) {
+                      return SenderChatItem(text: message.message);
+                    //    return ListTile(
+                    //   title: Text(message.message),
+                    //   subtitle: Text(
+                    //     '${message.participant.firstName} ${message.participant.lastName}',
+                    //   ),
+                    // );
+                    } else{
+                      RecieverChatItem(text: message.message);
+                      //  return ListTile(
+                      // title: Text(message.message),
+                      // subtitle: Text(
+                      //   '${message.participant.firstName} ${message.participant.lastName}',
+                      // ),
+                    }
+                   
                   },
                 ),
-              ),
+              
 
               // ... Existing code ...
             ],
@@ -220,7 +264,7 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               Expanded(
                 child: SizedBox(
-                  height: 45.h,
+                  // height: 45.h,
                   width: 320.w,
                   child: TextFormField(
                     controller: controller,
@@ -255,26 +299,21 @@ class _ChatScreenState extends State<ChatScreen> {
               GestureDetector(
                 onTap: () {
                   print("====```````````===================${controller.text}");
-                  MessageSend messageSend = MessageSend(
-                    id: widget.message.participant.id,
-                    participant: widget.message.participant,
-                    message: controller.text,
-                  );
-                  Future.delayed(Duration(seconds: 3), () {
-                    receivedMessages.add(
-                      MessageGet(
-                        id: widget.message.participant.id,
-                        participant: widget.message.participant,
+                 Message msg = Message(
+                        recieverId: widget.message.participant.id,
+                        senderId: meModel.id,
+                        participant: Participant(
+                          id: meModel.id, 
+                          firstName: meModel.firstName, 
+                          lastName: meModel.lastName
+                          ),
                         unreadCount: 3.toString(),
                         message: controller.text,
-                      ),
-                    );
-                  });
-                  setState(() {
-                    sendMessages.add(messageSend);
-                  });
-                  sendMessage(messageSend);
-                  setState(() {});
+                      );
+                
+                 
+                  sendMessage(msg);
+                  
                   // controller.clear();
                 },
                 child: const SendButton(),

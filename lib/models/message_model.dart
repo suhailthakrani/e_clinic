@@ -62,7 +62,7 @@ class MessageGet {
             'unreadCount': '0',
           }),
       unreadCount: "${json['unreadCount'] ?? ''}",
-      message: json['messageText'] ?? '', // Added this line
+      message: json['Message'] ?? '', // Added this line
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../models/me_model.dart';
 import '../models/user_model.dart';
 import '../services/user_service.dart';
 import '../ui/widgets/custom_dialogs.dart';
@@ -47,6 +48,8 @@ class LoginScreenController extends GetxController {
       pd.dismissDialog();
       if (userModel.responseMessage == 'Success') {
         await UserSession().createSession(user: userModel);
+          MeModel meModel = await UserService().getMyData();
+          await UserSession().saveMe(me: meModel);
         Get.offAllNamed(kMainScreenRoute);
       } else {
         pd.dismissDialog();

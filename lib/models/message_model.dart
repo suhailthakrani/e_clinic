@@ -1,3 +1,44 @@
+class Message {
+  String senderId = '';
+  String recieverId = '';
+  Participant participant = Participant.empty();
+  String unreadCount = '';
+  String message = ''; // Added this line
+
+  Message({
+    required this.senderId,
+    required this.recieverId,
+    required this.participant,
+    required this.unreadCount,
+    required this.message, // Added this line
+  });
+
+  factory Message.fromJson(Map<String, dynamic> json) {
+    return Message(
+      senderId: json['senderId'] ?? '',
+      recieverId: json['recieverId'] ?? '',
+      participant: Participant.fromJson(json['Participant'] ??
+          {
+            'id': '',
+            'Participant': {},
+            'unreadCount': '0',
+          }),
+      unreadCount: "${json['unreadCount'] ?? ''}",
+      message: json['messageText'] ?? '', // Added this line
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'senderId': senderId,
+      'recieverId': recieverId,
+      'Participant': participant.toJson(),
+      'unreadCount': unreadCount,
+      'message': message, // Added this line
+    };
+  }
+}
+
 class MessageGet {
   String id = '';
   Participant participant = Participant.empty();
@@ -13,9 +54,14 @@ class MessageGet {
 
   factory MessageGet.fromJson(Map<String, dynamic> json) {
     return MessageGet(
-      id: json['id']??'',
-      participant: Participant.fromJson(json['Participant']??{'id': '','Participant': {},'unreadCount': '0',}),
-      unreadCount: "${json['unreadCount']??''}",
+      id: json['id'] ?? '',
+      participant: Participant.fromJson(json['Participant'] ??
+          {
+            'id': '',
+            'Participant': {},
+            'unreadCount': '0',
+          }),
+      unreadCount: "${json['unreadCount'] ?? ''}",
       message: json['messageText'] ?? '', // Added this line
     );
   }
@@ -46,7 +92,7 @@ class MessageSend {
     return MessageSend(
       id: json['id'] ?? '',
       participant: Participant.fromJson(json['Participant'] ?? {}),
-      message: json['Message']??'',
+      message: json['Message'] ?? '',
     );
   }
 
@@ -58,8 +104,6 @@ class MessageSend {
     };
   }
 }
-
-
 
 class Participant {
   String id = '';
@@ -78,10 +122,10 @@ class Participant {
 
   factory Participant.fromJson(Map<String, dynamic> json) {
     return Participant(
-      id: json['id']??'',
-      firstName: json['first_name']??'',
-      lastName: json['last_name']??'',
-      image: json['image']??'',
+      id: json['id'] ?? '',
+      firstName: json['first_name'] ?? '',
+      lastName: json['last_name'] ?? '',
+      image: json['image'] ?? '',
     );
   }
 

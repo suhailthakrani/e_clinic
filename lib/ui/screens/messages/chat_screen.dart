@@ -41,7 +41,6 @@ class _ChatScreenState extends State<ChatScreen> {
     call();
   }
 
-
   Future<void> call() async {
     meModel = await UserService().getMyData();
     await connectToServer();
@@ -59,21 +58,14 @@ class _ChatScreenState extends State<ChatScreen> {
       socket.on('connect', (_) {
         print('Connected to server');
         // Join the chat room or perform any necessary setup
-        socket.emit('join', widget.message.id);
-        socket.emit('set-user', meModel.id);
-        socket.emit('leave', widget.message.id);
-
-        
+        socket.emit("join", [widget.message.id, meModel.id]);
+        socket.emit('set-user', widget.message.id);
+        // socket.emit('leave', widget.message.id);
       });
 
-      socket.emit('message', {
-        'conservationId': widget.message.id,
-        'message': controller.text,
-        'sender': meModel.id,
-        'receiver': widget.message.participant.id,
+      socket.on('message', (data) {
+        print(data);
       });
-
-
       // Connect to the server
       socket.connect();
     } catch (e) {
@@ -204,9 +196,9 @@ class _ChatScreenState extends State<ChatScreen> {
               Obx(
                 () => ListView.builder(
                   shrinkWrap: true,
-                  itemCount: receivedMessages.length,
+                  itemCount: sendMessages.length,
                   itemBuilder: (context, index) {
-                    final message = receivedMessages[index];
+                    final message = sendMessages[index];
                     return ListTile(
                       title: Text(message.id),
                       subtitle: Text(
@@ -268,7 +260,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     participant: widget.message.participant,
                     message: controller.text,
                   );
-                  sendMessages.add(messageSend);
                   Future.delayed(Duration(seconds: 3), () {
                     receivedMessages.add(
                       MessageGet(
@@ -279,10 +270,11 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                     );
                   });
-                  sendMessage(messageSend);
                   setState(() {
-                    
+                    sendMessages.add(messageSend);
                   });
+                  sendMessage(messageSend);
+                  setState(() {});
                   // controller.clear();
                 },
                 child: const SendButton(),

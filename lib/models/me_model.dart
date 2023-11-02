@@ -25,16 +25,16 @@ class MeModel {
 
   factory MeModel.fromJson(Map<String, dynamic> json) {
     return MeModel(
-      id: json['id']??'',
-      firstName: json['first_name']??'',
-      lastName: json['last_name']??'',
-      email: json['email']??'',
-      phone: json['phone']??'',
-      gender: json['gender']??'',
-      role: json['role']??'',
-      image: json['image']??'',
-      profileSetup: json['profile_setup']??'',
-      birthdate: json['birthdate']??'',
+      id: json['id'] ?? '',
+      firstName: json['first_name'] ?? '',
+      lastName: json['last_name'] ?? '',
+      email: json['email'] ?? '',
+      phone: json['phone'] ?? '',
+      gender: json['gender'] ?? '',
+      role: json['role'] ?? '',
+      image: json['image'] ?? '',
+      profileSetup: json['profile_setup'].toString(),
+      birthdate: json['birthdate'] ?? '',
     );
   }
 

@@ -35,7 +35,7 @@ class _ChatScreenState extends State<ChatScreen> {
   TextEditingController controller = TextEditingController();
   late io.Socket socket;
 
-   List<Message> chatMessages = [];
+  List<Message> chatMessages = [];
 
   @override
   void initState() {
@@ -68,20 +68,16 @@ class _ChatScreenState extends State<ChatScreen> {
       socket.on('new-messages', (data) {
         print("-------------${data}");
         setState(() {
-          chatMessages.add(
-            Message.fromJson(data??{})
-          );
-        });        
+          chatMessages.add(Message.fromJson(data ?? {}));
+        });
       });
       socket.on('message', (data) {
         print("-------------${data}");
         setState(() {
-          chatMessages.add(
-            Message.fromJson(data??{})
-          );
-        });        
+          chatMessages.add(Message.fromJson(data ?? {}));
+        });
       });
-      
+
       // Connect to the server
       socket.connect();
     } catch (e) {
@@ -90,29 +86,20 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void sendMessage(Message message) {
-    if (socket.connected) {
-        setState(() {
-        chatMessages.add(message);
-      });
-       socket.on('new-messages', (data) {
-        print("-------------${data}");
-        setState(() {
-          chatMessages.add(
-            Message.fromJson(data??{})
-          );
-        });        
-      });
-      socket.emit('message', message.toJson());
-    } else {
+    if (!socket.connected) {
       socket.connect();
-      
-      if(socket.connected) {
-        socket.emit('message', message.toJson());
-      } else{
-        print('Socket connection is not open.');
-      }
-      
     }
+
+    setState(() {
+      chatMessages.add(message);
+    });
+    socket.on('new-messages', (data) {
+      print("-------------${data}");
+      setState(() {
+        chatMessages.add(Message.fromJson(data ?? {}));
+      });
+    });
+    socket.emit('message', message.toJson());
   }
 
   @override
@@ -122,8 +109,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   // WebSocket? ws;
- 
-
 
   // @override
   // void initState() {
@@ -227,31 +212,29 @@ class _ChatScreenState extends State<ChatScreen> {
               // ... Existing code ...
 
               SizedBox(height: 20.h),
-               ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: chatMessages.length,
-                  itemBuilder: (context, index) {
-                    final message = chatMessages[index];
-                    if(message.senderId == meModel.id) {
-                      return SenderChatItem(text: message.message);
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: chatMessages.length,
+                itemBuilder: (context, index) {
+                  final message = chatMessages[index];
+                  if (message.senderId == meModel.id) {
+                    return SenderChatItem(text: message.message);
                     //    return ListTile(
                     //   title: Text(message.message),
                     //   subtitle: Text(
                     //     '${message.participant.firstName} ${message.participant.lastName}',
                     //   ),
                     // );
-                    } else{
-                      RecieverChatItem(text: message.message);
-                      //  return ListTile(
-                      // title: Text(message.message),
-                      // subtitle: Text(
-                      //   '${message.participant.firstName} ${message.participant.lastName}',
-                      // ),
-                    }
-                   
-                  },
-                ),
-              
+                  } else {
+                    RecieverChatItem(text: message.message);
+                    //  return ListTile(
+                    // title: Text(message.message),
+                    // subtitle: Text(
+                    //   '${message.participant.firstName} ${message.participant.lastName}',
+                    // ),
+                  }
+                },
+              ),
 
               // ... Existing code ...
             ],
@@ -299,21 +282,19 @@ class _ChatScreenState extends State<ChatScreen> {
               GestureDetector(
                 onTap: () {
                   print("====```````````===================${controller.text}");
-                 Message msg = Message(
-                        recieverId: widget.message.participant.id,
-                        senderId: meModel.id,
-                        participant: Participant(
-                          id: meModel.id, 
-                          firstName: meModel.firstName, 
-                          lastName: meModel.lastName
-                          ),
-                        unreadCount: 3.toString(),
-                        message: controller.text,
-                      );
-                
-                 
+                  Message msg = Message(
+                    recieverId: widget.message.participant.id,
+                    senderId: meModel.id,
+                    participant: Participant(
+                        id: meModel.id,
+                        firstName: meModel.firstName,
+                        lastName: meModel.lastName),
+                    unreadCount: 3.toString(),
+                    message: controller.text,
+                  );
+
                   sendMessage(msg);
-                  
+
                   // controller.clear();
                 },
                 child: const SendButton(),

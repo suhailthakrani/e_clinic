@@ -40,18 +40,17 @@ class UserSession {
     final preference = await SharedPreferences.getInstance();
     preference.setString("access_token", jsonEncode(token.forSession()));
   }
-  
+
   Future<void> saveMe({required MeModel me}) async {
     final preference = await SharedPreferences.getInstance();
     preference.setString("me", jsonEncode(me.toJson()));
   }
+
   Future<MeModel> getMe() async {
     final preference = await SharedPreferences.getInstance();
-    Map<String, dynamic> name = jsonDecode(preference.getString("me")??"");
+    Map<String, dynamic> name = jsonDecode(preference.getString("me") ?? "{}");
     return MeModel.fromJson(name);
-
   }
-
 
   Future<TokenModel> getToken() async {
     final preference = await SharedPreferences.getInstance();

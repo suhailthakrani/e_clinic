@@ -61,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
         print('Connected to server');
         // Join the chat room or perform any necessary setup
         socket.emit("join", [widget.message.id, meModel.id]);
-        socket.emit('set-user', widget.message.id);
+        socket.emit('set-user', widget.message.participant.id);
         // socket.emit('leave', widget.message.id);
       });
 
@@ -99,7 +99,13 @@ class _ChatScreenState extends State<ChatScreen> {
         chatMessages.add(Message.fromJson(data ?? {}));
       });
     });
-    socket.emit('message', message.toJson());
+    socket.emit('message', {
+        "conversationId": widget.message.id,
+        "message": message.message,
+        "sender": meModel.id,
+        "receiver": widget.message.participant.id
+      });
+    // socket.emit('message', message.toJson());
   }
 
   @override

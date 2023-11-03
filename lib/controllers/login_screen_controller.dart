@@ -48,8 +48,6 @@ class LoginScreenController extends GetxController {
       pd.dismissDialog();
       if (userModel.responseMessage == 'Success') {
         await UserSession().createSession(user: userModel);
-          MeModel meModel = await UserService().getMyData();
-          await UserSession().saveMe(me: meModel);
         Get.offAllNamed(kMainScreenRoute);
       } else {
         pd.dismissDialog();

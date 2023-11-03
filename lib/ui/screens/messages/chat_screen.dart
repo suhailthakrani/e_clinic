@@ -10,6 +10,8 @@ import 'package:e_clinic/models/token_model.dart';
 import 'package:e_clinic/services/messages_service.dart';
 import 'package:e_clinic/services/socket_service.dart';
 import 'package:e_clinic/services/user_service.dart';
+import 'package:e_clinic/ui/screens/messages/components/chat_reciever_item.dart';
+import 'package:e_clinic/ui/screens/messages/components/chat_sender_item.dart';
 import 'package:e_clinic/utils/common_code.dart';
 import 'package:e_clinic/utils/user_session.dart';
 import 'package:get/get.dart';
@@ -224,7 +226,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 itemBuilder: (context, index) {
                   final message = chatMessages[index];
                   if (message.senderId == meModel.id) {
-                    return SenderChatItem(text: message.message);
+                    return chatSenderWidget(message);
                     //    return ListTile(
                     //   title: Text(message.message),
                     //   subtitle: Text(
@@ -232,7 +234,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     //   ),
                     // );
                   } else {
-                    RecieverChatItem(text: message.message);
+                    return chatRecieverWidget(message);
                     //  return ListTile(
                     // title: Text(message.message),
                     // subtitle: Text(
@@ -415,102 +417,6 @@ class SendButton extends StatelessWidget {
         Icons.send,
         color: Colors.white,
       ),
-    );
-  }
-}
-
-class RecieverChatItem extends StatelessWidget {
-  const RecieverChatItem({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            alignment: Alignment.center,
-            width: Get.width * 0.7,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(10.w),
-                topLeft: Radius.circular(10.w),
-                topRight: Radius.circular(10.w),
-              ),
-            ),
-            child: Text(text),
-          ),
-        ),
-        SizedBox(height: 5.h),
-        Container(
-          alignment: Alignment.centerLeft,
-          child: const Text(
-            "10:00 PM",
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class SenderChatItem extends StatelessWidget {
-  const SenderChatItem({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            alignment: Alignment.center,
-            constraints: BoxConstraints(
-              maxWidth: 275.w,
-              minWidth: 100.w,
-            ),
-            decoration: BoxDecoration(
-              color: kPrimaryColor,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10.w),
-                bottomLeft: Radius.circular(10.w),
-                topLeft: Radius.circular(10.w),
-              ),
-            ),
-            child: Text(
-              text,
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-        SizedBox(height: 5.h),
-        Container(
-          alignment: Alignment.centerRight,
-          child: const Text(
-            "10:00 PM",
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

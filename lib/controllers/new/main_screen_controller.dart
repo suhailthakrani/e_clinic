@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../models/doctor_model.dart';
+import '../../models/me_model.dart';
+import '../../services/user_service.dart';
+import '../../utils/user_session.dart';
 
 class MainScreenController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -62,6 +65,8 @@ class MainScreenController extends GetxController {
 
   @override
   Future<void> onInit() async {
+    MeModel meModel = await UserService().getMyData();
+          await UserSession().saveMe(me: meModel);
     categoriesList.value = await DoctorsService().getSpecializationList();
     for (int i = 0; i < categoriesList.length; i++) {
       String image = imagesList[i % imagesList.length];

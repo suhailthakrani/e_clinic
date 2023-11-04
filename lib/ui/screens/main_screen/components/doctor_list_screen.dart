@@ -69,8 +69,10 @@ class DoctorsListScreen extends GetView<DoctorListScreenController> {
                               margin: const EdgeInsets.symmetric(vertical: 16),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
-                                child: Image.network(
-                                  controller.doctors[index].image,
+                                child: Image.asset(
+                                  // controller.doctors[index].image,
+                                  index%2 == 0?
+                                              'assets/images/doctor.png':'assets/images/doctor2.png',
                                   fit: BoxFit.cover,
                                   errorBuilder:
                                       (context, child, loadingProgress) =>

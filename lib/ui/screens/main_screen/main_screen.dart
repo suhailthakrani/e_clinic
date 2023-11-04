@@ -320,9 +320,11 @@ class MainScreen extends GetView<MainScreenController> {
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(16),
-                                            child: Image.network(
-                                              controller
-                                                  .doctorsList[index].image,
+                                            child: Image.asset(
+                                              index%2 == 0?
+                                              'assets/images/doctor.png':'assets/images/doctor2.png',
+                                              // controller
+                                              //     .doctorsList[index].image,
                                               fit: BoxFit.cover,
                                               errorBuilder: (context, child,
                                                       loadingProgress) =>

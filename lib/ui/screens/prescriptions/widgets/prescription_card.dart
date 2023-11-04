@@ -97,7 +97,7 @@ class PrescriptionCard extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   height: 30.h,
-                  width: 100.w,
+                  // width: 100.w,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -108,7 +108,7 @@ class PrescriptionCard extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: const Color.fromRGBO(87, 98, 182, 0.2),
+                      backgroundColor: const Color.fromRGBO(87, 98, 182, 0.2),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),

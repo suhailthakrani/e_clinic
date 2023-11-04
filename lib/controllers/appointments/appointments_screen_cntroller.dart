@@ -1,38 +1,23 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_clinic/models/new_appointment_model.dart';
-import '/../models/appointment_model.dart';
-import '/../models/appointment_type.dart';
 import '/../services/appointment_service.dart';
-import '/../ui/widgets/custom_dialogs.dart';
-import '/../utils/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../ui/widgets/custom_progress_dialog.dart';
 import '../../utils/date_time_manager.dart';
 
 class AppointmentScreenController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  RxList<AppointmentModelNew> appointmentsRequests = <AppointmentModelNew>[].obs;
-  RxList<AppointmentModelNew> appointmentsCompleted = <AppointmentModelNew>[].obs;
-  DateTimeManager sortingDate = DateTimeManager("Date of Birth");
+  RxList<AppointmentModelNew> appointmentsList = <AppointmentModelNew>[].obs;
+  DateTimeManager sortingDate = DateTimeManager("Filter By Date");
 
-  List<String> appointmentTypes = [
-    'Upcoming',
-    'Previous',
-  ];
-  RxInt selectedAppointmentType = 0.obs;
-
-  void onDrIndexChanged(int index) {
-    selectedAppointmentType.value = index;
-  }
-
-  @override
-  Future<void> onInit() async {
-    appointmentsCompleted.value = await AppointmentService().getCompletedAppointmentModelsList();
-    super.onInit();
+@override
+  Future<void> onReady() async {
+    print("==========-----------==============--------");
+    appointmentsList.value = await AppointmentService().getCompletedAppointmentModelsList();
+    print("---------------------${appointmentsList}");
+    super.onReady();
   }
 
   String convertDateFormat(String inputDate) {

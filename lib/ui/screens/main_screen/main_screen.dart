@@ -328,7 +328,7 @@ class MainScreen extends GetView<MainScreenController> {
                                                       loadingProgress) =>
                                                   const Center(
                                                 child:
-                                                    CircularProgressIndicator(),
+                                                    Text("Loading...", style: TextStyle(color: kGreyColor),),
                                               ),
                                             ),
                                           ),
@@ -506,7 +506,9 @@ class MainScreen extends GetView<MainScreenController> {
                               ),
                             ),
                           ),
-                  )),
+                  ),
+                  ),
+                  
 
               // Column(
               //   children: [

@@ -8,6 +8,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'doctor_search_deligate.dart';
+
 class DoctorsListScreen extends GetView<DoctorListScreenController> {
   const DoctorsListScreen({super.key});
 
@@ -23,12 +25,24 @@ class DoctorsListScreen extends GetView<DoctorListScreenController> {
             'Doctor Details',
             style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
           ),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                showSearch(
+                  context: context,
+                  delegate: DoctorSearchDelegate(controller.doctors,
+                      controller.searchController.controller.text),
+                );
+              },
+              child: Icon(Icons.search),
+            ),
+            SizedBox(width: 30),
+          ],
         ),
         body: Obx(() => controller.doctors.isNotEmpty
-            ? ListView.separated(
+            ? ListView.builder(
                 itemCount: controller.doctors.length,
                 physics: const ClampingScrollPhysics(),
-                 separatorBuilder: (_, int index) =>const Divider(),
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
@@ -36,10 +50,12 @@ class DoctorsListScreen extends GetView<DoctorListScreenController> {
                         "dotor": controller.doctors[index],
                       });
                     },
-                    child: Container(
+                    child: Card(
+                      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      elevation: 8,
                       child: Container(
                         // width: Get.width * 0.6,
-                        height: Get.height * 0.22,
+                        height: Get.height * 0.24,
                         padding: const EdgeInsets.all(8),
                         child: Row(
                           children: [
@@ -58,8 +74,8 @@ class DoctorsListScreen extends GetView<DoctorListScreenController> {
                                   fit: BoxFit.cover,
                                   errorBuilder:
                                       (context, child, loadingProgress) =>
-                                          const Center(
-                                    child: CircularProgressIndicator(),
+                                          Container(
+                                    color: kPrimaryColor,
                                   ),
                                 ),
                               ),
@@ -114,8 +130,9 @@ class DoctorsListScreen extends GetView<DoctorListScreenController> {
                                     Row(
                                       children: [
                                         RatingBarIndicator(
-                                          rating: double.tryParse(
-                                              controller.doctors[index].rating)??3.8,
+                                          rating: double.tryParse(controller
+                                                  .doctors[index].rating) ??
+                                              3.8,
                                           itemBuilder: (context, index) =>
                                               const Icon(
                                             Icons.star,

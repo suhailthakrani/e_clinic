@@ -1,13 +1,51 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
+import 'package:e_clinic/models/general_models.dart';
+import 'package:e_clinic/utils/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+
+import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PrescriptionDetail extends StatelessWidget {
-  const PrescriptionDetail({Key? key}) : super(key: key);
+  final Prescription prescription;
+  PrescriptionDetail({Key? key, required this.prescription})
+      : super(key: key);
+
+  GlobalKey _globalKey = GlobalKey();
+
+Future<void> _captureAndShare() async {
+
+  RenderRepaintBoundary boundary = _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+  ui.Image image = await boundary.toImage();
+  ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+  Uint8List pngBytes = Uint8List(0);
+  if(byteData != null) {
+    pngBytes = byteData.buffer.asUint8List();
+  }
+
+  final result = await ImageGallerySaver.saveImage(pngBytes);
+
+  if (result != null && result['isSuccess']) {
+    XFile file = XFile.fromData(pngBytes);
+    Share.shareXFiles([file]);
+  }
+}
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
+      key: _globalKey,
+      backgroundColor: kWhiteColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -15,118 +53,124 @@ class PrescriptionDetail extends StatelessWidget {
         actions: const [
           // ProfileAvatar(),
         ],
+        elevation: 0,
       ),
-      body: ScreenUtilInit(
-        designSize: Size(
-          MediaQuery.of(context).size.width,
-          MediaQuery.of(context).size.height,
+      body: Container(
+        // height: 420.h,
+        // width: 315.w,
+        margin: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.w),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 12.w,
+              spreadRadius: 5.w,
+              offset: Offset(0, 12.w),
+            ),
+          ],
         ),
-        builder: (context, w) => Container(
-          padding: EdgeInsets.symmetric(horizontal: 50.w, vertical: 20.h),
-          child: Container(
-            height: 420.h,
-            width: 315.w,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.w),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 12.w,
-                  spreadRadius: 5.w,
-                  offset: Offset(0, 12.w),
-                ),
-              ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Patient Information",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            SizedBox(height: 12.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Patient Information",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(height: 12.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [Text("Name"), Text("Hassan")],
-                ),
-                SizedBox(height: 12.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [Text("NIC"), Text("557-4342-731-7774")],
-                ),
-                SizedBox(height: 12.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [Text("Gender"), Text("Male")],
-                ),
-                SizedBox(height: 12.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [Text("Time"), Text("15:00 - 15:30")],
-                ),
-                SizedBox(height: 12.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [Text("Date"), Text("06 August 2022")],
-                ),
-                SizedBox(height: 12.h),
-                const Divider(
-                  thickness: 5,
-                ),
-                SizedBox(height: 12.h),
-                const Text(
-                  "Medicine Details",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(height: 12.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text("Insuline Glulisine"),
-                    Text("12ml take once a day")
-                  ],
-                ),
-                SizedBox(height: 12.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text("Orinase"),
-                    Text("500 mg tablets - 2-3 times daily")
-                  ],
-                ),
-                SizedBox(height: 12.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text("Glucotrol"),
-                    Text("12 mg tablets   -  take once a day")
-                  ],
-                ),
-                SizedBox(height: 12.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
-                    SizedBox(width: 12.w),
-                    IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.download)),
-                  ],
-                ),
+                const Text("Doctor Name"),
+                Text(prescription.appointment.patientName),
               ],
             ),
-          ),
+            SizedBox(height: 12.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("Appointment Type"),
+                Text(prescription.appointment.type),
+              ],
+            ),
+            SizedBox(height: 12.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("Time"),
+                Text(convertToAMPM(prescription.appointment.time))
+              ],
+            ),
+            SizedBox(height: 12.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("Date"),
+                Text(convertDateFormat(
+                    prescription.appointment.date.toIso8601String())),
+              ],
+            ),
+            const Divider(
+              thickness: 5,
+            ),
+            SizedBox(height: 12.h),
+            const Text(
+              "Medicine Details",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            SizedBox(height: 12.h),
+            for (int i = 0; i < prescription.medication.length; i++)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: Text(
+                            "${prescription.medication[i].medication} - ${prescription.medication[i].dosage}")),
+                    Expanded(
+                        flex: 1,
+                        child: Text(prescription.medication[i].instructions))
+                  ],
+                ),
+              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(onPressed: () async {
+                  await _captureAndShare();
+                }, icon: const Icon(Icons.share)),
+                SizedBox(width: 12.w),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.download)),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
+  
+}
+
+String convertDateFormat(String inputDate) {
+  DateTime dateTime = DateTime.parse(inputDate);
+  String formattedDate = DateFormat('d MMMM y').format(dateTime);
+  return formattedDate;
+}
+
+String convertToAMPM(String timeString) {
+  DateTime dateTime = DateFormat('HH:mm').parse(timeString);
+  String formattedTime = DateFormat('h:mm a').format(dateTime);
+  return formattedTime;
 }

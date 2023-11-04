@@ -1,5 +1,6 @@
 import 'package:e_clinic/ui/screens/main_screen/components/book_appointment_screen.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/doctor_list_screen.dart';
+import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
 import 'package:e_clinic/ui/screens/settings/components/notification_settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -115,6 +116,11 @@ class RouteManagement {
       GetPage(
         name: kBookAppointmentScreenRoute,
         page: () => const BookAppointmentScreen(),
+        binding: ScreensBindings(),
+      ),
+      GetPage(
+        name: kPrescriptionScreenRoute,
+        page: () => const PrescriptionsScreen(),
         binding: ScreensBindings(),
       ),
     ];

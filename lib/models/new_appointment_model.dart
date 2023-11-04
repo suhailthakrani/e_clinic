@@ -13,10 +13,10 @@ class NewDoctor {
 
   factory NewDoctor.fromJson(Map<String, dynamic> json) {
     return NewDoctor(
-      userId: json['userId'],
-      firstName: json['first_name'],
-      lastName: json['last_name'],
-      specialization: json['specialization'],
+      userId: json['userId']??'',
+      firstName: json['first_name']??'',
+      lastName: json['last_name']??'',
+      specialization: json['specialization']??'',
     );
   }
 }
@@ -48,16 +48,16 @@ class AppointmentModelNew {
 
   factory AppointmentModelNew.fromJson(Map<String, dynamic> json) {
     return AppointmentModelNew(
-      id: json['id'],
-      patientName: json['patient_name'],
-      date: DateTime.parse(json['date']),
-      time: json['time'],
-      type: json['type'],
-      charges: json['charges'].toDouble(),
-      message: json['message'],
-      completed: json['completed'],
-      doctor: NewDoctor.fromJson(json['doctor']),
-      image: json['image'],
+      id: json['id'] ??'',
+      patientName: json['patient_name'] ??'',
+      date: DateTime.parse(json['date']??''),
+      time: json['time'] ??'',
+      type: json['type'] ??'',
+      charges: (json['charges']??'0.0').toDouble(),
+      message: json['message']??"",
+      completed: json['completed']??false,
+      doctor: NewDoctor.fromJson(json['doctor']??{}),
+      image: json['image']??'',
     );
   }
 }

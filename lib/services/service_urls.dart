@@ -24,9 +24,9 @@ const String kGetDoctorScheduleURL = "${kBaseURL}doctors/$drId/schedule/";
 const String kGetDoctorTimeSlotURL = "${kBaseURL}doctors/$drId/timeSlots/";
 
 //Appointments
-const String kGetAppointmentsURL = "${kBaseURL}appointments/";
-const String kGetAppointmentRequestsURL = "${kBaseURL}appointments/requests";
-const String kGetCompletedAppointmentsURL = "${kBaseURL}appointments/completed/";
+const String kGetAppointmentsURL = "${kBaseURL}appointments/patient";
+// const String kGetAppointmentRequestsURL = "${kBaseURL}appointments/requests";
+// const String kGetCompletedAppointmentsURL = "${kBaseURL}appointments/completed/";
 
 const String kAcceptAppointmentURL = "${kBaseURL}appointments/requests/accept";
 const String kRejectAppointmentURL = "${kBaseURL}appointments/requests/reject";

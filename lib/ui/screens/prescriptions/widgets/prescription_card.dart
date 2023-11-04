@@ -1,24 +1,23 @@
+import 'package:e_clinic/models/general_models.dart';
 import 'package:e_clinic/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../prescription_detail.dart';
 
 class PrescriptionCard extends StatelessWidget {
-  const PrescriptionCard({Key? key}) : super(key: key);
+  final Prescription prescription;
+  const PrescriptionCard({Key? key, required this.prescription}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(
-        MediaQuery.of(context).size.width,
-        MediaQuery.of(context).size.height,
-      ),
-      builder: (context, w) => Container(
+    return Container(
         margin: EdgeInsets.only(bottom: 20.h),
         padding: EdgeInsets.all(16.w),
-        width: 330.w,
-        height: 130.h,
+        width: Get.width,
+        // height: 130.h,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.w),
@@ -37,21 +36,30 @@ class PrescriptionCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Diabetes - Mr James",
-                  style: TextStyle(
+                Text(
+                  "Dr. ${prescription.appointment.patientName}",
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 SizedBox(height: 10.h),
+                Text(
+                  "${prescription.appointment.type}",
+                  style:  TextStyle(
+                    color: kPrimaryColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 10.h),
                 SizedBox(
                   height: 30.h,
                   width: 160.w,
-                  child: const Text(
-                    "Lorem ipsum dolor sit amet, consectetur.",
-                    style: TextStyle(
+                  child:  Text(
+                    "${prescription.appointment.message}",
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -62,14 +70,14 @@ class PrescriptionCard extends StatelessWidget {
                 Row(
                   children: [
                     Row(
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           Icons.calendar_month_rounded,
                           color: Colors.grey,
                         ),
                         Text(
-                          "6 August 2022",
-                          style: TextStyle(
+                          "${convertDateFormat(prescription.appointment.date.toIso8601String())}",
+                          style: const TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
@@ -95,7 +103,7 @@ class PrescriptionCard extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const PrescriptionDetail(),
+                          builder: (context) =>  PrescriptionDetail(prescription: prescription,),
                         ),
                       );
                     },
@@ -119,7 +127,18 @@ class PrescriptionCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }
+
+ String convertDateFormat(String inputDate) {
+    DateTime dateTime = DateTime.parse(inputDate);
+    String formattedDate = DateFormat('d MMMM y').format(dateTime);
+    return formattedDate;
+  }
+
+  String convertToAMPM(String timeString) {
+    DateTime dateTime = DateFormat('HH:mm').parse(timeString);
+    String formattedTime = DateFormat('h:mm a').format(dateTime);
+    return formattedTime;
+  }

@@ -344,91 +344,94 @@
 //   }
 // }
 
-// class Medication {
-//   String id = '';
-//   String medication = '';
-//   String dosage = '';
-//   String instructions = '';
-//   Prescription prescription ;
-//   String prescriptionId = '';
+import 'appointment_model.dart';
 
-//   Medication({
-//     this.id = '',
-//     this.medication = '',
-//     this.dosage = '',
-//     this.instructions = '',
-//     required this.prescription,
-//     this.prescriptionId = '',
-//   });
+class Medication {
+  String id = '';
+  String medication = '';
+  String dosage = '';
+  String instructions = '';
+  Prescription prescription ;
+  String prescriptionId = '';
 
-//   Medication.empty()
-//       : id = '',
-//         medication = '',
-//         dosage = '',
-//         instructions = '',
-//         prescription = Prescription.empty(),
-//         prescriptionId = '';
+  Medication({
+    this.id = '',
+    this.medication = '',
+    this.dosage = '',
+    this.instructions = '',
+    required this.prescription,
+    this.prescriptionId = '',
+  });
 
-//   factory Medication.fromJson(Map<String, dynamic> json) {
-//     return Medication(
-//       id: json['id'] ?? '',
-//       medication: json['medication'] ?? '',
-//       dosage: json['dosage'] ?? '',
-//       instructions: json['instructions'] ?? '',
-//       prescription: Prescription.fromJson(json['Prescription']),
-//       prescriptionId: json['prescriptionId'] ?? '',
-//     );
-//   }
+  Medication.empty()
+      : id = '',
+        medication = '',
+        dosage = '',
+        instructions = '',
+        prescription = Prescription.empty(),
+        prescriptionId = '';
 
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'id': id,
-//       'medication': medication,
-//       'dosage': dosage,
-//       'instructions': instructions,
-//       'Prescription': prescription.toJson(),
-//       'prescriptionId': prescriptionId,
-//     };
-//   }
-// }
+  factory Medication.fromJson(Map<String, dynamic> json) {
+    return Medication(
+      id: json['id'] ?? '',
+      medication: json['medication'] ?? '',
+      dosage: json['dosage'] ?? '',
+      instructions: json['instructions'] ?? '',
+      prescription: Prescription.fromJson(json['Prescription']??{}),
+      prescriptionId: json['prescriptionId'] ?? '',
+    );
+  }
 
-// class Prescription {
-//   String id = '';
-//   late AppointmentModel appointment;
-//   String appointmentId = '';
-//   late List<Medication> medication;
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'medication': medication,
+      'dosage': dosage,
+      'instructions': instructions,
+      'Prescription': prescription.toJson(),
+      'prescriptionId': prescriptionId,
+    };
+  }
+}
 
-//   Prescription({
-//     this.id = '',
-//     required this.appointment,
-//     this.appointmentId = '',
-//     List<Medication>? medication,
-//   }) : this.medication = medication ?? [];
 
-//   Prescription.empty()
-//       : id = '',
-//         appointment = AppointmentModel.empty(),
-//         appointmentId = '',
-//         medication = [];
+class Prescription {
+  String id = '';
+  late AppointmentModel appointment;
+  String appointmentId = '';
+  late List<Medication> medication;
 
-//   factory Prescription.fromJson(Map<String, dynamic> json) {
-//     return Prescription(
-//       id: json['id'] ?? '',
-//       appointment: AppointmentModel.fromJson(json['Appointment']),
-//       appointmentId: json['appointmentId'] ?? '',
-//       medication: (json['Medication'] as List<dynamic>?)
-//           ?.map((e) => Medication.fromJson(e))
-//           .toList() ??
-//           [],
-//     );
-//   }
+  Prescription({
+    this.id = '',
+    required this.appointment,
+    this.appointmentId = '',
+    List<Medication>? medication,
+  }) : this.medication = medication ?? [];
 
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'id': id,
-//       'Appointment': appointment.toJson(),
-//       'appointmentId': appointmentId,
-//       'Medication': medication.map((e) => e.toJson()).toList(),
-//     };
-//   }
-// }
+  Prescription.empty()
+      : id = '',
+        appointment = AppointmentModel.empty(),
+        appointmentId = '',
+        medication = [];
+
+  factory Prescription.fromJson(Map<String, dynamic> json) {
+    return Prescription(
+      id: json['id'] ?? '',
+      appointment: AppointmentModel.fromJson(json['Appointment']??{}),
+      appointmentId: json['appointmentId'] ?? '',
+      medication: (json['Medication'] as List<dynamic>?)
+          ?.map((e) => Medication.fromJson(e))
+          .toList() ??
+          [],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'Appointment': appointment.toJson(),
+      'appointmentId': appointmentId,
+      'Medication': medication.map((e) => e.toJson()).toList(),
+    };
+  }
+}

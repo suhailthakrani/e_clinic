@@ -303,7 +303,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
                   sendMessage(msg);
 
-                  // controller.clear();
+                  controller.clear();
                 },
                 child: const SendButton(),
               ),

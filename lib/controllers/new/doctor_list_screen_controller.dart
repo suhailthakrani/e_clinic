@@ -13,7 +13,7 @@ class DoctorListScreenController extends GetxController {
 
   RxList<Doctor> doctors = <Doctor>[].obs;
   
-
+TextFieldManager searchController = TextFieldManager("");
   
 
   @override

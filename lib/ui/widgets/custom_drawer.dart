@@ -19,10 +19,7 @@ class CustomDrawer extends Drawer {
             DrawerHeader(
               margin: const EdgeInsets.only(bottom: 30, top: 8),
               padding: EdgeInsets.zero,
-              child: Container(
-                // color: kPrimaryColor,
-                child: Image.asset('assets/images/dr_illus.png'),
-              ),
+              child: Image.asset('assets/images/dr_illus.png'),
             ),
             ListTile(
               title: const Text('Dashboard'),
@@ -71,21 +68,21 @@ class CustomDrawer extends Drawer {
                     predicate: ((route) => route.isFirst));
               },
             ),
-            // ListTile(
-            //   leading: Padding(
-            //     padding: const EdgeInsets.all(12),
-            //     child: Image.asset(
-            //       'assets/images/availability.png',
-            //       scale: 0.1,
-            //       color: kPrimaryColor,
-            //     ),
-            //   ),
-            //   title: const Text('Availability'),
-            //   onTap: () {
-            //     Get.offAllNamed(kAvailabilityScreenRoute,
-            //         predicate: ((route) => route.isFirst));
-            //   },
-            // ),
+            ListTile(
+              leading: Padding(
+                padding: const EdgeInsets.only(top:12, bottom: 12, right: 12),
+                child: Image.asset(
+                  'assets/images/prescription.png',
+                  scale: 0.1,
+                  color: kPrimaryColor,
+                ),
+              ),
+              title: const Text('Prescription'),
+              onTap: () {
+                Get.offAllNamed(kPrescriptionScreenRoute,
+                    predicate: ((route) => route.isFirst));
+              },
+            ),
             // ListTile(
             //   leading: Padding(
             //     padding: const EdgeInsets.all(12),

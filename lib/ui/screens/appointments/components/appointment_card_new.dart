@@ -6,21 +6,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AppointmentCardNew extends StatelessWidget {
   final AppointmentModelNew appointment;
-  final AppointmentScreenController controller;
+  // final AppointmentScreenController controller;
 
   const AppointmentCardNew(this.appointment,
-      {super.key, required this.controller});
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 25.h),
+      margin: EdgeInsets.only(bottom: 16.h,left: 8,right: 8),
       padding: EdgeInsets.only(top: 10.h, bottom: 4.h, right: 16.w, left: 16.w),
-      height: 205.h,
-      width: 330.w,
+      // height: 220.h,
+      width: Get.width,
       decoration: BoxDecoration(
         color: const Color.fromRGBO(249, 246, 244, 1),
         borderRadius: BorderRadius.circular(10.w),
@@ -44,10 +45,13 @@ class AppointmentCardNew extends StatelessWidget {
                 width: 70,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child: Image.network(
+                  child:appointment.image != null && appointment.image.isNotEmpty? Image.network(
                     appointment.image,
                     fit: BoxFit.cover,
-                  ),
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container();
+                    },
+                  ):Container(),
                 ),
               ),
               SizedBox(width: 10.w),
@@ -93,7 +97,7 @@ class AppointmentCardNew extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      controller.convertDateFormat(appointment.date.toString()),
+                      convertDateFormat(appointment.date.toString()),
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -104,7 +108,7 @@ class AppointmentCardNew extends StatelessWidget {
                     Container(
                       
                       child: Text(
-                        controller.convertToAMPM(appointment.time),
+                        convertToAMPM(appointment.time),
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 14,
@@ -115,7 +119,7 @@ class AppointmentCardNew extends StatelessWidget {
                   ],
                              ),
                ),
-              if (!appointment.completed)
+              if (appointment.completed)
                 Chip(
                   avatar: const Icon(
                     CupertinoIcons.check_mark_circled_solid,
@@ -207,3 +211,15 @@ class AppointmentCardNew extends StatelessWidget {
     );
   }
 }
+
+ String convertDateFormat(String inputDate) {
+    DateTime dateTime = DateTime.parse(inputDate);
+    String formattedDate = DateFormat('d MMMM y').format(dateTime);
+    return formattedDate;
+  }
+
+  String convertToAMPM(String timeString) {
+    DateTime dateTime = DateFormat('HH:mm').parse(timeString);
+    String formattedTime = DateFormat('h:mm a').format(dateTime);
+    return formattedTime;
+  }

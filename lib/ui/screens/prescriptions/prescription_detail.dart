@@ -4,47 +4,20 @@ import 'dart:ui' as ui;
 import 'package:e_clinic/models/general_models.dart';
 import 'package:e_clinic/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-
-import 'package:flutter/material.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:share_plus/share_plus.dart';
 
 class PrescriptionDetail extends StatelessWidget {
   final Prescription prescription;
   PrescriptionDetail({Key? key, required this.prescription})
       : super(key: key);
 
-  GlobalKey _globalKey = GlobalKey();
-
-Future<void> _captureAndShare() async {
-
-  RenderRepaintBoundary boundary = _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-  ui.Image image = await boundary.toImage();
-  ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-  Uint8List pngBytes = Uint8List(0);
-  if(byteData != null) {
-    pngBytes = byteData.buffer.asUint8List();
-  }
-
-  final result = await ImageGallerySaver.saveImage(pngBytes);
-
-  if (result != null && result['isSuccess']) {
-    XFile file = XFile.fromData(pngBytes);
-    Share.shareXFiles([file]);
-  }
-}
 
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
-      key: _globalKey,
       backgroundColor: kWhiteColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -148,8 +121,7 @@ Future<void> _captureAndShare() async {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(onPressed: () async {
-                  await _captureAndShare();
+                IconButton(onPressed: ()  {
                 }, icon: const Icon(Icons.share)),
                 SizedBox(width: 12.w),
                 IconButton(onPressed: () {}, icon: const Icon(Icons.download)),

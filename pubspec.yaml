@@ -60,9 +60,6 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   web_socket_channel: ^2.4.0
   flutter_chat_ui: ^1.6.9
-  image_gallery_saver: ^2.0.3
-  share_plus: ^7.2.1
-  screenshot: ^2.1.0
 
 dev_dependencies:
   flutter_test:

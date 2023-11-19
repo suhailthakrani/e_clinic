@@ -1,6 +1,7 @@
 import 'package:e_clinic/ui/labs/lab_screens/lab_dashboard_screen.dart';
 import 'package:e_clinic/ui/labs/lab_screens/lab_register_screen.dart';
 import 'package:e_clinic/ui/labs/lab_screens/lab_signin_screen.dart';
+import 'package:e_clinic/ui/labs/patient_labs/book_lab_appointment_screen.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/book_appointment_screen.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/doctor_list_screen.dart';
 import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
@@ -146,6 +147,11 @@ class RouteManagement {
         GetPage(
         name: kLabDashboardScreenRoute,
         page: () => const LabDashboardScreen(),
+        binding: ScreensBindings(),
+      ),
+        GetPage(
+        name: kBookLabAppointmentScreenRoute,
+        page: () => const BookLabAppointmentScreen(),
         binding: ScreensBindings(),
       ),
     ];

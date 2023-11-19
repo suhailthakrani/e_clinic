@@ -1,0 +1,161 @@
+import 'dart:developer';
+
+import 'package:e_clinic/ui/widgets/general_button.dart';
+import 'package:e_clinic/ui/widgets/general_date_picker_field.dart';
+import 'package:e_clinic/ui/widgets/general_dropdown.dart';
+import 'package:e_clinic/utils/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+
+import '../../../../controllers/appointments/book_appointment_screen_controller.dart';
+import '../../../controllers/labs/book_lab_appointment_screen_controller.dart';
+import '../../widgets/general_text_field.dart';
+
+class BookLabAppointmentScreen extends GetView<BookLabAppointmentScreenController> {
+  const BookLabAppointmentScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        elevation: 0,
+        backgroundColor: kWhiteColor,
+        foregroundColor: kBlackColor,
+        title: Text(
+          'Book Lab Appointments Online',
+          style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            const Text('Effortlessly schedule lab appointments through our user-friendly platform, ensuring a hassle-free experience', textAlign: TextAlign.center,),
+            const SizedBox(height: 16),
+            GeneralTextField.withBorder(
+              tfManager: controller.firstNameController,
+              paddingVertical: 0,
+              paddingHorizontal: 0,
+            ),
+            GeneralDropdown.withShadow(
+              controller: controller.genderDDontroller,
+              onItemChanged: (item) {
+                if(item.toString().toLowerCase() == "physical") {
+                  controller.paymentController.controller.text = 'RS. ${controller.doctor.value.charges.physical}'; 
+                } else{
+                  controller.paymentController.controller.text = 'RS. ${controller.doctor.value.charges.virtual}';
+                }
+              },
+            ),
+             GeneralTextField.withBorder(
+              tfManager: controller.paymentController,
+              paddingVertical: 0,
+              paddingHorizontal: 0,
+              readOnly: true,
+            ),
+            
+           
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Text(
+                  "Choose Date",
+                  style: TextStyle(
+                    fontSize: 20.w,
+                    fontWeight: FontWeight.w500,
+                    color: kDarkGreyColor,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              child: SfDateRangePicker(
+                minDate: DateTime.now(),
+                selectionColor: kPrimaryColor,
+                todayHighlightColor: kPrimaryColor,
+                
+                headerHeight: 70,
+                headerStyle: DateRangePickerHeaderStyle(
+                  textAlign: TextAlign.center,
+                  textStyle: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: kPrimaryColor,
+                  ),
+                ),
+                maxDate: DateTime(DateTime.now().year, DateTime.now().month,
+                    DateTime.now().day + 30),
+                onSelectionChanged: controller.onSelectionChanged,
+                selectionMode: DateRangePickerSelectionMode.single,
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Text(
+                  "Choose Time Slot",
+                  style: TextStyle(
+                    fontSize: 20.w,
+                    fontWeight: FontWeight.w500,
+                    color: kDarkGreyColor,
+                  ),
+                ),
+              ],
+            ),
+            TimeSelector(),
+            SizedBox(height: 10),
+           
+            GeneralTextField.withBorder(
+              tfManager: controller.messageController,
+              paddingVertical: 0,
+              paddingHorizontal: 0,
+            ),
+            SizedBox(height: 20),
+            GeneralButton(
+              onPressed: () async {
+                await controller.bookAppointment();
+              },
+              text: "Book Appointment",
+              margin: 0,
+              color: kPrimaryColor,
+              radius: 15,
+              height: 60,
+            ),
+            SizedBox(height: 70),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TimeSelector extends GetView<BookAppointmentScreenController> {
+  const TimeSelector({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => Wrap(
+          spacing: 4.0,
+          runSpacing: 4.0,
+          children: controller.halfHourSlots.map((time) {
+            return ChoiceChip(
+              selectedColor: kPrimaryColor,
+              label: Text(time),
+              selected: controller.selectedTime.value == time,
+              onSelected: (selected) {
+                controller.onChanged(time);
+                // setState(() {
+                //   selectedTime = selected ? time : '';
+                // });
+              },
+            );
+          }).toList(),
+        ));
+  }
+}

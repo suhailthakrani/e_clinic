@@ -11,6 +11,7 @@ const String kRegisterScreenRoute = "/register";
 const String kLabLoginScreenRoute = "/lab-login";
 const String kLabRegisterScreenRoute = "/lab-register";
 const String kLabDashboardScreenRoute = "/lab-dashboard";
+const String kBookLabAppointmentScreenRoute = "/book-lab-appointment";
 const String kMainScreenRoute = "/main_screen";
 const String kMessagesScreenRoute = "/messages";
 const String kAppointmentsScreenRoute = '/appointments';

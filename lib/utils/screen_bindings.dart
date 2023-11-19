@@ -10,6 +10,7 @@ import 'package:e_clinic/ui/labs/lab_screens/lab_dashboard_screen.dart';
 import 'package:e_clinic/ui/labs/lab_screens/lab_register_screen.dart';
 
 import '../controllers/general_controllers.dart';
+import '../controllers/labs/book_lab_appointment_screen_controller.dart';
 import '../controllers/prescription_screen_controller.dart';
 import '../controllers/register_screen_controller.dart';
 import '../controllers/login_screen_controller.dart';
@@ -29,6 +30,7 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => LabSignInScreenController());
     Get.lazyPut(() => LabRegisterScreenController());
     Get.lazyPut(() => LabDashboardScreenController());
+    Get.lazyPut(() => BookLabAppointmentScreenController());
     //
     Get.lazyPut(() => LoginScreenController());
     Get.lazyPut(() => RegisterScreenController());

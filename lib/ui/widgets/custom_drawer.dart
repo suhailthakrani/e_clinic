@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../utils/constants.dart';
+import '../../utils/user_session.dart';
 
 class CustomDrawer extends Drawer {
   const CustomDrawer({super.key});
@@ -35,7 +36,9 @@ class CustomDrawer extends Drawer {
               onTap: () {
                 Get.back();
                 Get.offAllNamed(kMainScreenRoute,
-                    predicate: ((route) => route.isFirst && Get.previousRoute == kMainScreenRoute));
+                    predicate: ((route) =>
+                        route.isFirst &&
+                        Get.previousRoute == kMainScreenRoute));
               },
             ),
             ListTile(
@@ -70,7 +73,7 @@ class CustomDrawer extends Drawer {
             ),
             ListTile(
               leading: Padding(
-                padding: const EdgeInsets.only(top:12, bottom: 12, right: 12),
+                padding: const EdgeInsets.all(12),
                 child: Image.asset(
                   'assets/images/prescription.png',
                   scale: 0.1,
@@ -128,7 +131,9 @@ class CustomDrawer extends Drawer {
                     predicate: ((route) => route.isFirst));
               },
             ),
-            SizedBox(height: Get.height * 0.3,),
+            SizedBox(
+              height: Get.height * 0.3,
+            ),
             ListTile(
               leading: Padding(
                 padding: const EdgeInsets.all(12),
@@ -139,9 +144,11 @@ class CustomDrawer extends Drawer {
                 ),
               ),
               title: const Text('Logout'),
-              onTap: () {
-                Get.offAllNamed(kLoginScreenRoute);
-                // Get.offNamed(kSettingsScreenRoute, predicate: ((route) => route.isFirst));
+              onTap: () async {
+                bool value = await UserSession().logout();
+                if (value) {
+                  Get.offAllNamed(kTestScreenRoute);
+                }
               },
             ),
           ],

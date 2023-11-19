@@ -6,12 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class TestScreenController extends GetxController {
-  List<Widget> screens = [
-    MainScreen(),
-    MessagesScreen(),
-    AppointmentsScreen(),
-    SettingsScreen(),
-  ];
 
   RxInt currentIndex = 0.obs;
 

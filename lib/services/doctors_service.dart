@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import '../models/doctor_model.dart';
 import '../services/service_urls.dart';
 
@@ -44,8 +46,8 @@ class DoctorsService {
     return doctorList;
   }
 
-  Future<List<Doctor>> getDoctorsListByCategory({String specialization= ''}) async {
-
+  Future<List<Doctor>> getDoctorsListByCategory({String specialization= 'Cardo'}) async {
+    print("------------------${specialization}");
     ResponseModel responseModel = await _httpClient.getRequest(url: kGetDoctorsURL, params: {'specialization': specialization});
     List<Doctor> doctorList = [];
 

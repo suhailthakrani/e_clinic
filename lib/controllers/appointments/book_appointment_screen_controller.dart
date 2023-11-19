@@ -34,10 +34,6 @@ class BookAppointmentScreenController extends GetxController {
     length: 50,
     filter: TextFilter.name,
   );
-  TextFieldManager emailController =
-      TextFieldManager('Email', length: 50, filter: TextFilter.email);
-  TextFieldManager phoneNoController =
-      TextFieldManager('Phone Number', length: 50, filter: TextFilter.number);
   TextFieldManager paymentController =
       TextFieldManager('Payment', length: 30, filter: TextFilter.number);
   TextFieldManager messageController = TextFieldManager('Message',

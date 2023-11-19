@@ -1,15 +1,11 @@
 
-const String kBaseURL = "https://api.eclinic.live/api/"; // BASE URL
+const String kBaseURL = "http://api.eclinic.live/api/"; // BASE URL
 
 const String drId = 'acaba9ed-e9cd-4eef-9fbe-8fe1afd46c40';
 
 
 const String kLoginURL = "${kBaseURL}auth/signin/";
-const String kRegisterURL = "${kBaseURL}doctors/register/";
-
-//Availability
-const String kAddScheduleURL = "${kBaseURL}doctors/schedule/";
-const String kUpdateScheduleURL = "${kBaseURL}doctors/schedule/";
+const String kRegisterURL = "${kBaseURL}patients/register/";
 
 // Charges/Payment
 const String kAddChargesURL = "${kBaseURL}doctors/charges/";

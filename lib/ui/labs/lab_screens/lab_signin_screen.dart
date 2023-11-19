@@ -1,5 +1,6 @@
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:e_clinic/controllers/labs/lab_signin_screen_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,10 +17,8 @@ import '../../widgets/button1.dart';
 import '../../widgets/custom_dialogs.dart';
 import '../../widgets/input_field.dart';
 
-class LoginScreen extends GetView<LoginScreenController> {
-  const LoginScreen({Key? key}) : super(key: key);
-
-  static const routeName = 'login_screen';
+class LabSignInScreen extends GetView<LabSignInScreenController> {
+  const LabSignInScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +100,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                   _getErrorMessage(
                       errorMessage: controller.usernameManager.errorMessage),
                   if (controller.usernameManager.errorMessage.isEmpty)
-                    SizedBox(height: 30.h)
+                    SizedBox(height: 20.h)
                   else
                     SizedBox(height: 16.h),
 
@@ -225,11 +224,11 @@ class LoginScreen extends GetView<LoginScreenController> {
                       SizedBox(width: 14.w),
                       TextButton(
                         onPressed: () {
-                          Get.toNamed(kRegisterScreenRoute);
+                          Get.toNamed(kLabRegisterScreenRoute);
                           // Navigator.of(context)
                           //     .pushReplacementNamed(SignUpScreen.routeName);
                         },
-                        child: Text("Sign Up", style: textTheme.labelSmall),
+                        child: Text("Register", style: textTheme.labelSmall),
                       ),
                     ],
                   ),

@@ -54,16 +54,7 @@ class BookAppointmentScreen extends GetView<BookAppointmentScreenController> {
               readOnly: true,
             ),
             
-            GeneralTextField.withBorder(
-              tfManager: controller.emailController,
-              paddingVertical: 0,
-              paddingHorizontal: 0,
-            ),
-            GeneralTextField.withBorder(
-              tfManager: controller.phoneNoController,
-              paddingVertical: 0,
-              paddingHorizontal: 0,
-            ),
+           
             SizedBox(height: 10),
             Row(
               children: [
@@ -86,6 +77,7 @@ class BookAppointmentScreen extends GetView<BookAppointmentScreenController> {
                 minDate: DateTime.now(),
                 selectionColor: kPrimaryColor,
                 todayHighlightColor: kPrimaryColor,
+                
                 headerHeight: 70,
                 headerStyle: DateRangePickerHeaderStyle(
                   textAlign: TextAlign.center,
@@ -115,36 +107,13 @@ class BookAppointmentScreen extends GetView<BookAppointmentScreenController> {
             ),
             TimeSelector(),
             SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                OutlinedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Medical History",
-                    style: TextStyle(
-                      fontSize: 16.w,
-                      fontWeight: FontWeight.w500,
-                      color: kDarkGreyColor,
-                    ),
-                  ),
-                ),
-                Text(
-                  "No File Choosen",
-                  style: TextStyle(
-                    fontSize: 16.w,
-                    fontWeight: FontWeight.w500,
-                    color: kDarkGreyColor,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
+           
             GeneralTextField.withBorder(
               tfManager: controller.messageController,
               paddingVertical: 0,
               paddingHorizontal: 0,
             ),
+            SizedBox(height: 20),
             GeneralButton(
               onPressed: () async {
                 await controller.bookAppointment();

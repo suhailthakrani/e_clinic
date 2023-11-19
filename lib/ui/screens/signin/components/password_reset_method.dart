@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class PasswordResetMethodWidget extends GetView<ForgotPasswordScreenController> {
-  PasswordResetMethodWidget({
+  const PasswordResetMethodWidget({
     Key? key,
     required this.image,
     required this.title,

@@ -17,7 +17,7 @@ class MainScreenController extends GetxController {
   RxString category = ''.obs;
 
   RxList<Doctor> doctorsList = <Doctor>[].obs;
-  RxList<Doctor> categorywiseDOctors = RxList([]); 
+  RxList<Doctor> categorywiseDOctors = RxList([]);
 
   // RxList<CategoryModel> doctorsCategories = [
   //   CategoryModel(dept: 'Psychiatry', image: "assets\images\Psychiatry.png", noOfDr: '12'),
@@ -58,24 +58,26 @@ class MainScreenController extends GetxController {
 
   RxList<String> categoriesList = RxList([]);
 
-  RxList<String> categoriesImagesList =
-      RxList([]);
+  RxList<String> categoriesImagesList = RxList([]);
 
   TextFieldManager searchController = TextFieldManager("");
 
   @override
   Future<void> onInit() async {
-    MeModel meModel = await UserService().getMyData();
-          await UserSession().saveMe(me: meModel);
-    categoriesList.value = await DoctorsService().getSpecializationList();
-    for (int i = 0; i < categoriesList.length; i++) {
-      String image = imagesList[i % imagesList.length];
-      categoriesImagesList.add(image);
-    }
-    categoriesList.add('Dermatology');
-    categoriesImagesList.add("assets/images/dermatology.png");
+    if (UserSession.userModel.value.email.isNotEmpty) {
+      MeModel meModel = await UserService().getMyData();
+      await UserSession().saveMe(me: meModel);
+      categoriesList.value = await DoctorsService().getSpecializationList();
+      for (int i = 0; i < categoriesList.length; i++) {
+        String image = imagesList[i % imagesList.length];
+        categoriesImagesList.add(image);
+      }
+      categoriesList.add('Dermatology');
+      categoriesImagesList.add("assets/images/dermatology.png");
 
-    doctorsList.value = await DoctorsService().getDoctorsList();
+      doctorsList.value = await DoctorsService().getDoctorsList();
+    }
+
     doctorsList.add(
       Doctor(
         id: 'id',
@@ -101,7 +103,7 @@ class MainScreenController extends GetxController {
     // doctorsList.refresh();
     super.onInit();
   }
- 
+
   final RxInt selectedScreenIndex = 0.obs;
 
   void selectScreen(int index) {

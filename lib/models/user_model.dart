@@ -1,124 +1,62 @@
-import '../models/base_model.dart';
+import 'package:e_clinic/models/base_model.dart';
 
-class UserModel extends BaseModel {
+class UserModel  extends BaseModel{
+  String id = '';
   String firstName = '';
   String lastName = '';
-  String cnic = '';
   String email = '';
+  String phone = '';
   String gender = '';
-  String specialization = '';
-  String degreeDocument = '';
-  String hospitalClinicName = '';
-  String address = '';
-  String city = '';
-  String state = '';
+  String role = '';
+  String image = '';
+  bool profileSetup = false;
+  String birthdate = '';
   String password = '';
 
+  UserModel.empty();
+
   UserModel({
+    this.id = '',
     required this.firstName,
     required this.lastName,
-    required this.cnic,
     required this.email,
+    required this.phone,
     required this.gender,
-    required this.specialization,
-    required this.degreeDocument,
-    required this.hospitalClinicName,
-    required this.address,
-    required this.city,
-    required this.state,
-    required this.password,
+    required this.role,
+    required this.image,
+    required this.profileSetup,
+    required this.birthdate,
+    this.password = '',
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
+      id: json['id'] ?? '',
       firstName: json['first_name'] ?? '',
       lastName: json['last_name'] ?? '',
-      cnic: json['cnic'] ?? '',
       email: json['email'] ?? '',
+      phone: json['phone'] ?? '',
       gender: json['gender'] ?? '',
-      specialization: json['specialization'] ?? '',
-      degreeDocument: json['degree_document'] ?? '',
-      hospitalClinicName: json['hospital_clinic_name'] ?? '',
-      address: json['address'] ?? '',
-      city: json['city'] ?? '',
-      state: json['state'] ?? '',
-      password: json['password'] ?? '',
+      role: json['role'] ?? '',
+      image: json['image'] ?? '',
+      profileSetup: json['profile_setup'] ?? false,
+      birthdate: json['birthdate'] ?? '',
     );
   }
 
-  UserModel.empty()
-      : firstName = '',
-        lastName = '',
-        email = '',
-        cnic = '',
-        gender = '',
-        specialization = '',
-        degreeDocument = '',
-        hospitalClinicName = '',
-        address = '',
-        city = '',
-        state = '',
-        password = '';
-
-  Map<String, String> toJson() {
+  Map<String, dynamic> toJson() {
     return {
+      // 'id': id,
       'first_name': firstName,
       'last_name': lastName,
-      // 'cnic':cnic,
       'email': email,
+      // 'phone': phone,
       'gender': gender,
-      'specialization': specialization,
-      'hospital_clinic_name': hospitalClinicName,
-      'address': address,
-      'city': city,
-      'state': state,
+      // 'role': role,
+      // 'image': image,
+      // 'profile_setup': profileSetup,
+      'birthdate': birthdate,
       'password': password,
     };
   }
-
-  @override
-  String toString() {
-    return 'UserModel{'
-        'firstName: $firstName, '
-        'lastName: $lastName, '
-        'email: $email, '
-        'gender: $gender, '
-        'specialization: $specialization, '
-        'hospitalClinicName: $hospitalClinicName, '
-        'address: $address, '
-        'city: $city, '
-        'state: $state}';
-  }
 }
-
-
-// import 'package:e_clinic_dr/models/base_model.dart';
-
-// class UserModel extends BaseModel{
-
-//   String email = '';
-//   String pass = "";
-
-//   UserModel.empty();
-
-//   UserModel.fromJSON(Map<String,dynamic> json){
-//     // districts.clear();
-//     email = "${json["email"]??''}";
-//     pass = json["password"]??"";
-  
-//   }
-
-
-//   Map<String,dynamic> toJson(){
-//     return {
-//       "email" : email,
-//       "password" : pass,
-//     };
-//   }
-
-
-//   @override
-//   String toString() {
-//     return 'UserModel{email: $email, password: $pass}';
-//   }
-// }

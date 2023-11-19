@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -7,16 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+
 
 class PrescriptionDetail extends StatelessWidget {
   final Prescription prescription;
-  PrescriptionDetail({Key? key, required this.prescription})
-      : super(key: key);
-
+  PrescriptionDetail({Key? key, required this.prescription}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
@@ -118,21 +118,21 @@ class PrescriptionDetail extends StatelessWidget {
                   ],
                 ),
               ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(onPressed: ()  {
-                }, icon: const Icon(Icons.share)),
-                SizedBox(width: 12.w),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.download)),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
+            //     SizedBox(width: 12.w),
+            //     IconButton(onPressed: ()  {
+            //     }, icon: const Icon(Icons.download)),
+            //   ],
+            // ),
           ],
         ),
       ),
     );
   }
-  
+
 }
 
 String convertDateFormat(String inputDate) {

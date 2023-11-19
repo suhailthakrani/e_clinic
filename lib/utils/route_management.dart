@@ -1,7 +1,11 @@
+import 'package:e_clinic/ui/labs/lab_screens/lab_dashboard_screen.dart';
+import 'package:e_clinic/ui/labs/lab_screens/lab_register_screen.dart';
+import 'package:e_clinic/ui/labs/lab_screens/lab_signin_screen.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/book_appointment_screen.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/doctor_list_screen.dart';
 import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
 import 'package:e_clinic/ui/screens/settings/components/notification_settings_screen.dart';
+import 'package:e_clinic/ui/screens/test_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/screens/main_screen/components/doctor_details_screen.dart';
@@ -30,6 +34,11 @@ class RouteManagement {
   static List<GetPage> getPages() {
     return [
     
+      GetPage(
+        name: kTestScreenRoute,
+        page: () => const TestScreen(),
+        binding: ScreensBindings(),
+      ), 
       GetPage(
         name: kMainScreenRoute,
         page: () => const MainScreen(),
@@ -121,6 +130,22 @@ class RouteManagement {
       GetPage(
         name: kPrescriptionScreenRoute,
         page: () => const PrescriptionsScreen(),
+        binding: ScreensBindings(),
+      ),
+      //Lab
+       GetPage(
+        name: kLabLoginScreenRoute,
+        page: () => const LabSignInScreen(),
+        binding: ScreensBindings(),
+      ),
+      GetPage(
+        name: kLabRegisterScreenRoute,
+        page: () => const LabRegisterScreen(),
+        binding: ScreensBindings(),
+      ),
+        GetPage(
+        name: kLabDashboardScreenRoute,
+        page: () => const LabDashboardScreen(),
         binding: ScreensBindings(),
       ),
     ];

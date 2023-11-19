@@ -32,6 +32,7 @@ class UserSession {
 
   Future<bool> logout() async {
     final preference = await SharedPreferences.getInstance();
+    userModel.value = UserModel.empty();
     preference.remove('USER_DATA');
     return true;
   }

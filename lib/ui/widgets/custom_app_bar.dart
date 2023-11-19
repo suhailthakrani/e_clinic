@@ -26,14 +26,14 @@ class CustomAppBar extends StatelessWidget {
       ),
       title: Text(screenName),
       actions: [
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.notifications,
-              color: kBlack45Color,
-            )),
+        // IconButton(
+        //     onPressed: () {},
+        //     icon: const Icon(
+        //       Icons.notifications,
+        //       color: kBlack45Color,
+        //     )),
         SizedBox(
-          width: 55,
+          width: 60,
           height: 10,
           child: Card(
             margin: const EdgeInsets.all(8),

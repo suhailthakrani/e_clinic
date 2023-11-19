@@ -70,6 +70,11 @@ class HTTPClient extends GetConnect {
         return Future.value(
           ResponseModel.named(message: 'Email not verified.', data: e.toString()));
       }
+       else if(e.toString().contains('Account already exists with this email')){
+        return Future.value(
+          ResponseModel.named(message: 'Account already exists with this email', data: e.toString()));
+      }
+      
       return Future.value(
           ResponseModel.named(message: kServiceError, data: e.toString()));
     }

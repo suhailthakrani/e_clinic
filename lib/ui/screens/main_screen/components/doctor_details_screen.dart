@@ -17,6 +17,7 @@ import '../../../../utils/colors.dart';
 import '../../../widgets/ratings_card.dart';
 
 class DoctorDetailsScreen extends GetView<DoctorDetailsScreenController> {
+
   // final int doctorIndex;
 
   DoctorDetailsScreen({
@@ -70,16 +71,18 @@ class DoctorDetailsScreen extends GetView<DoctorDetailsScreenController> {
                       top: 30,
                       left: 40,
                       bottom: 0,
-                      child: Container(
-                        width: Get.width * 0.58,
-                        height: Get.height * 0.24,
-                        decoration: ShapeDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(controller.doctor.value.image),
-                            fit: BoxFit.fill,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(13.68),
+                      child: Obx(
+                        ()=> Container(
+                          width: Get.width * 0.58,
+                          height: Get.height * 0.24,
+                          decoration: ShapeDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(controller.image.value),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(13.68),
+                            ),
                           ),
                         ),
                       ),

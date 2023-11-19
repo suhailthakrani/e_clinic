@@ -10,6 +10,7 @@ import '../../models/doctor_model.dart';
 class DoctorDetailsScreenController extends GetxController {
 
   Rx<Doctor> doctor = Rx(Doctor.empty());
+  RxString image = 'assets/images/doctor.png'.obs;
 
   
   
@@ -19,6 +20,7 @@ class DoctorDetailsScreenController extends GetxController {
     Map<String, dynamic> arguments = Get.arguments??{};
     if(arguments.isNotEmpty) {
       doctor.value = arguments['dotor'] ?? Doctor.empty();
+      image.value = arguments['image'] ?? '';
     }
     // doctorsList.refresh();
     super.onInit();

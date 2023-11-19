@@ -21,43 +21,26 @@ import '../utils/user_session.dart';
 class RegisterScreenController extends GetxController {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TextFieldManager firstNameController =
-      TextFieldManager('First Name', length: 50, filter: TextFilter.name);
-  TextFieldManager lastNameController =
-      TextFieldManager('Last Name', length: 50, filter: TextFilter.name);
-  TextFieldManager emailController =
-      TextFieldManager('Email', length: 50, filter: TextFilter.email);
-  TextFieldManager passwordController =
-      TextFieldManager('Password', length: 50, filter: TextFilter.none);
-  Rx<String> selectedGeder = 'SELECT'.obs;
+  TextFieldManager firstNameController =  TextFieldManager('First Name', length: 50, filter: TextFilter.name);
+  TextFieldManager lastNameController = TextFieldManager('Last Name', length: 50, filter: TextFilter.name);
+  TextFieldManager emailController = TextFieldManager('Email', length: 50, filter: TextFilter.email);
+  TextFieldManager passwordController =  TextFieldManager('Password', length: 50, filter: TextFilter.none);
   DropdownController genderDDontroller = DropdownController(title: 'Gender', items: RxList([
-    'SELECT',
     'MALE',
     'FEMALE',
   ]));
 
  DateTimeManager dateOfBirthController = DateTimeManager("Date of Birth",
-      firstDate: DateTime(DateTime.now().year - 80),
-      lastDate: DateTime(
-          DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
-           
+   firstDate: DateTime(DateTime.now().year - 80),
+   lastDate: DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day),
+ );
+
 
   Rx<String> selectedExperience = ''.obs;
 
-  List<String> experienceList = [
-    'SELECT',
-    '6 Months'
-        '1 Year',
-    '2 Years',
-    '3 Years',
-    '4 Years',
-    '5 Years',
-    '6 Years',
-    'Or More'
-  ];
 
-  TextFieldManager phoneNoController =
-      TextFieldManager('Phone Number', length: 50, filter: TextFilter.number);
+  // TextFieldManager phoneNoController =
+  //     TextFieldManager('Phone Number', length: 50, filter: TextFilter.number);
   TextFieldManager specializationController =
       TextFieldManager('Specialization', length: 50, filter: TextFilter.none);
   TextFieldManager hospitalController = TextFieldManager(
@@ -77,11 +60,6 @@ class RegisterScreenController extends GetxController {
 
   RxBool obscureText = true.obs;
 
-  @override
-  void onInit() {
-    selectedExperience.value = experienceList.first;
-    super.onInit();
-  }
 
   void onObscureText() {
     if (obscureText.value) {
@@ -103,45 +81,43 @@ class RegisterScreenController extends GetxController {
   }
 
   bool validateAllData() {
-  
+
     bool valid = true;
     return valid &
         firstNameController.validate() &
         lastNameController.validate() &
         genderDDontroller.validate()&
         emailController.validate() &
-        passwordController.validate() &
-        phoneNoController.validate() &
-        (selectedExperience.value.isNotEmpty &&
-            selectedExperience.value != experienceList.first) &
-        specializationController.validate();
+        passwordController.validate()
+        & dateOfBirthController.validateDate();
   }
 
   void onRegisterClicked() async {
     if (!validateAllData()) {
       CommonCode().showToast(message: 'Please Enter Valid Data!');
     } else {
-      UserModel userModel = UserModel(
+       UserModel userModel = UserModel(
         firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        cnic: '',
+        lastName: lastNameController.text, 
         email: emailController.text,
-        gender: selectedGeder.value,
-        specialization: specializationController.text,
-        degreeDocument: degreeDocument.value,
-        hospitalClinicName: hospitalController.text,
-        city: cityController.text,
-        state: stateController.text,
-        address: addressController.text,
-        password: passwordController.text,
+        phone: '',
+        password: passwordController.text, 
+        gender: genderDDontroller.selectedItem.value, 
+        role: 'PATIENT', 
+        image: '',
+        profileSetup: false, 
+        birthdate: dateOfBirthController.dateTime!.toIso8601String()
       );
+     
       print('-------------------- ${userModel.toJson()}');
       ProgressDialog pd = ProgressDialog()..showDialog();
       await UserService().registerUser(userModel: userModel);
       pd.dismissDialog();
       if (userModel.responseMessage == 'Success') {
         await UserSession().createSession(user: userModel);
-        Get.offAllNamed(kMainScreenRoute);
+        CustomDialogs()
+            .showDialog("Success", "You have been registered successfully", DialogType.success);
+        Get.offAllNamed(kLoginScreenRoute);
       } else {
         pd.dismissDialog();
         CustomDialogs()

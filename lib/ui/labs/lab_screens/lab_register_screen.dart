@@ -1,13 +1,9 @@
 import 'package:android_intent_plus/android_intent.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:e_clinic/ui/widgets/custom_dialogs.dart';
-import 'package:e_clinic/ui/widgets/general_dropdown.dart';
+import 'package:e_clinic/controllers/labs/lab_register_screen_controller.dart';
 import 'package:e_clinic/utils/colors.dart';
 import 'package:e_clinic/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../../../controllers/register_screen_controller.dart';
 import '../../../ui/widgets/general_text_field.dart';
 import '../../../ui/widgets/widget_svg.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +12,9 @@ import 'package:get/get.dart';
 
 import '../../../utils/text_styles.dart';
 import '../../widgets/button2.dart';
-import '../../widgets/general_date_picker_field.dart';
 
-class SignUpScreen extends GetView<RegisterScreenController> {
-  const SignUpScreen({Key? key}) : super(key: key);
+class LabRegisterScreen extends GetView<LabRegisterScreenController> {
+  const LabRegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +42,7 @@ class SignUpScreen extends GetView<RegisterScreenController> {
             children: [
               const Center(
                 child: Text(
-                  "Join As a Patient",
+                  "Register As a Lab",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 24,
@@ -59,10 +54,10 @@ class SignUpScreen extends GetView<RegisterScreenController> {
               Row(
                 children: [
                   const SizedBox(width: 10),
-                  Text("Already a member?", style: textTheme.headlineMedium),
+                  Text("Already registered?", style: textTheme.headlineMedium),
                   TextButton(
                     onPressed: () {
-                      Get.toNamed(kLoginScreenRoute);
+                      Get.toNamed(kLabLoginScreenRoute);
                     },
                     child: const Text(
                       "Login",
@@ -79,21 +74,28 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                 height: 12,
               ),
               GeneralTextField.withBorder(
-                tfManager: controller.firstNameController,
+                tfManager: controller.nameController,
                 paddingVertical: 0,
                 paddingHorizontal: 0,
               ),
               GeneralTextField.withBorder(
-                tfManager: controller.lastNameController,
+                tfManager: controller.addressController,
                 paddingVertical: 0,
                 paddingHorizontal: 0,
               ),
-              // GeneralTextField.withBorder(
-              //   tfManager: controller.cnicController,
-              //   paddingVertical: 0,
-              //   paddingHorizontal: 0,
-              // ),
+             
               GeneralTextField.withBorder(
+                tfManager: controller.cityController,
+                paddingVertical: 0,
+                paddingHorizontal: 0,
+              ),
+
+                GeneralTextField.withBorder(
+                tfManager: controller.stateController,
+                paddingVertical: 0,
+                paddingHorizontal: 0,
+              ),
+                GeneralTextField.withBorder(
                 tfManager: controller.emailController,
                 paddingVertical: 0,
                 paddingHorizontal: 0,
@@ -105,7 +107,7 @@ class SignUpScreen extends GetView<RegisterScreenController> {
               ),
               const SizedBox(height: 6),
               Obx(
-                () => Card(
+                    () => Card(
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16)),
@@ -127,14 +129,14 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                           top: 10.0, left: 10, bottom: 10),
                       hintText: controller.passwordController.fieldName,
                       hintStyle:
-                          const TextStyle(color: kTextHintColor, fontSize: 16),
+                      const TextStyle(color: kTextHintColor, fontSize: 16),
                       suffixIcon: GestureDetector(
                         onTap: controller.onObscureText,
                         child: controller.obscureText.value
                             ? Icon(CupertinoIcons.eye_slash_fill,
-                                color: kPrimaryColor)
+                            color: kPrimaryColor)
                             : Icon(CupertinoIcons.eye_fill,
-                                color: kPrimaryColor),
+                            color: kPrimaryColor),
                       ),
                     ),
                     onChanged: (value) {
@@ -145,31 +147,12 @@ class SignUpScreen extends GetView<RegisterScreenController> {
               ),
               _getErrorMessage(
                   errorMessage: controller.passwordController.errorMessage),
-              GeneralTextField.withBorder(
-                tfManager: controller.passwordController,
-                paddingVertical: 0,
-                paddingHorizontal: 0,
-              ),
-              // GeneralTextField.withBorder(
-              //   tfManager: controller.phoneNoController,
-              //   paddingVertical: 0,
-              //   paddingHorizontal: 0,
-              // ),
-              GeneralDatePickerField.withShadow(
-                dateManager: controller.dateOfBirthController,
-                paddingVertical: 0,
-                paddingHorizontal: 0,
-              ),
-              GeneralDropdown.withShadow(
-                controller: controller.genderDDontroller,
-                paddingHorizontal: 0,
-              ),
-
-              SizedBox(height: 16.h),
+             
+              SizedBox(height: 40.h),
               SizedBox(
                 width: Get.width * 0.9,
                 child: Button2(
-                    text: "SignUp",
+                    text: "Register",
                     onPress: () {
                       controller.onRegisterClicked();
                     }),
@@ -184,7 +167,7 @@ class SignUpScreen extends GetView<RegisterScreenController> {
 
   Widget _getErrorMessage({required RxString errorMessage}) {
     return Obx(
-      () => Visibility(
+          () => Visibility(
           visible: errorMessage.isNotEmpty,
           child: Padding(
             padding: const EdgeInsets.only(left: 4, top: 4),
@@ -215,14 +198,14 @@ class SignUpScreen extends GetView<RegisterScreenController> {
     }
   }
 
-  // Future<void> _openDrApp() async {
-  //   bool isInstalled =
-  //       await DeviceApps.isAppInstalled('com.example.e_clinic_dr');
-  //   if (isInstalled) {
-  //     await DeviceApps.openApp('com.example.e_clinic_dr');
-  //   } else {
-  //     CustomDialogs()
-  //         .showDialog("Alert", "App is not installed", DialogType.warning);
-  //   }
-  // }
+// Future<void> _openDrApp() async {
+//   bool isInstalled =
+//       await DeviceApps.isAppInstalled('com.example.e_clinic_dr');
+//   if (isInstalled) {
+//     await DeviceApps.openApp('com.example.e_clinic_dr');
+//   } else {
+//     CustomDialogs()
+//         .showDialog("Alert", "App is not installed", DialogType.warning);
+//   }
+// }
 }

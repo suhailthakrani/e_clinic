@@ -12,6 +12,7 @@ class DoctorListScreenController extends GetxController {
 
 
   RxList<Doctor> doctors = <Doctor>[].obs;
+  RxString category = 'Oncology'.obs;
   
 TextFieldManager searchController = TextFieldManager("");
   
@@ -19,14 +20,11 @@ TextFieldManager searchController = TextFieldManager("");
   @override
   Future<void> onInit() async {
      Map<String, dynamic> arguments = Get.arguments??{};
+     
     if(arguments.isNotEmpty) {
       String category = arguments['category'] ?? 'Oncology';
       doctors.value = await DoctorsService().getDoctorsListByCategory(specialization: category);
     }
-
-    
-
-    doctors.value = await DoctorsService().getDoctorsList();
     super.onInit();
   }
  

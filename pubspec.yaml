@@ -60,6 +60,7 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   web_socket_channel: ^2.4.0
   flutter_chat_ui: ^1.6.9
+  android_intent_plus: ^4.0.3
 
 dev_dependencies:
   flutter_test:

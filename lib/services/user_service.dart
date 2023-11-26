@@ -93,8 +93,7 @@ class UserService {
     return labModel;
   }
 
-  Future<UserModel> loginAsLab(
-      {required String username, required String password}) async {
+  Future<UserModel> loginAsLab({required String username, required String password}) async {
     UserModel user = UserModel.empty();
     ResponseModel responseModel = await _httpClient.postRequest(
         url: "${kBaseURL}lab/signin",
@@ -110,7 +109,7 @@ class UserService {
     } else {
       user.responseMessage = responseModel.message;
     }
-    return user;
+    return user..email=username..password=password;
   }
 
   

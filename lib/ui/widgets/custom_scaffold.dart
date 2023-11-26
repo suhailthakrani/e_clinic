@@ -15,20 +15,25 @@ class CustomScaffold extends StatelessWidget {
       gestureDetectorOnPanDown,
       onDrawerBtnPressed,
       onNotificationListener;
+  final bool boolShowDrawer;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  CustomScaffold(
+  const CustomScaffold(
       {required this.body,
         this.floatingActionButton,
         this.bottomSheet,
         required this.scaffoldKey,
         required this.className,
         required this.screenName,
+        this.boolShowDrawer = true,
         this.onWillPop,
         this.gestureDetectorOnPanDown,
         this.gestureDetectorOnTap,
         this.onDrawerBtnPressed,
-        this.onNotificationListener});
+        this.onNotificationListener
+        
+        
+        });
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +102,7 @@ class CustomScaffold extends StatelessWidget {
               // )
               //     : null,
               body: body,
-             endDrawer: const CustomDrawer(),
+             endDrawer: boolShowDrawer ?const CustomDrawer():null,
             ),
           ),
         ));

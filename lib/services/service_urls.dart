@@ -32,4 +32,16 @@ const String kBookAppointmentURL = "${kBaseURL}appointments/create/";
 
 const String kAddPrescriptionURL = "${kBaseURL}prescription/";
 
+//Patient
+
+const String kGetTestsURL = "${kBaseURL}patients/tests/"; 
+const String kGetReportsURL = "${kBaseURL}patients/reports/";
+const String kBookTestURL = "${kBaseURL}lab/test/"; 
 const String kGetMeURL = "${kBaseURL}auth/me/";
+
+//Lab
+
+const String kLabGetTestsURL = "${kBaseURL}lab/tests/"; 
+const String kLabGetReportsURL = "${kBaseURL}lab/reports/";
+const String kLabGetLabURL = "${kBaseURL}lab/"; // Paameters= lab?q=sah
+const String kAddReportToLabURL = "${kBaseURL}lab/report"; //lab/report/c2079050-66b6-4efe-9c9e-ab397b110d0b

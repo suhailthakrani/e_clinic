@@ -1,7 +1,10 @@
 import 'package:e_clinic/ui/labs/lab_screens/lab_dashboard_screen.dart';
 import 'package:e_clinic/ui/labs/lab_screens/lab_register_screen.dart';
+import 'package:e_clinic/ui/labs/lab_screens/lab_side_test_requests_screen.dart';
 import 'package:e_clinic/ui/labs/lab_screens/lab_signin_screen.dart';
 import 'package:e_clinic/ui/labs/patient_labs/book_lab_appointment_screen.dart';
+import 'package:e_clinic/ui/labs/patient_labs/reports_lists_screen.dart';
+import 'package:e_clinic/ui/labs/patient_labs/test_lists_screen.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/book_appointment_screen.dart';
 import 'package:e_clinic/ui/screens/main_screen/components/doctor_list_screen.dart';
 import 'package:e_clinic/ui/screens/prescriptions/prescriptions_screen.dart';
@@ -9,6 +12,7 @@ import 'package:e_clinic/ui/screens/settings/components/notification_settings_sc
 import 'package:e_clinic/ui/screens/test_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/labs/patient_labs/lab_lists_screen.dart';
 import '../ui/screens/main_screen/components/doctor_details_screen.dart';
 import '../ui/screens/main_screen/main_screen.dart';
 // import '../ui/screens/payments/components/verification_screen/verification_driver_screen.dart';
@@ -149,9 +153,32 @@ class RouteManagement {
         page: () => const LabDashboardScreen(),
         binding: ScreensBindings(),
       ),
-        GetPage(
+      GetPage(
         name: kBookLabAppointmentScreenRoute,
         page: () => const BookLabAppointmentScreen(),
+        binding: ScreensBindings(),
+      ),
+      GetPage(
+        name: kLabTestListScreenRoute,
+        page: () => const LabTestScreen(),
+        binding: ScreensBindings(),
+      ),
+
+      GetPage(
+        name: kLabSideTestListScreenRoute,
+        page: () => const LabSideTestScreen(),
+        binding: ScreensBindings(),
+      ), 
+      
+      GetPage(
+        name: kReportListViewScreenRoute,
+        page: () => const ReposrtListScreen(),
+        binding: ScreensBindings(),
+      ),
+
+      GetPage(
+        name: kTestListViewScreenRoute,
+        page: () => const TestListViewScreen(),
         binding: ScreensBindings(),
       ),
     ];

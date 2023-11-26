@@ -11,6 +11,10 @@ class ResponseModel {
     message = '${json["message"]??""}';
     data = json["data"]??'';
   }
+  ResponseModel.fromJsonList(Map<String, dynamic> json) {
+    message = '${json["message"]??""}';
+    data = json;
+  }
 
   @override
   String toString() {

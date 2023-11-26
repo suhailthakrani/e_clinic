@@ -1,7 +1,11 @@
 import 'package:e_clinic/controllers/appointments/book_appointment_screen_controller.dart';
 import 'package:e_clinic/controllers/labs/lab_dashboard_screen_controller.dart';
+import 'package:e_clinic/controllers/labs/lab_list_screen_controller.dart';
 import 'package:e_clinic/controllers/labs/lab_register_screen_controller.dart';
+import 'package:e_clinic/controllers/labs/lab_side_list_screen_controller.dart';
 import 'package:e_clinic/controllers/labs/lab_signin_screen_controller.dart';
+import 'package:e_clinic/controllers/labs/reports_list_screen_controller.dart';
+import 'package:e_clinic/controllers/labs/test_list_screen_controller.dart';
 import 'package:e_clinic/controllers/new/doctor_details_screen_controller.dart';
 import 'package:e_clinic/controllers/new/doctor_list_screen_controller.dart';
 import 'package:e_clinic/controllers/payments/payment_screen_controller.dart';
@@ -31,6 +35,10 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => LabRegisterScreenController());
     Get.lazyPut(() => LabDashboardScreenController());
     Get.lazyPut(() => BookLabAppointmentScreenController());
+    Get.lazyPut(() => LabListScreenController());
+    Get.lazyPut(() => LabSideTestListScreenController());
+    Get.lazyPut(() => TestListScreenController());
+    Get.lazyPut(() => ReportsListScreenController());
     //
     Get.lazyPut(() => LoginScreenController());
     Get.lazyPut(() => RegisterScreenController());

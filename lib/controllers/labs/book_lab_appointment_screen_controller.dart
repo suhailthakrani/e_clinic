@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:e_clinic/models/lab_test_model.dart';
+import 'package:e_clinic/services/lab_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,12 +22,11 @@ import '../../utils/text_field_manager.dart';
 import '../../utils/text_filter.dart';
 import '../../utils/user_session.dart';
 
-
 /// Created by Suhail Thakrani 23-Sep-2023
 class BookLabAppointmentScreenController extends GetxController {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Rx<Doctor> doctor = Rx(Doctor.empty());
+  Rx<String> labId = Rx('');
 
   RxList<String> halfHourSlots = List.generate(32, (index) {
     int hour = (index + 16) ~/ 2; // Start from 8 AM (16 slots ahead)
@@ -36,93 +39,51 @@ class BookLabAppointmentScreenController extends GetxController {
   RxString selectedTime = ''.obs;
   Rx<DateTime?> selectedDate = DateTime.now().obs;
 
-
   DropdownController selectTestDDontroller = DropdownController(
-      title: 'Select Test',
+      title: 'Select Test Type',
       items: RxList([
         'SELECT',
         'Blood Test',
         'Urine Test',
       ]));
-       DropdownController selectLabDDontroller = DropdownController(
-      title: 'Select Lab',
-      items: RxList([
-        'SELECT',
-        'Al Lab',
-        'Urine Lab',
-      ]));
 
-
-      TextFieldManager firstNameController = TextFieldManager(
-    'Patient Name',
+  //     TextFieldManager firstNameController = TextFieldManager(
+  //   'Patient Name',
+  //   length: 50,
+  //   filter: TextFilter.name,
+  // );
+  TextFieldManager descriptionController = TextFieldManager(
+    'Description',
     length: 50,
     filter: TextFilter.name,
   );
 
   @override
   void onInit() {
-    Map<String, dynamic> doctors = Get.arguments ??{};
-    if(doctors != null && doctors.isNotEmpty) {
-      doctor.value = Get.arguments['dr'] ?? Doctor.empty();
+    Map<String, dynamic> args = Get.arguments ?? {};
+    if (args != null && args.isNotEmpty) {
+      labId.value = Get.arguments['labId'] ?? '';
     }
-
-    // else if(doctor.value.charges.virtual.isNotEmpty) {
-    //   genderDDontroller.items.value = ['VIRTUAL'];
-    //   genderDDontroller.setFirstItem();
-    //   // paymentController.controller.text = doctor.value.charges.virtual;
-    // }
-
-    
-    
     super.onInit();
   }
 
-  void onChanged(String time) {
-    selectedTime.value = time;
-    notifyChildrens();
-  }
-
-  void onSelectionChanged(DateRangePickerSelectionChangedArgs dateRangePickerSelectionChangedArgs) {
-    selectedDate.value = dateRangePickerSelectionChangedArgs.value;
-  }
-
-  bool isAllValid() {
-    bool isValid = true;
-    isValid = isValid &
-        firstNameController.validate() &
-        // genderDDontroller.validate() &
-        (selectedDate.value != null) &
-        selectedTime.isNotEmpty;
-    return isValid;
-  }
-
-  Future<void> bookAppointment() async {
-    AppointmentModel appointment = AppointmentModel(
-      id: '',
-      date: selectedDate.value!,
-      time: selectedTime.value,
-      type: appontmentid.selectedItem.value,
-      patientName: firstNameController.controller.text,
-      message: '',
-      doctorId: doctor.value.id,
+  Future<void> boolTest() async {
+    ProgressDialog pd = ProgressDialog()..showDialog();
+    String result = await LabService().bookTest(
+      test: selectTestDDontroller.selectedItem.value,
+      labId: labId.value,
+      description: descriptionController.text,
     );
-    print('====================${appointment.toJson()}');
 
-    if (isAllValid()) {
-      ProgressDialog pd = ProgressDialog()..showDialog();
-
-      ResponseModel response = await AppointmentService().bookAppointment(appointment: appointment);
+    pd.dismissDialog();
+    if (result == 'Success') {
+      CustomDialogs().showDialog("Success",
+          "The test has been Submitted successfully", DialogType.success, onOkBtnPressed: (){
+            Get.offAllNamed(kTestListViewScreenRoute);
+          });
+    } else {
       pd.dismissDialog();
-      if (response.message == "Success") {
-        String paymentUrl = response.data['paymentLink'] ?? 'https://checkout.stripe.com/c/pay/cs_test_a10YiUee9RDxLZVuLogPY21LAeFPN0PyBMu0wNZDc7MnvDGBp6Yi54H0GY#fidkdWxOYHwnPyd1blpxYHZxWjA0S21DcURCVmNzZG5WY2o2fWRiMU9udVNQVkNAT2NDcnVKQ31nN3RkVGhDYzwwTEw3aEBqd0EyN1BXdTRscnR%2FM0xGfU1tb21EQEtDQWB2Z0loZGhqYFFHNTVGT3BJVWpgMScpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl';
-        String appointmentId = response.data['id'] ??'';
-        // Get.offAll(ConfrimPaymentScreen(paymentUrl: paymentUrl, appointmentModel: appointment));
-        Get.toNamed(kPaymentScreenRoute, arguments: {'id': appointmentId});
-        print("--------------------${response.data}");
-
-      } else {
-        CustomDialogs().showDialog("Error",response.message, DialogType.error, );
-      }
+      CustomDialogs().showDialog("Alert", result, DialogType.error);
     }
   }
 
@@ -135,5 +96,10 @@ class BookLabAppointmentScreenController extends GetxController {
     } else {
       print('---------------------- [Unable to Pick Image!]');
     }
+  }
+
+  void onSelectionChanged(DateRangePickerSelectionChangedArgs dateRangePickerSelectionChangedArgs) {
+    selectedDate.value = dateRangePickerSelectionChangedArgs.value;
+    log("-------------------${dateRangePickerSelectionChangedArgs.value}");
   }
 }

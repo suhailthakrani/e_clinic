@@ -86,36 +86,52 @@ class CustomDrawer extends Drawer {
                     predicate: ((route) => route.isFirst));
               },
             ),
-            // ListTile(
-            //   leading: Padding(
-            //     padding: const EdgeInsets.all(12),
-            //     child: Image.asset(
-            //       'assets/images/payments.png',
-            //       scale: 0.1,
-            //       color: kPrimaryColor,
-            //     ),
-            //   ),
-            //   title: const Text('Payments'),
-            //   onTap: () {
-            //     Get.offAllNamed(kPaymentScreenRoute,
-            //         predicate: ((route) => route.isFirst));
-            //   },
-            // ),
-            // ListTile(
-            //   leading: Padding(
-            //     padding: const EdgeInsets.all(12),
-            //     child: Image.asset(
-            //       'assets/images/ratings.png',
-            //       scale: 0.1,
-            //       color: kPrimaryColor,
-            //     ),
-            //   ),
-            //   title: const Text('Ratings'),
-            //   onTap: () {
-            //     Get.offAllNamed(kRatingsScreenRoute,
-            //         predicate: ((route) => route.isFirst));
-            //   },
-            // ),
+            ListTile(
+              leading: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Image.asset(
+                  'assets/images/mlab.png',
+                  // scale: 0.1s,
+                  color: kPrimaryColor,
+                ),
+              ),
+              title: const Text('Lab Management'),
+              onTap: () {
+                Get.offAllNamed(kLabTestListScreenRoute,
+                    predicate: ((route) => (route.isFirst && Get.currentRoute != kLabTestListScreenRoute) ));
+              },
+            ),
+            ListTile(
+              leading: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Image.asset(
+                  'assets/images/testss.png',
+                  // scale: 0.1s,
+                  color: kPrimaryColor,
+                ),
+              ),
+              title: const Text('See Test History'),
+              onTap: () {
+                Get.offAllNamed(kTestListViewScreenRoute,
+                    predicate: ((route) => route.isFirst ));
+              },
+        
+            ),
+            ListTile(
+              leading: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Image.asset(
+                  'assets/images/reports.png',
+                  scale: 0.1,
+                  color: kPrimaryColor,
+                ),
+              ),
+              title: const Text('Check Reports'),
+              onTap: () {
+                Get.offAllNamed(kReportListViewScreenRoute,
+                    predicate: ((route) => route.isFirst));
+              },
+            ),
             ListTile(
               leading: Padding(
                 padding: const EdgeInsets.all(12),
@@ -132,7 +148,7 @@ class CustomDrawer extends Drawer {
               },
             ),
             SizedBox(
-              height: Get.height * 0.3,
+              height: Get.height * 0.15,
             ),
             ListTile(
               leading: Padding(

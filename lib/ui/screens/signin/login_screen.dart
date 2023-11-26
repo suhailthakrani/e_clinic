@@ -198,15 +198,14 @@ class LoginScreen extends GetView<LoginScreenController> {
                   //   child: Button1(
                   //     textStyle: textTheme.labelLarge!,
                   //     buttonColor: button2Color,
-                  //     text: "Continue As Doctor",
+                  //     text: "Go to Lab List",
                   //     borderRadius: 30,
                   //     onPress: ()  {
-                  //        openOtherInterApp();
-                  //       // Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+                  //       Navigator.pushNamed(context, kLabTestListScreenRoute);
                   //     },
                   //   ),
                   // ),
-                  // SizedBox(height: 16.h),
+                  SizedBox(height: 16.h),
                   TextButton(
                       child: Text(
                         "Forgot Your Password",

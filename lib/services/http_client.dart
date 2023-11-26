@@ -39,12 +39,14 @@ class HTTPClient extends GetConnect {
         url,
         requestBody != null ? FormData(requestBody) : null,
         headers: requireToken
-            ? /*url.endsWith('login') ? {"Authorization":UserSession.O_TOKEN} :*/ await _getHeaders()
+            ? /*url.endsWith('login') ? {"Authorization":UserSession.O_TOKEN} :*/ await getHeaders()
             : null,
       ).timeout(const Duration(seconds: _requestTimeOut));
 
       log('───────────────────POST> $requestBody');
       log('───────────────────POST> $url\n${response.body}');
+
+      
 
       
 
@@ -66,7 +68,7 @@ class HTTPClient extends GetConnect {
         return Future.value(
           ResponseModel.named(message: "Invalid credentials", data: e.toString()));
       }
-      else if(e.toString().contains('Email not verified.')){
+      else if(e.toString().contains('Email not verified.') || e.toString().contains('Email not verified')){
         return Future.value(
           ResponseModel.named(message: 'Email not verified.', data: e.toString()));
       }
@@ -101,7 +103,7 @@ class HTTPClient extends GetConnect {
       }
 
       Response response =
-          await get(url, headers: requireToken ? await _getHeaders() : null)
+          await get(url, headers: requireToken ? await getHeaders() : null)
               .timeout(const Duration(seconds: _requestTimeOut));
       log('───────────────────Get> $url\n${response.body}');
 
@@ -132,7 +134,7 @@ class HTTPClient extends GetConnect {
           ResponseModel.named(message: kNoInternetMsg, data: kNoInternetMsg));
     }
     try {
-      Map<String, String> customHeader = await _getHeaders();
+      Map<String, String> customHeader = await getHeaders();
       // customHeader['Connection'] = 'keep-alive';
       // customHeader['Accept'] = 'application/json';
       // customHeader['Content-Type'] = 'multipart/form-data';
@@ -191,7 +193,7 @@ class HTTPClient extends GetConnect {
   }
 
   try {
-    Map<String, String> customHeader = await _getHeaders();
+    Map<String, String> customHeader = await getHeaders();
 
     http.Response response = await http.put(
       Uri.parse(url),
@@ -223,7 +225,7 @@ class HTTPClient extends GetConnect {
 
 }
 
-Future<Map<String, String>> _getHeaders() async {
+Future<Map<String, String>> getHeaders() async {
   TokenModel? token = await UserSession().getToken();
   log("==============${token.accessToken}");
    if(token.isExpired){
@@ -232,7 +234,7 @@ Future<Map<String, String>> _getHeaders() async {
     }
     await UserSession().logout();
     CustomDialogs().showDialog('Alert', kSessionExpireMsg, DialogType.warning, onOkBtnPressed: (){
-      Get.offAllNamed(kLoginScreenRoute);
+      Get.offAllNamed(kTestScreenRoute);
     });
     return {};
   }

@@ -13,7 +13,8 @@ import '../../../../controllers/appointments/book_appointment_screen_controller.
 import '../../../controllers/labs/book_lab_appointment_screen_controller.dart';
 import '../../widgets/general_text_field.dart';
 
-class BookLabAppointmentScreen extends GetView<BookLabAppointmentScreenController> {
+class BookLabAppointmentScreen
+    extends GetView<BookLabAppointmentScreenController> {
   const BookLabAppointmentScreen({super.key});
 
   @override
@@ -25,53 +26,45 @@ class BookLabAppointmentScreen extends GetView<BookLabAppointmentScreenControlle
         backgroundColor: kWhiteColor,
         foregroundColor: kBlackColor,
         title: Text(
-          'Book Lab Appointments Online',
-          style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
+          'Book Lab Appointment',
+          style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold, color: kTextColor.withAlpha(200)),
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const Text('Effortlessly schedule lab appointments through our user-friendly platform, ensuring a hassle-free experience', textAlign: TextAlign.center,),
+            Text(
+              'Effortlessly schedule lab appointments through our user-friendly platform, ensuring a hassle-free experience',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: kTextColor.withAlpha(200)),
+            ),
             const SizedBox(height: 16),
-            GeneralTextField.withBorder(
-              tfManager: controller.firstNameController,
-              paddingVertical: 0,
-              paddingHorizontal: 0,
-            ),
+            // GeneralTextField.withBorder(
+            //   tfManager: controller.firstNameController,
+            //   paddingVertical: 0,
+            //   paddingHorizontal: 0,
+            // ),
             GeneralDropdown.withShadow(
-              controller: controller.genderDDontroller,
-              onItemChanged: (item) {
-                if(item.toString().toLowerCase() == "physical") {
-                  controller.paymentController.controller.text = 'RS. ${controller.doctor.value.charges.physical}'; 
-                } else{
-                  controller.paymentController.controller.text = 'RS. ${controller.doctor.value.charges.virtual}';
-                }
-              },
+              controller: controller.selectTestDDontroller,
             ),
-             GeneralTextField.withBorder(
-              tfManager: controller.paymentController,
-              paddingVertical: 0,
-              paddingHorizontal: 0,
-              readOnly: true,
-            ),
-            
-           
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Text(
-                  "Choose Date",
-                  style: TextStyle(
-                    fontSize: 20.w,
-                    fontWeight: FontWeight.w500,
-                    color: kDarkGreyColor,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
+            // GeneralDropdown.withShadow(
+            //   controller: controller.selectLabDDontroller,
+            // ),
+            const SizedBox(height: 10),
+            // Row(
+            //   children: [
+            //     Text(
+            //       "Choose Date",
+            //       style: TextStyle(
+            //         fontSize: 20.w,
+            //         fontWeight: FontWeight.w500,
+            //         color: kDarkGreyColor,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(height: 10),
             Card(
               elevation: 4,
               shape: RoundedRectangleBorder(
@@ -80,7 +73,6 @@ class BookLabAppointmentScreen extends GetView<BookLabAppointmentScreenControlle
                 minDate: DateTime.now(),
                 selectionColor: kPrimaryColor,
                 todayHighlightColor: kPrimaryColor,
-                
                 headerHeight: 70,
                 headerStyle: DateRangePickerHeaderStyle(
                   textAlign: TextAlign.center,
@@ -95,39 +87,42 @@ class BookLabAppointmentScreen extends GetView<BookLabAppointmentScreenControlle
                 selectionMode: DateRangePickerSelectionMode.single,
               ),
             ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Text(
-                  "Choose Time Slot",
-                  style: TextStyle(
-                    fontSize: 20.w,
-                    fontWeight: FontWeight.w500,
-                    color: kDarkGreyColor,
-                  ),
-                ),
-              ],
-            ),
-            TimeSelector(),
-            SizedBox(height: 10),
-           
+            const SizedBox(height: 10),
+            // Row(
+            //   children: [
+            //     Text(
+            //       "Choose Time Slot",
+            //       style: TextStyle(
+            //         fontSize: 20.w,
+            //         fontWeight: FontWeight.w500,
+            //         color: kDarkGreyColor,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // const TimeSelector(),
+            const SizedBox(height: 10),
             GeneralTextField.withBorder(
-              tfManager: controller.messageController,
+              tfManager: controller.descriptionController,
               paddingVertical: 0,
+              maxLines: 3,
               paddingHorizontal: 0,
             ),
-            SizedBox(height: 20),
-            GeneralButton(
-              onPressed: () async {
-                await controller.bookAppointment();
-              },
-              text: "Book Appointment",
-              margin: 0,
-              color: kPrimaryColor,
-              radius: 15,
-              height: 60,
+            SizedBox(height: Get.height * 0.02,),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: GeneralButton(
+                onPressed: () async {
+                  await controller.boolTest();
+                },
+                text: "Book Lab Test",
+                margin: 0,
+                color: kPrimaryColor,
+                radius: 15,
+                height: 60,
+              ),
             ),
-            SizedBox(height: 70),
+            const SizedBox(height: 70),
           ],
         ),
       ),

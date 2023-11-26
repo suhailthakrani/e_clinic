@@ -47,7 +47,8 @@ class LabSignInScreenController extends GetxController {
       pd.dismissDialog();
       if (userModel.responseMessage == 'Success') {
         await UserSession().createSession(user: userModel);
-        Get.offAllNamed(kLabDashboardScreenRoute);
+        Get.offAllNamed(kLabSideTestListScreenRoute);
+        Get.toNamed(kLabSideTestListScreenRoute);
       } else {
         pd.dismissDialog();
         CustomDialogs().showDialog("Alert", userModel.responseMessage, DialogType.error);
